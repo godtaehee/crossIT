@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/card.css">
+    <title>Document</title>
+</head>
+<body>
+
+
+
+    <div class="card-list-con">
+        
+        <div class="category">
+            <select name ="분야">
+                <option value="개발">개발자</option>
+                <option value="디자인">디자인</option>
+                <option value="기획">기획</option>
+                <option value="기타">기타</option>
+            </select>
+
+            <div class="category-menu">
+                <a href="">자랑하기</a> 
+                <a href="">Today I learn</a>
+                <a href="">프로젝트 같이해요</a>
+            </div>
+            
+         </div>
+
+        <ul class="card-list">
+            
+		<tr th:each="n:${list}">
+            <li class="card-item">
+                <figure class="card-image">
+                    <img src="../img/test.png" alt="글 이미지">
+                </figure>
+                <div class="card-desc">
+					<h1 th:text="${n.title}">TITLE</h1>
+					<span th:text="${n.content}">content</span>
+					<span th:text="${n.nickname}">content</span>
+					
+					
+                </div>
+            </li>
+		</tr>
+           
+            
+            
+        </ul>
+    </div>
+
+
+</body>
+</html>
