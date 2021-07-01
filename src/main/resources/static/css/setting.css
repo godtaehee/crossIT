@@ -1,0 +1,21 @@
+.role {
+  display: flex;
+}
+.role p:nth-child(1) {
+  margin-right: 20px;
+}
+
+main {
+  display: flex;
+}
+
+aside {
+  width: 150px;
+  margin-right: 20px;
+}
+
+.dummy-box {
+  border: 1px solid #000;
+  border-radius: 3px;
+  height: 150px;
+}

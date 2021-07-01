@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/inc.css">
+    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="stylesheet" href="/css/myLog.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <title>MyLog</title>
+</head>
+<body>
+
+    <div class="card-list-con container">
+
+        <header>
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                  <a class="navbar-item" href="/index">
+                    <img src="/img/title.png" width="112" height="28">
+                  </a>
+              
+                  <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                  </a>
+                </div>
+              
+                <div id="navbarBasicExample" class="navbar-menu">
+                  <div class="navbar-start">
+                    <a class="navbar-item">
+                      My Log
+                    </a>
+              
+                    <a class="navbar-item">
+                      Project 
+                    </a>
+              
+                    <div class="navbar-item ">
+                      <a class="navbar-link">
+                        Dashboard
+                      </a>
+                    </div>
+                  </div>
+              
+                  <div class="navbar-end">
+                        <figure class="image is-48x48 alarm">
+                            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                          </figure>
+        
+                          <figure class="image is-48x48 profile">
+                            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                          </figure>
+                  </div>
+                </div>
+              </nav>
+        </header>
+
+        <!--유저 프로필 영역 -->
+        <section class="section">
+            <figure class="image is-128x128">
+                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+            </figure>
+
+            <div class="user-profile">
+                <ul>
+                    <form th:action="@{/admin/myLog}" th:object="${member}" method="post">
+                        <li class="title is-4 is spaced" th:text="*{nickname}">Minchocho</li>
+                        <input type="text" placeholder="소개를 입력해주세요" th:field="*{introduction}">
+                        <span class="location">
+                      <i class="fas fa-map-marker-alt mr-2"></i>
+                     <input type="text" placeholder="지역" th:field="*{location}" >
+                  </span>
+                        <input type="text" placeholder="contact" th:field="*{contact}">
+                        <button class="button is-info is-light is-inverted is-small mt-2" type="submit">수정 완료</button>
+                    </form>
+                </ul>
+            </div>
+        </section>
+
+
+ <!--유저 프로필 영역 end -->  
+
+        <div class="category">
+
+            <div class="tabs ">
+                <ul>
+                  <li class="is-active"><a>글</a></li>
+                  <li><a>작업물</a></li>
+                  <li><a>소개</a></li>
+                  <li><a>정보</a></li>
+                </ul>
+            </div>
+         </div>
+
+         
+        <section class="section contents">
+
+        <!--태그 목록-->
+        <section class="tag-list">
+            <p class="mt-6">태그 목록</p>
+            <hr class="mt-2" width="100px">
+            <span class="tagList">
+                <p class="mr-2"> 전체 보기 </p> 
+                <p>(20)</p>
+            </span>
+        </section>
+
+        <!--태그 목록 end-->
+
+
+ 
+        <section>
+                        <!--검색-->
+
+
+
+                        <!-- Image -->
+  <section class="hero is-small">
+
+    <div class="searchtags">
+      <div class="search-form search">
+        <p class="control has-icons-left">
+            <input class="input is-hovered is-small" type="text" placeholder="검색어를 입력하세요">
+            <span class="icon is-left">
+            <i class="fas fa-search" aria-hidden="true"></i>
+            </span>
+        </p>
+        <button class="btn-write button is-rounded">글쓰기</button>
+    </div>
+
+
+  </div>
+  
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns mr-0">
+          <div class="column is-8 is-offset-1">
+            <figure class="image is-16by9">
+              <img src="/img/index.png" alt="">
+            </figure>
+          </div>
+        </div>
+
+        <section class="section">
+          <div class="columns">
+            <div class="column is-8 is-offset-1">
+              <div class="content is-medium">
+                <h1 class="title is-3">Getting Started</h1>
+                <p>This is a starter template for creating a beautiful, customizable blog with minimal
+                  effort. You’ll only have to change a few settings and you’re ready to go. As with all Jigsaw sites,
+                  configuration settings can be found in config</p>
+                  <h2 class="subtitle is-6">December 25, 2018</h2>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="is-divider"></div>
+
+
+      </div>
+    </div>
+  </section>
+
+        </section>
+        
+
+
+
+        </section>
+
+
+
+        
+       
+    </section>
+        
+    </div>
+
+</body>
+</html>

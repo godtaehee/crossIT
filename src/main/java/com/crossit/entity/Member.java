@@ -29,17 +29,8 @@ public class Member {
 
 	private Long role;
 
-	private Long career;
+	private Long job;
 
-	private Long belonging;
-
-	@Lob
-	@Basic(fetch = FetchType.EAGER)
-	private String profileImage;
-
-	private String introduction;
-
-	private String portfolio;
 
 	private boolean studyCreatedByEmail;
 
@@ -52,5 +43,8 @@ public class Member {
 	private boolean studyUpdatedByEmail;
 
 	private boolean studyUpdatedByWeb;
+	private String registerDate;
+	private String contact;
+	private String location;
 
 }
