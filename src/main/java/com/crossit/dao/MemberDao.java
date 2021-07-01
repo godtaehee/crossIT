@@ -15,4 +15,6 @@ public interface MemberDao {
 	
 	public int signIn(Member member);
 
+	public int updateMypage(Member member);
+
 }

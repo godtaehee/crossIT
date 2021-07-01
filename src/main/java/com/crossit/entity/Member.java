@@ -7,17 +7,19 @@ import lombok.Setter;
 @Setter
 
 public class Member {
-	
+
 	private Long id;
 	private String email;
 	private String password;
 	private String nickname;
-	private Long role;
+	private Long job;
 	private Long career;
 	private Long belonging;
 	private String profile;
 	private String introduction;
 	private String portfolio;
 	private String registerDate;
+	private String contact;
+	private String location;
 
 }
