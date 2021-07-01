@@ -3,6 +3,7 @@ package com.crossit.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.crossit.domain.FileDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -11,13 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.crossit.constant.Method;
 import com.crossit.domain.BoardDTO;
-import com.crossit.domain.FileDTO;
 import com.crossit.service.BoardService;
 import com.crossit.util.UiUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class BoardController extends UiUtils {
@@ -42,8 +42,8 @@ public class BoardController extends UiUtils {
 
 		return "board/write";
 	}
-	
-	@PostMapping("/board/register")
+
+	@PostMapping(value = "/board/register")
 	public String registerBoard(final BoardDTO params, final MultipartFile[] files, Model model) {
 		Map<String, Object> pagingParams = getPagingParams(params);
 		try {
@@ -52,7 +52,6 @@ public class BoardController extends UiUtils {
 				return showMessageWithRedirect("게시글 등록에 실패하였습니다.", "/board/list", Method.GET, pagingParams, model);
 			}
 		} catch (DataAccessException e) {
-			System.out.println(e.getMessage());
 			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/board/list", Method.GET, pagingParams, model);
 
 		} catch (Exception e) {
@@ -62,7 +61,7 @@ public class BoardController extends UiUtils {
 		return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/board/list", Method.GET, pagingParams, model);
 	}
 
-	
+
 	@GetMapping("/board/list")
 	public String openBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
 		List<BoardDTO> boardList = boardService.getBoardList(params);
@@ -70,8 +69,8 @@ public class BoardController extends UiUtils {
 
 		return "board/list";
 	}
-	
-	@GetMapping("/board/view")
+
+	@GetMapping(value = "/board/view")
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model) {
 		if (id == null) {
 			return showMessageWithRedirect("올바르지 않은 접근입니다.", "/board/list", Method.GET, null, model);
@@ -83,9 +82,12 @@ public class BoardController extends UiUtils {
 		}
 		model.addAttribute("board", board);
 
+		List<FileDTO> fileList = boardService.getAttachFileList(id); // 추가된 로직
+		model.addAttribute("fileList", fileList); // 추가된 로직
+
 		return "board/view";
 	}
-	
+
 	@PostMapping("/board/delete")
 	public String deleteBoard(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model) {
 		if (id == null) {

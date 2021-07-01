@@ -21,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardDao boardDao;
-	
+
 	@Autowired
 	private FileDao fileDao;
 
@@ -54,7 +54,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public boolean registerBoard(BoardDTO params, MultipartFile[] files) {
-		
+
 		int queryResult = 1;
 
 		if (registerBoard(params) == false) {
@@ -71,7 +71,7 @@ public class BoardServiceImpl implements BoardService {
 
 		return (queryResult > 0);
 	}
-	
+
 	@Override
 	public BoardDTO getBoardDetail(Long idx) {
 		return boardDao.selectBoardDetail(idx);
@@ -95,7 +95,7 @@ public class BoardServiceImpl implements BoardService {
 		List<BoardDTO> boardList = Collections.emptyList();
 
 		long boardTotalCount = boardDao.selectBoardTotalCount(boardDTO);
-		
+
 
 		PaginationInfo paginationInfo = new PaginationInfo(boardDTO);
 		paginationInfo.setTotalRecordCount(boardTotalCount);
@@ -108,7 +108,7 @@ public class BoardServiceImpl implements BoardService {
 
 		return boardList;
 	}
-	
+
 	@Override
 	public List<FileDTO> getAttachFileList(Long boardId) {
 
@@ -118,8 +118,5 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return fileDao.selectAttachList(boardId);
 	}
-
-
-
 
 }

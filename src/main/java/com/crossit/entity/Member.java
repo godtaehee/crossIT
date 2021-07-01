@@ -1,23 +1,56 @@
 package com.crossit.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+import javax.persistence.*;
+import java.time.LocalTime;
 
+@Entity
+@Getter @Setter @EqualsAndHashCode(of = "id")
+@Builder @AllArgsConstructor @NoArgsConstructor
 public class Member {
-	
+
+	@Id @GeneratedValue
 	private Long id;
+
+	@Column(unique = true)
 	private String email;
-	private String password;
+
+	@Column(unique = true)
 	private String nickname;
+
+	private String password;
+
+	private boolean emailVerified;
+
+	private String emailCheckToken;
+
+	private LocalTime joinedAt;
+
 	private Long role;
+
 	private Long career;
+
 	private Long belonging;
-	private String profile;
+
+	@Lob
+	@Basic(fetch = FetchType.EAGER)
+	private String profileImage;
+
 	private String introduction;
+
 	private String portfolio;
-	private String registerDate;
+
+	private boolean studyCreatedByEmail;
+
+	private boolean studyCreatedByWeb;
+
+	private boolean studyEnrollmentResultByEmail;
+
+	private boolean studyEnrollmentResultByWeb;
+
+	private boolean studyUpdatedByEmail;
+
+	private boolean studyUpdatedByWeb;
 
 }
