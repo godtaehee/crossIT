@@ -19,5 +19,7 @@ public class Member {
 	private String introduction;
 	private String portfolio;
 	private String registerDate;
+	private String contact;
+	private String location;
 
 }

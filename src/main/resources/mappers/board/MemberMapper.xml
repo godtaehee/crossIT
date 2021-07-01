@@ -15,6 +15,8 @@
 		introduction,
 		portfolio,
 		register_date
+		contact,
+		location
 	</sql>
 
 	<insert id="signUp" parameterType="Member">
@@ -32,18 +34,24 @@
 		, ''
 		, ''
 		, NOW()
+		,''
+		,''
 		)
 	</insert>
+
+	<update id="updateMypage" parameterType="member">
+		UPDATE member
+		SET introduction =#{introduction},
+		contact =#{contact},
+		location = #{introduction}
+		WHERE id = #{id}
+	</update>
 
 
 	<select id="signIn" parameterType="Member" resultType="int">
 		SELECT count(*) FROM member WHERE email = '${email}'
 
 	</select>
-
-
-
-
 
 
 	<select id="findMemberById" parameterType="long" resultType="int">
@@ -53,6 +61,17 @@
 			member
 		WHERE
 			id = ${id}
+	</select>
+
+
+	<select id="getMember" parameterType="Member" >
+		SELECT
+			count(*)
+		FROM
+			member
+		WHERE
+			nickname = ${nickname}
+
 	</select>
 
 

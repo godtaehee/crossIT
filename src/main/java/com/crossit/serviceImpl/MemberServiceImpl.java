@@ -7,6 +7,8 @@ import com.crossit.dao.MemberDao;
 import com.crossit.entity.Member;
 import com.crossit.service.MemberService;
 
+import javax.transaction.Transactional;
+
 @Service("MemberService")
 public class MemberServiceImpl implements MemberService{
 
@@ -41,8 +43,20 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public int getMember(Long id) {
-        // TODO Auto-generated method stub
+    public int updateMypage(Member member) {
+
+        int result = memberDao.updateMypage(member);
+
+        if(result > 0){
+            return -1;
+        }
+
+        return 1;
+    }
+
+    @Override
+    public int getMember(Member member) {
+       int result = memberDao.findMemberById(member.getId());
         return 0;
     }
 

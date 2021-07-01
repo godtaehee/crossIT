@@ -1,7 +1,9 @@
 package com.crossit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.crossit.entity.Member;
 import com.crossit.service.MemberService;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class MemberController {
@@ -41,22 +48,33 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String getSignInPage(Model model, Member member) {
+    public String getSignInPage(HttpServletRequest req, Model model, Member member) {
+        String referer = req.getHeader("Referer");
+        req.getSession().setAttribute("prevPage",referer);
         model.addAttribute("member", member);
+        System.out.println(referer);
         return "member/signin";
     }
 
-//	@PostMapping("/login")
-//	public String signIn(@ModelAttribute Member member, Model model) {
-//		int result = memberService.signIn(member);
-//
-//		if(result == 1) {
-//			return "util/signInComplete";
-//		}
-//		else {
-//
-//		}
-//		return "util/signUpComplete";
-//	}
 
+    @GetMapping("/user/logout")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+        return "redirect:/";
+    }
+
+
+
+    @GetMapping("/admin/myLog")
+    public String post(Model model , Member member){
+        model.addAttribute("member",member);
+        return "admin/myLog";
+    }
+
+
+    @PostMapping("/admin/myLog")
+    public String adminPage(Model model, Member member){
+        model.addAttribute("member",member);
+        return "admin/myLog";
+    }
 }
