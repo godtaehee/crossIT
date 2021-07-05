@@ -1,108 +1,118 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="/css/signup.css">
+  <title>CrossIT</title>
 </head>
-<body>
-	<div>
-		<p>회원정보입력</p>
-		<form th:action="@{/sign-up}" th:object="${signUpForm}" method="post">
-      <div class="field">
-        <label class="label">닉네임</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="Text input" th:fields="*{nickname}">
+<div class="container">
+
+
+  <!--HEADER 영역 -->
+  <div class="card-list-con">
+    <header>
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="">
+            <img src="/img/title.png" width="112" height="28">
+          </a>
+
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
         </div>
-      </div>
 
-      <div class="field">
-        <p class="control has-icons-left has-icons-right">
-          <input class="input" type="email" placeholder="Email">
-          <span class="icon is-small is-left">
-      <i class="fas fa-envelope"></i>
-    </span>
-          <span class="icon is-small is-right">
-      <i class="fas fa-check"></i>
-    </span>
-        </p>
-      </div>
-      <div class="field">
-        <p class="control has-icons-left">
-          <input class="input" type="password" placeholder="Password">
-          <span class="icon is-small is-left">
-      <i class="fas fa-lock"></i>
-    </span>
-        </p>
-      </div>
-      <div class="field">
-        <p class="control">
-          <button class="button is-success">
-            Login
-          </button>
-        </p>
-      </div>
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+              My Log
+            </a>
 
-      <div class="field">
-        <label class="label">Subject</label>
-        <div class="control">
-          <div class="select">
-            <select>
-              <option>Select dropdown</option>
-              <option>With options</option>
-            </select>
+            <a class="navbar-item">
+              Project
+            </a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Dashboard
+              </a>
+
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  About
+                </a>
+                <a class="navbar-item">
+                  Jobs
+                </a>
+                <a class="navbar-item">
+                  Contact
+                </a>
+                <hr class="navbar-divider">
+                <a class="navbar-item">
+                  Report an issue
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="navbar-end">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>Sign up</strong>
+                </a>
+                <a class="button is-light">
+                  Log in
+                </a>
+              </div>
+            </div>
           </div>
         </div>
+      </nav>
+    </header>
+  </div>
+  <!--HEADER 영역 -->
+  <body>
+
+
+  <div class="containers">
+    <form th:action="@{/register}" th:object="${member}" method="post">
+      <h2>회원가입</h2>
+      <div class="form-control">
+        <label for="username">닉네임</label>
+        <input type="text" id="username" placeholder="닉네임을 입력해주세요" th:fields="*{nickname}">
+        <small>Error message</small>
       </div>
-
-      <div class="field">
-        <label class="label">Message</label>
-        <div class="control">
-          <textarea class="textarea" placeholder="Textarea"></textarea>
-        </div>
+      <div class="form-control">
+        <label for="email">Email</label>
+        <input type="text" id="email" placeholder="이메일을 입력해주세요">
+        <small>Error message</small>
       </div>
-
-      <div class="field">
-        <div class="control">
-          <label class="checkbox">
-            <input type="checkbox">
-            I agree to the <a href="#">terms and conditions</a>
-          </label>
-        </div>
+      <div class="form-control">
+        <label for="password">password</label>
+        <input type="password" id="password" placeholder="비밀번호를 입력해주세요">
+        <small>Error message</small>
       </div>
-
-      <div class="field">
-        <div class="control">
-          <label class="radio">
-            <input type="radio" name="question">
-            Yes
-          </label>
-          <label class="radio">
-            <input type="radio" name="question">
-            No
-          </label>
-        </div>
+      <div class="form-control">
+        <label for=password2>Confirm Password</label>
+        <input type="password" id="password2" placeholder="비밀번호를 확인해주세요">
+        <small>Error message</small>
       </div>
-
-      <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-link">Submit</button>
-        </div>
-        <div class="control">
-          <button class="button is-link is-light">Cancel</button>
-        </div>
+      <div class="form-control">
+        <a href="/login"><button class="button is-primary is-light" type="submit">가입하기</button></a>
       </div>
-		</form>
-	</div>
-</body>
-</html>
+    </form>
+  </div>
 
 
-<!-- 로그인? -->
-<div class="login__register">
-	<span>계정이 있으신가요?</span>
-	<a href="/login">가입하기</a>
+
+  <script src="/scripts/validation-refactor.js"></script>
+  </body>
+
 </div>
-<!-- 로그인? -->
-</body>
 </html>

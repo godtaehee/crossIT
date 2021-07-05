@@ -2,6 +2,7 @@ package com.crossit.service;
 
 import java.util.List;
 
+import com.crossit.entity.Board;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.crossit.domain.BoardDTO;
@@ -21,4 +22,5 @@ public interface BoardService {
 	
 	public List<FileDTO> getAttachFileList(Long boardId);
 
+    public List<BoardDTO> getList();
 }

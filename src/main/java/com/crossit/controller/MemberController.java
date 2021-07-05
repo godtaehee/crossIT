@@ -35,7 +35,6 @@ public class MemberController {
     @Autowired
     MemberService memberService;
 
-
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -44,6 +43,13 @@ public class MemberController {
     public String getSignUpPage(Model model, Member member) {
 
         return "member/signup"; //html
+    }
+
+
+    @GetMapping("/index")
+    public String getIndex(Model model, Member member) {
+
+        return "index";
     }
 
     @PostMapping("/register")
@@ -86,5 +92,11 @@ public class MemberController {
     public String adminPage(Model model, Member member){
         model.addAttribute("member",member);
         return "admin/myLog";
+    }
+
+    @PostMapping("/member/setting")
+    public String memberSetting(){
+
+        return "redirect:admin/myLog";
     }
 }

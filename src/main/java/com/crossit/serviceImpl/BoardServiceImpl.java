@@ -3,6 +3,7 @@ package com.crossit.serviceImpl;
 import java.util.Collections;
 import java.util.List;
 
+import com.crossit.entity.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -117,6 +118,13 @@ public class BoardServiceImpl implements BoardService {
 			return Collections.emptyList();
 		}
 		return fileDao.selectAttachList(boardId);
+	}
+
+	@Override
+	public List<BoardDTO> getList() {
+		List<BoardDTO> list =boardDao.getList();
+
+		return list;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.crossit.domain.FileDTO;
+import com.crossit.entity.Board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -72,6 +73,8 @@ public class BoardController extends UiUtils {
 		return "board/list";
 	}
 
+
+
 	@GetMapping(value = "/board/view")
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model) {
 		if (id == null) {
@@ -111,7 +114,22 @@ public class BoardController extends UiUtils {
 
 		return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "/board/list", Method.GET, pagingParams, model);
 	}
-}
+
+
+	/* 인덱스 화면에 필요한 리스트 불러오기 */
+
+	@RequestMapping("/")
+	public String list(Model model){
+		List<BoardDTO> list = boardService.getList();
+		model.addAttribute("list",list);
+
+		return "index";
+	}
+
+
 
 
 }
+
+
+

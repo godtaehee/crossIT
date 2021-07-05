@@ -2,6 +2,7 @@ package com.crossit.dao;
 
 import java.util.List;
 
+import com.crossit.entity.Board;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.crossit.domain.BoardDTO;
@@ -22,6 +23,8 @@ public interface BoardDao {
 	public List<BoardDTO> selectBoardList(BoardDTO params);
 
 	public Long selectBoardTotalCount(BoardDTO params);
+
+	public List<BoardDTO> getList();
 	
 	
 

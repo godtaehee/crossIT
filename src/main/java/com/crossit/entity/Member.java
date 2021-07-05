@@ -31,6 +31,7 @@ public class Member {
 
 	private Long job;
 
+	private String introduction;
 
 	private boolean studyCreatedByEmail;
 

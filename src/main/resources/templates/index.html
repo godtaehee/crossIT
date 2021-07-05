@@ -20,7 +20,7 @@
     <header>
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-                <a class="navbar-item" href="https://bulma.io">
+                <a class="navbar-item" href="/">
                     <img src="/img/title.png" width="112" height="28">
                 </a>
 
@@ -141,7 +141,7 @@
 
             <div class="tabs">
                 <ul>
-                    <li class="is-active"><a>자랑하기</a></li>
+                    <li class="is-active"><a>전체 글</a></li>
                     <li><a>Today I learn</a></li>
                     <li><a>프로젝트 같이해요</a></li>
                     <li><a>기타</a></li>
@@ -152,6 +152,7 @@
         </div>
 
         <ul class="card-list">
+            <tr th:each="n:${list}">
             <li class="card-item">
                 <figure class="card-image">
                     <img src="../img/index.png" alt="글 이미지">
@@ -159,23 +160,23 @@
 
                 <div class="card-desc">
                     <div class="media-content">
-                        <p class="title is-6 mb-2">Lorem ipsum</p>
-                        <div class="content is-6 mb-3">
+                        <p class="title is-6 mb-2" th:text="${n.title}">Lorem ipsum</p>
+                        <div class="content is-6 mb-3" th:text="${n.content}">
                             Lorem ipsum dolor sit amet consectetur adipisicing.
-                            Lorem ipsum dolor sit amet consectetur adipisicing.
-                            Lorem ipsum dolor sit amet consectetur adipisicing.
-                            <p class="content is-size-7 date">2021년 6월 26일</p>
+
+                            <p class="content is-size-7 date" th:text="${n.insertTime}">2021년 6월 26일</p>
                             <hr class="line">
                         </div>
                         <div class="writer">
                             <figure class="image is-32x32 mr-2">
                                 <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
                             </figure>
-                            <p class="title is-7">John Smith</p>
+                            <p class="title is-7" th:text="${n.writer}">John Smith</p>
                         </div>
                     </div>
                 </div>
             </li>
+            </tr>
 
         </ul>
     </section>
