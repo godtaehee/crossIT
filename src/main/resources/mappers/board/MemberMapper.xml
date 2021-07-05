@@ -14,17 +14,26 @@
 		profile_img,
 		introduction,
 		portfolio,
-		register_date
+		register_date,
 		contact,
 		location
 	</sql>
 
-	<insert id="signUp" parameterType="Member">
+	<insert id="signUp" parameterType="SignUpForm">
 		INSERT INTO member (
-		<include refid="memberColums" />
+			email,
+			password,
+			nickname,
+			job,
+			career,
+			belonging,
+			profile_img,
+			introduction,
+			portfolio,
+			register_date,
+			location
 		) VALUES (
-		#{id}
-		, #{email}
+		 #{email}
 		, #{password}
 		, #{nickname}
 		, #{job}
@@ -34,7 +43,6 @@
 		, ''
 		, ''
 		, NOW()
-		,''
 		,''
 		)
 	</insert>

@@ -1,90 +1,121 @@
 package com.crossit.controller;
 
 
+import com.crossit.entity.Member;
 import com.crossit.entity.SignUpForm;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.validation.Valid;
-
+import com.crossit.repository.MemberRepository;
+import com.crossit.service.MemberService;
+import com.crossit.validator.SignUpFormValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.crossit.entity.Member;
-import com.crossit.service.MemberService;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 
 @Controller
+@RequiredArgsConstructor
 public class MemberController {
 
-    @Autowired
-    MemberService memberService;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
+	private final SignUpFormValidator signUpFormValidator;
+	private final MemberService memberService;
+	private final MemberRepository memberRepository;
 
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+	@InitBinder("signUpForm")
+	public void initBinder(WebDataBinder webDataBinder) {
+		webDataBinder.addValidators(signUpFormValidator);
+	}
 
-    //signup 회원가입. register에서 들어와서 member/signup html로 간다.
-    @GetMapping("/register")
-    public String getSignUpPage(Model model, Member member) {
+	//signup 회원가입. register에서 들어와서 member/signup html로 간다.
+	@GetMapping("/register")
+	public String getSignUpPage(@ModelAttribute SignUpForm signUpForm) {
+		return "member/signup"; //html
+	}
 
-        return "member/signup"; //html
-    }
+	@PostMapping("/signup")
+	public String signUp(@Valid SignUpForm signUpForm, Errors errors) {
+		if (errors.hasErrors()) {
+			return "member/signup";
+		}
 
-    @PostMapping("/register")
-    public String signUp(@ModelAttribute Member member, Model model) {
+//    	memberService.signUp(signUpForm);
 
-        String inputPassword = member.getPassword();
-        member.setPassword(passwordEncoder.encode(inputPassword));
-        memberService.signUp(member);
-        model.addAttribute("member", member);
-        return "util/signUpComplete";
+		Member member = memberService.processNewAccount(signUpForm);
 
-    }
+		memberService.login(member);
+		return "util/signUpComplete";
 
-    @GetMapping("/login")
-    public String getSignInPage(HttpServletRequest req, Model model, Member member) {
-        String referer = req.getHeader("Referer");
-        req.getSession().setAttribute("prevPage",referer);
-        model.addAttribute("member", member);
-        System.out.println(referer);
-        return "member/signin";
-    }
+	}
 
 
-    @GetMapping("/user/logout")
-    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-        return "redirect:/";
-    }
+	@GetMapping("/login")
+	public String getSignInPage(HttpServletRequest req, Model model, Member member) {
+		String referer = req.getHeader("Referer");
+		req.getSession().setAttribute("prevPage", referer);
+		model.addAttribute("member", member);
+		return "member/signin";
+	}
 
 
+	@GetMapping("/user/logout")
+	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+		new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+		return "redirect:/";
+	}
 
-    @GetMapping("/admin/myLog")
-    public String post(Model model , Member member){
-        model.addAttribute("member",member);
-        return "admin/myLog";
-    }
+
+	@GetMapping("/admin/myLog")
+	public String post(Model model, Member member) {
+		model.addAttribute("member", member);
+		return "admin/myLog";
+	}
 
 
-    @PostMapping("/admin/myLog")
-    public String adminPage(Model model, Member member){
-        model.addAttribute("member",member);
-        return "admin/myLog";
-    }
+	@PostMapping("/admin/myLog")
+	public String adminPage(Model model, Member member) {
+		model.addAttribute("member", member);
+		return "admin/myLog";
+	}
+
+	@GetMapping("/check-email-token")
+	public String checkEmailToken(String token, String email, Model model) {
+		Member member = memberRepository.findByEmail(email);
+		String view = "member/checked-Email";
+		if (member == null) {
+			model.addAttribute("error", "wrongEmail" );
+			return view;
+		}
+
+		if(!member.isValidToken(token)){
+			model.addAttribute("error", "wrongEmail" );
+			return view;
+
+		}
+
+
+		member.completeSignUp();
+		memberService.login(member);
+
+		model.addAttribute("numberOfUser", memberRepository.count());
+		model.addAttribute("nickname", member.getNickname());
+		return view;
+
+	}
 }

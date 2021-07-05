@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Crossit</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+    .container {
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="py-5" th:if="${error}">
+    <div class="lead">이메일 확인 사이트</div>
+    오류가 있스니다.
+  </div>
+
+  <div class="py-5" th:if="${error == null}">
+    가입을 축하드립니다.
+    <div th:text="${numberOfUser}"></div>번째 회원
+    <div th:text="${nickname}"></div>님 가입을 축하드립니다.
+  </div>
+
+</body>
+</html>

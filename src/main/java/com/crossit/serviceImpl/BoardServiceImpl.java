@@ -28,6 +28,8 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private FileUtils fileUtils;
 
+
+
 	@Override
 	public boolean registerBoard(BoardDTO params) {
 
