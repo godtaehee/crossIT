@@ -20,8 +20,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 
@@ -82,7 +84,16 @@ public class MemberController {
 
 
 	@GetMapping("/admin/myLog")
-	public String post(Model model, Member member) {
+	public String post(Model model, Member member , HttpSession session) {
+
+		session.getAttribute("member");
+		member=(Member)session.getAttribute("member");
+		System.out.println("========================");
+//		System.out.println(member.getNickname());
+		System.out.println(member.getIntroduction());
+		System.out.println(member.getLocation());
+		System.out.println(member);
+		System.out.println("========================");
 		model.addAttribute("member", member);
 		return "admin/myLog";
 	}

@@ -18,4 +18,6 @@ public interface MemberDao {
 
 	public int updateMypage(Member member);
 
+	public Member findMemberByNickName(String nickName);
+
 }

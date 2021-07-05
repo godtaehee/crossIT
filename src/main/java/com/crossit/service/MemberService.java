@@ -11,6 +11,7 @@ public interface MemberService {
     public int getMember(Member member);
     public int signIn(Member member);
     public int updateMypage(Member member);
+    public Member findMemberByNickName(String nickName);
 
 	Member processNewAccount(SignUpForm signUpForm);
 

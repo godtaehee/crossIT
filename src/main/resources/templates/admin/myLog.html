@@ -71,12 +71,12 @@
                 <ul>
                     <form th:action="@{/admin/myLog}" th:object="${member}" method="post">
                         <li class="title is-4 is spaced" th:text="*{nickname}">Minchocho</li>
-                        <input type="text" placeholder="소개를 입력해주세요" th:field="*{introduction}">
+                        <li class="subtitle is-6 mb-2" th:text="*{introduction}">
                         <span class="location">
                       <i class="fas fa-map-marker-alt mr-2"></i>
-                     <input type="text" placeholder="지역" th:field="*{location}" >
+                        <li class="is-size-7 mb-1 " th:text="*{location}">korea</li>
                   </span>
-                        <input type="text" placeholder="contact" th:field="*{contact}">
+                        <li class="is-size-7"  th:text="*{contact}" >Contact : oowwo@gmail.com</li>
                         <a href="/member/setting"><button class="button is-info is-light is-inverted is-small mt-2" type="submit">수정 완료</button></a>
                     </form>
                 </ul>

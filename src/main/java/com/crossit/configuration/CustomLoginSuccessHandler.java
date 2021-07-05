@@ -16,6 +16,8 @@ import java.io.IOException;
 
 public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
+    @Autowired
+    MemberService memberService;
 
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,Authentication authentication)throws ServletException, IOException {
 
@@ -29,13 +31,12 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         if (session != null) {
             String redirectUrl = (String) session.getAttribute("prevPage");
 
+//            System.out.println(authentication.getName());
+            Member member = memberService.findMemberByNickName(authentication.getName());
 
-            //session.setAttribute("nickname" , authentication.getName());
+            session.setAttribute("member",member);
 
-
-            System.out.println("--------세션에 담긴 회원의 닉네임----------");
-            System.out.println(authentication.getName());
-            System.out.println("------------------------------");
+            System.out.println(member);
 
             if (redirectUrl != null) {
                 session.removeAttribute("prevPage");

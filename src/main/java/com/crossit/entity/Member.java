@@ -29,6 +29,7 @@ public class Member {
 
 	private String emailCheckToken;
 
+	private  String introduction;
 
 	private Long role;
 
@@ -39,6 +40,8 @@ public class Member {
 	private String contact;
 
 	private String location;
+
+	private  String profileImg;
 
 	public void generateEmailCheckToken() {
 		this.emailCheckToken = UUID.randomUUID().toString();
