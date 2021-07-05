@@ -2,11 +2,10 @@ package com.crossit.domain;
 
 
 
-import java.util.Date;
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,8 +35,10 @@ public class BoardDTO extends CommonDTO {
 	/** 파일 변경 여부 */
 	private String changeYn;
 
+//	1: 자랑하기, 2: Today I learn, 3: 프로젝트 같이해요, 4:기타
+	private int Category;
+
 	/** 파일 인덱스 리스트 */
 	private List<Long> fileIdxs;
-
 
 }

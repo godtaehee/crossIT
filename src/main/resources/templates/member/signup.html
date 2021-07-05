@@ -1,118 +1,109 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-  <link rel="stylesheet" href="/css/signup.css">
-  <title>CrossIT</title>
+  <title>Crossit</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+    .container {
+      max-width: 100%;
+    }
+  </style>
 </head>
+<body class="bg-light">
+
 <div class="container">
-
-
-  <!--HEADER 영역 -->
-  <div class="card-list-con">
-    <header>
-      <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="">
-            <img src="/img/title.png" width="112" height="28">
-          </a>
-
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-
-        <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item">
-              My Log
-            </a>
-
-            <a class="navbar-item">
-              Project
-            </a>
-
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">
-                Dashboard
-              </a>
-
-              <div class="navbar-dropdown">
-                <a class="navbar-item">
-                  About
-                </a>
-                <a class="navbar-item">
-                  Jobs
-                </a>
-                <a class="navbar-item">
-                  Contact
-                </a>
-                <hr class="navbar-divider">
-                <a class="navbar-item">
-                  Report an issue
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="navbar-end">
-            <div class="navbar-item">
-              <div class="buttons">
-                <a class="button is-primary">
-                  <strong>Sign up</strong>
-                </a>
-                <a class="button is-light">
-                  Log in
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-    </header>
+  <div class="py-5 text-center">
+    <h2>계정 만들기</h2>
   </div>
-  <!--HEADER 영역 -->
-  <body>
+  <div class="row justify-content-center">
+    <form class="needs-validation col-sm-6" action="#"
+          th:action="@{/signup}" th:object="${signUpForm}" method="post" novalidate>
+      <div class="form-group">
+        <label for="nickname">닉네임</label>
+        <input id="nickname" type="text" th:field="*{nickname}" class="form-control"
+               placeholder="cross" aria-describedby="nicknameHelp" required minlength="3" maxlength="20">
+        <small id="nicknameHelp" class="form-text text-muted">
+          공백없이 문자와 숫자로만 3자 이상 20자 이내로 입력하세요. 가입후에 변경할 수 있습니다.
+        </small>
+        <small class="invalid-feedback">닉네임을 입력하세요.</small>
+        <small class="form-text text-danger" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}">Nickname Error</small>
+      </div>
+
+      <div class="form-group">
+        <label for="email">이메일</label>
+        <input id="email" type="email" th:field="*{email}" class="form-control"
+               placeholder="your@email.com" aria-describedby="emailHelp" required>
+        <small id="emailHelp" class="form-text text-muted">
+          스터디올래는 사용자의 이메일을 공개하지 않습니다.
+        </small>
+        <small class="invalid-feedback">이메일을 입력하세요.</small>
+        <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</small>
+      </div>
+
+      <div class="form-group">
+        <label for="password">패스워드</label>
+        <input id="password" type="password" th:field="*{password}" class="form-control"
+               aria-describedby="passwordHelp" required minlength="8" maxlength="50">
+        <small id="passwordHelp" class="form-text text-muted">
+          8자 이상 50자 이내로 입력하세요. 영문자, 숫자, 특수기호를 사용할 수 있으며 공백은 사용할 수 없습니다.
+        </small>
+        <small class="invalid-feedback">패스워드를 입력하세요.</small>
+        <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</small>
+      </div>
+
+      <div class="form-group">
+        <label for="position">포지션</label>
+        <div>
+          <select class="form-select" aria-label="Default select example" th:field="*{job}" th:value="*{job}">
+            <option value="1" th:value="0">개발자</option>
+            <option value="2" th:value="1">디자이너</option>
+            <option value="3" th:value="2">선생님</option>
+          </select>
+        </div>
+        <small class="invalid-feedback">포지션을 선택해주세요!</small>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" type="submit"
+                aria-describedby="submitHelp">가입하기</button>
+        <small id="submitHelp" class="form-text text-muted">
+          <a href="#">약관</a>에 동의하시면 가입하기 버튼을 클릭하세요.
+        </small>
+      </div>
+
+      <div class="form-group">
+
+      <div>
 
 
-  <div class="containers">
-    <form th:action="@{/register}" th:object="${member}" method="post">
-      <h2>회원가입</h2>
-      <div class="form-control">
-        <label for="username">닉네임</label>
-        <input type="text" id="username" placeholder="닉네임을 입력해주세요" th:fields="*{nickname}">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <label for="email">Email</label>
-        <input type="text" id="email" placeholder="이메일을 입력해주세요">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <label for="password">password</label>
-        <input type="password" id="password" placeholder="비밀번호를 입력해주세요">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <label for=password2>Confirm Password</label>
-        <input type="password" id="password2" placeholder="비밀번호를 확인해주세요">
-        <small>Error message</small>
-      </div>
-      <div class="form-control">
-        <a href="/login"><button class="button is-primary is-light" type="submit">가입하기</button></a>
-      </div>
     </form>
   </div>
 
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script type="application/javascript">
+    (function () {
+      'use strict';
 
+      window.addEventListener('load', function () {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
 
-  <script src="/scripts/validation-refactor.js"></script>
-  </body>
+        // Loop over them and prevent submission
+        Array.prototype.filter.call(forms, function (form) {
+          form.addEventListener('submit', function (event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated')
+          }, false)
+        })
+      }, false)
+    }())
+  </script>
 
 </div>
+</body>
 </html>
