@@ -9,57 +9,19 @@
     <link rel="stylesheet" href="../../css/inc.css">
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="/css/myLog.css">
+    <link rel="stylesheet" href="../../css/modal.css">
+    <link rel="stylesheet" href="/css/signup.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <title>MyLog</title>
 </head>
 <body>
 
     <div class="card-list-con container">
 
-        <header>
-            <nav class="navbar" role="navigation" aria-label="main navigation">
-                <div class="navbar-brand">
-                  <a class="navbar-item" href="/">
-                    <img src="/img/title.png" width="112" height="28">
-                  </a>
-              
-                  <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                  </a>
-                </div>
-              
-                <div id="navbarBasicExample" class="navbar-menu">
-                  <div class="navbar-start">
-                    <a class="navbar-item">
-                      My Log
-                    </a>
-              
-                    <a class="navbar-item">
-                      Project 
-                    </a>
-              
-                    <div class="navbar-item ">
-                      <a class="navbar-link">
-                        Dashboard
-                      </a>
-                    </div>
-                  </div>
-              
-                  <div class="navbar-end">
-                        <figure class="image is-48x48 alarm">
-                            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-                          </figure>
-        
-                          <figure class="image is-48x48 profile">
-                            <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-                          </figure>
-                  </div>
-                </div>
-              </nav>
-        </header>
+        <!-- 헤더-->
+        <div th:replace="inc/header::hd"> </div>
 
         <!--유저 프로필 영역 -->
         <section class="section">
@@ -70,14 +32,16 @@
             <div class="user-profile">
                 <ul>
                     <form th:action="@{/admin/myLog}" th:object="${member}" method="post">
-                        <li class="title is-4 is spaced" th:text="*{nickname}">Minchocho</li>
+                        <li class="title is-4 is spaced" id="nick" th:text="*{nickname}">Minchocho</li>
+                        <button class="button is-rounded is-small" data-target="lanuchModal" id="lanuchModal">팀원신청</button>
+                        <button class="button is-rounded is-small">follow</button>
                         <li class="subtitle is-6 mb-2" th:text="*{introduction}">
                         <span class="location">
                       <i class="fas fa-map-marker-alt mr-2"></i>
                         <li class="is-size-7 mb-1 " th:text="*{location}">korea</li>
-                  </span>
+                        </span>
                         <li class="is-size-7"  th:text="*{contact}" >Contact : oowwo@gmail.com</li>
-                        <a href="/member/setting"><button class="button is-info is-light is-inverted is-small mt-2" type="submit">수정 완료</button></a>
+                      <a href="/admin/edit" class="button is-info is-light is-inverted is-small mt-2">수정</a>
                     </form>
                 </ul>
             </div>
@@ -166,22 +130,60 @@
 
       </div>
     </div>
+
+
+
   </section>
 
         </section>
-        
-
-
-
         </section>
-
-
-
-        
-       
     </section>
         
     </div>
+
+    <div id="modal-fadeInScale-fs" class="modal modal-fx-fadeInScale ">
+        <div class="$modal-content-width 440 modal-container ">
+            <form action="" id="form" class="form">
+                <h2 class="mb-4"> Minchocho 님께 팀요청을 보내보세요!</h2>
+                <div class="form-control">
+                    <label for="username">닉네임</label>
+                    <input type="text" id="username" placeholder="닉네임을 입력해주세요">
+                </div>
+                <div class="form-control">
+                    <label for="username">연락처(선택)</label>
+                    <input type="text" id="username" placeholder="연락처를 입력해주세요">
+                </div>
+                <div class="form-control">
+                    <label for="username">메세지</label>
+                    <input type="text" id="username" placeholder="메세지를 입력해주세요" class="message">
+                </div>
+                <div class="form-control">
+                    <button class="button is-primary is-light" type="submit">전송하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+        $("#lanuchModal").click(function() {
+            $(".modal").addClass("is-active");
+        });
+
+        $(".modal-close").click(function() {
+            $(".modal").removeClass("is-active");
+        });
+
+        $("#closebtn").click(function() {
+            $(".modal").removeClass("is-active");
+        });
+        $("#closecross").click(function() {
+            $(".modal").removeClass("is-active");
+        });
+
+    </script>
+
+
 
 </body>
 </html>

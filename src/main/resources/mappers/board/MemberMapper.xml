@@ -48,7 +48,8 @@
 		)
 	</insert>
 
-	<update id="updateMypage" parameterType="member">
+	<!-- 회원 정보 수정 -->
+	<update id="memberUpdate" parameterType="member">
 		UPDATE member
 		SET introduction =#{introduction},
 		contact =#{contact},

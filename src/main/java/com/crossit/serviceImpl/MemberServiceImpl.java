@@ -62,17 +62,6 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
-	@Override
-	public int updateMypage(Member member) {
-
-		int result = memberDao.updateMypage(member);
-
-		if (result > 0) {
-			return -1;
-		}
-
-		return 1;
-	}
 
 	@Override
 	public Member findMemberByNickName(String nickName) {
@@ -105,6 +94,17 @@ public class MemberServiceImpl implements MemberService {
 		SecurityContext context = SecurityContextHolder.getContext();
 		context.setAuthentication(token);
 	}
+
+
+/*-----------*/
+	@Override
+	public void memberUpdate(Member member) {
+
+	memberDao.memberUpdate(member);
+
+	}
+/*-----------*/
+
 
 	private Member saveNewAccount(SignUpForm signUpForm) {
 		Member member = Member.builder()
