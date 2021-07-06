@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../css/style.css" type="text/css" rel="stylesheet">
+    <script src=""></script>
+</head>
+<body>
+	<header id="header">
+		<div class = "float-content">
+			<h1 class="d-none">헤더</h1>
+			<nav class="main-menu">
+				<ul>
+				<li><a href="">프로젝트</a></li>
+				<li><a href="">북마크</a></li>	
+				</ul>
+			</nav>
+		</div>
+	</header>
+	
+	<div id="body">
+		<div class = "float-content">
+				<img class="poster" />
+				<form class = "form" action="@{project/createProject}" th:object="${project}" method="post" enctype="multipart/form-data">
+				<h2>주최기관</h2>
+				<h2>지원기간</h2>
+				<h2>활동분류</h2>
+				<h2>자격요건</h2>
+				<h2>시상내역</h2>			
+		        <div>
+					<input type="submit" value="프로젝트 정보 등록하기">
+				</div>       
+
+			</form>
+		</div>
+		<div class="float-content">
+			<span>프로젝트명</span>
+			<input type="text" name="project-name"/>
+			<span>함께 하는 팀원들</span>
+			<input type="text" name="member" placeholder="팀원을 등록해주세요"/>
+		</div>
+	</div>
+
+
+</body>
+
+
+
+</html>

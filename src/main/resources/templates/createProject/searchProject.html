@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>진행할 프로젝트 검색</title>
+    <link href="../css/style.css" type="text/css" rel="stylesheet">
+    <script src="createProject"></script>
+</head>
+<body>
+	<header id="header">
+		<div class = "float-content">
+			<h1 class="d-none">헤더</h1>
+			<nav class="main-menu">
+				<ul>
+				<li><a href="">프로젝트</a></li>
+				<li><a href="">북마크</a></li>	
+				</ul>
+			</nav>
+		</div>
+	</header>
+	
+	<div id="body">
+		<div class = "search-container">
+			<h1>프로젝트 정보검색</h1>
+			<h2>프로젝트 검색</h2>
+			<section class="search-form">
+				<h1>검색 폼</h1>
+				 <form th:action="@{/project/searchproject}" th:object="${project}" method="get">
+					<label class="d-none">검색어</label>
+					<input type="text" name="q" value="${param.q}">
+					<input type="hidden" name="p" value="1">
+					<input type="submit" value="검색">
+				 </form>
+		      </section>
+			<h2>검색 결과</h2>
+			<table>                        
+               	<tr>
+               		<td colspan="3" th:utext="${공모전이름}" ></td>
+               		<td > 날짜</td>
+               	</tr>                       	                 	
+               	<tr>
+               		<td colspan="3" th:utext="${공모전이름}" ></td>
+               		<td > 날짜</td>
+               	</tr>
+               	<tr>
+               		<td colspan="3" th:utext="${공모전이름}" ></td>
+               		<td > 날짜</td>
+               	</tr>
+              </table>
+			
+		        <div>
+					<input type="submit" value="적용하기">
+				</div>  
+		</div>
+	</div>
+
+
+</body>
+
+
+
+</html>
