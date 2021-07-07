@@ -119,11 +119,10 @@
             <i class="fas fa-search" aria-hidden="true"></i>
             </span>
             </p>
-
             <div class="btn-write button is-rounded">
               <a th:href="@{/board/write}" class="btn btn-primary waves-effect waves-light">Write</a>
             </div>
-<!--            <button class="btn-write button is-rounded">글쓰기</button>-->
+            <!--            <button class="btn-write button is-rounded">글쓰기</button>-->
           </div>
 
 
@@ -159,17 +158,56 @@
 
           </div>
         </div>
+
+
       </section>
 
     </section>
-
-
-  </section>
-
-
   </section>
 
 </div>
+
+<div id="modal-fadeInScale-fs" class="modal modal-fx-fadeInScale ">
+  <div class="$modal-content-width 440 modal-container ">
+    <form action="" id="form" class="form">
+      <h2 class="mb-4"> Minchocho 님께 팀요청을 보내보세요!</h2>
+      <div class="form-control">
+        <label for="username">닉네임</label>
+        <input type="text" id="username" placeholder="닉네임을 입력해주세요">
+      </div>
+      <div class="form-control">
+        <label for="username">연락처(선택)</label>
+        <input type="text" id="username" placeholder="연락처를 입력해주세요">
+      </div>
+      <div class="form-control">
+        <label for="username">메세지</label>
+        <input type="text" id="username" placeholder="메세지를 입력해주세요" class="message">
+      </div>
+      <div class="form-control">
+        <button class="button is-primary is-light" type="submit">전송하기</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+
+  $("#lanuchModal").click(function() {
+  $(".modal").addClass("is-active");
+  });
+
+  $(".modal-close").click(function() {
+  $(".modal").removeClass("is-active");
+  });
+
+  $("#closebtn").click(function() {
+  $(".modal").removeClass("is-active");
+  });
+  $("#closecross").click(function() {
+  $(".modal").removeClass("is-active");
+  });
+
+</script>
 
 </body>
 </html>

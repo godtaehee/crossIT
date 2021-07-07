@@ -95,4 +95,18 @@
 		<include refid="CommonMapper.search" />
 	</select>
 
+	<select id ="getList" resultType="com.crossit.entity.Board">
+		SELECT
+		<include refid="boardColumns" />
+		FROM
+		board
+		WHERE
+		delete_yn = 'N'
+		<include refid="CommonMapper.search" />
+		ORDER BY
+		notice_yn ASC,
+		id DESC,
+		insert_time DESC
+	</select>
+
 </mapper>

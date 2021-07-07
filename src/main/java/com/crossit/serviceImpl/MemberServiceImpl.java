@@ -43,6 +43,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public int getMember(Member member) {
+		return 0;
+	}
+
+	@Override
 	public int signIn(Member member) {
 
 		System.out.println("로그인 라ㅓㅘㅓㅘㅓㅘㅘㅓㅘㅓㅘㅓㅘ성공");
@@ -57,23 +62,17 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
-	@Override
-	public int updateMypage(Member member) {
-
-		int result = memberDao.updateMypage(member);
-
-		if (result > 0) {
-			return -1;
-		}
-
-		return 1;
-	}
 
 	@Override
-	public int getMember(Member member) {
-		int result = memberDao.findMemberById(member.getId());
-		return 0;
+	public Member findMemberByNickName(String nickName) {
+		Member member = memberDao.findMemberByNickName(nickName);
+		System.out.println("-------------ss-----------------");
+		System.out.println(member.getNickname());
+		System.out.println("------------------------------");
+		return member;
 	}
+
+
 
 	@Override
 	@Transactional
@@ -95,6 +94,17 @@ public class MemberServiceImpl implements MemberService {
 		SecurityContext context = SecurityContextHolder.getContext();
 		context.setAuthentication(token);
 	}
+
+
+/*-----------*/
+	@Override
+	public void memberUpdate(Member member) {
+
+	memberDao.memberUpdate(member);
+
+	}
+/*-----------*/
+
 
 	private Member saveNewAccount(SignUpForm signUpForm) {
 		Member member = Member.builder()

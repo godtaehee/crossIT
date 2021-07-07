@@ -15,13 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 
@@ -55,12 +54,11 @@ public class MemberController {
 			return "member/signup";
 		}
 
-//    	memberService.signUp(signUpForm);
-
 		Member member = memberService.processNewAccount(signUpForm);
 
 		memberService.login(member);
-		return "util/signUpComplete";
+		//return "util/signUpComplete";
+		return "redirect:/";
 
 	}
 
@@ -82,7 +80,10 @@ public class MemberController {
 
 
 	@GetMapping("/admin/myLog")
-	public String post(Model model, Member member) {
+	public String post(Model model, Member member , HttpSession session) {
+
+		session.getAttribute("member");
+		member=(Member)session.getAttribute("member");
 		model.addAttribute("member", member);
 		return "admin/myLog";
 	}
@@ -93,6 +94,42 @@ public class MemberController {
 		model.addAttribute("member", member);
 		return "admin/myLog";
 	}
+
+	@GetMapping("/admin/edit")
+	public String edit(Model model, Member member,HttpSession session){
+
+		member=(Member)session.getAttribute("member");
+		model.addAttribute("member", member);
+		return "admin/edit";
+	}
+
+	@GetMapping("/admin/modify")
+	public String edit(HttpServletRequest req, @ModelAttribute Member member, Model model ){
+
+		model.addAttribute("member", member);
+
+		return "admin/myLog";
+	}
+
+
+	@PostMapping ("/admin/modify")
+	public String edit(HttpServletRequest req, @ModelAttribute Member member,HttpSession session, Model model ){
+
+		Member newMember = (Member) session.getAttribute("member");
+
+		newMember.setIntroduction(member.getIntroduction());
+		newMember.setLocation(member.getLocation());
+		newMember.setContact(member.getContact());
+
+		memberService.memberUpdate(newMember);
+
+		model.addAttribute("member", newMember);
+		System.out.println("=======================================");
+		System.out.println(newMember.getIntroduction());
+		return "admin/myLog";
+	}
+
+
 
 	@GetMapping("/check-email-token")
 	public String checkEmailToken(String token, String email, Model model) {

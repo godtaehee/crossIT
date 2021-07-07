@@ -10,9 +10,13 @@ public interface MemberService {
     public int signUp(SignUpForm signUpForm);
     public int getMember(Member member);
     public int signIn(Member member);
-    public int updateMypage(Member member);
+
+    public Member findMemberByNickName(String nickName);
 
 	Member processNewAccount(SignUpForm signUpForm);
 
 	void login(Member member);
+
+	//회원 정보 수정
+	public void memberUpdate (Member member);
 }

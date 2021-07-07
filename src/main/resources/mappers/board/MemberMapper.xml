@@ -14,7 +14,7 @@
 		profile_img,
 		introduction,
 		portfolio,
-		register_date,
+		register_date
 		contact,
 		location
 	</sql>
@@ -31,7 +31,8 @@
 			introduction,
 			portfolio,
 			register_date,
-			location
+			location,
+
 		) VALUES (
 		 #{email}
 		, #{password}
@@ -47,11 +48,12 @@
 		)
 	</insert>
 
-	<update id="updateMypage" parameterType="member">
+	<!-- 회원 정보 수정 -->
+	<update id="memberUpdate" parameterType="member">
 		UPDATE member
 		SET introduction =#{introduction},
 		contact =#{contact},
-		location = #{introduction}
+		location = #{location}
 		WHERE id = #{id}
 	</update>
 
@@ -69,6 +71,16 @@
 			member
 		WHERE
 			id = ${id}
+	</select>
+
+
+	<select id="findMemberByNickName" parameterType="String" resultType="Member">
+		SELECT
+			*
+		FROM
+			member
+		WHERE
+			nickname = '${nickname}'
 	</select>
 
 
