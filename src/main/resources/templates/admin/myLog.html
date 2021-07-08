@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/reset.css">
-    <link rel="stylesheet" href="../../css/inc.css">
-    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/inc.css">
+    <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/myLog.css">
     <link rel="stylesheet" href="/css/modal.css">
     <link rel="stylesheet" href="/css/signup.css">
@@ -24,16 +24,16 @@
         position: absolute;
     }
 
-    .modal{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+    /*.modal{*/
+    /*    position: fixed;*/
+    /*    top: 0;*/
+    /*    left: 0;*/
+    /*    width: 100%;*/
+    /*    height: 100%;*/
+    /*    display: flex;*/
+    /*    justify-content: center;*/
+    /*    align-items: center;*/
+    /*}*/
     .modal-content{
         background-color: rgb(255, 255, 255);
         text-align: center;
@@ -46,11 +46,23 @@
         min-height: 70vh;
     }
     .hidden{
-        display: none;
+        display: none !important;
     }
 
     .message{
         height:150px;
+    }
+
+    .log_btn{
+        display: flex;
+    }
+
+    .log_btn button:nth-child(2){
+        margin-left: 30px;
+    }
+
+    .log_btn button{
+        margin-left: 10px;
     }
 
 </style>
@@ -74,9 +86,11 @@
             <div class="user-profile">
                 <ul>
                     <form th:action="@{/admin/myLog}" th:object="${member}" method="post">
+                    <ul class="log_btn">
                         <li class="title is-4 is spaced" id="nick" th:text="*{nickname}">Minchocho</li>
                         <button class="button is-rounded is-small" id="open">팀원신청</button>
                         <button class="button is-rounded is-small">follow</button>
+                    </ul>
                         <li class="subtitle is-6 mb-2" th:text="*{introduction}">
                         <span class="location">
                       <i class="fas fa-map-marker-alt mr-2"></i>
@@ -205,7 +219,7 @@
                     <button class="button is-primary is-light" type="submit">전송하기</button>
                 </div>
             </form>
-            <button>X</button>
+            <button class="close">X</button>
         </div>
     </div>
 
@@ -214,17 +228,17 @@
         const openBtn = document.getElementById("open");
         const modal = document.querySelector(".modal");
         const overlay =modal.querySelector(".modal-overlay");
-        const closeBtn = modal.querySelector("button");
-        const openModal = ()=>{
-            modal.style.display="block";
+        const closeBtn = modal.querySelector(".close");
+        console.log(closeBtn);
+
+        const test = (e) => {
+            e.preventDefault();
+               modal.classList.toggle('is-active');
         }
 
-        const closeModal=()=>{
-            modal.classList.add("hidden");
-        }
-        overlay.addEventListener("click",closeModal);
-        closeBtn.addEventListener("click",closeModal);
-        openBtn.addEventListener("click",openModal);
+        overlay.addEventListener("click",test);
+        closeBtn.addEventListener("click",test);
+        openBtn.addEventListener("click",test);
 
     </script>
 

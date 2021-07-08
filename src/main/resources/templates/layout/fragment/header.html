@@ -28,26 +28,9 @@
           Project
         </a>
 
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            Dashboard
-          </a>
-
-          <div class="navbar-dropdown">
-            <a class="navbar-item">
-              About
-            </a>
-            <a class="navbar-item">
-              Jobs
-            </a>
-            <a class="navbar-item">
-              Contact
-            </a>
-            <hr class="navbar-divider">
-            <a class="navbar-item">
-              Report an issue
-            </a>
-          </div>
+        <a class="navbar-item" href="/project/index">
+            대시보드
+        </a>
         </div>
       </div>
 
@@ -67,11 +50,12 @@
       <ul class="navbar-end">
 
 
-        <li class="image is-48x48 alarm">
+        <li class="image is-48x48 alarm" style='margin-top: 10px'>
           <a href="" th:href="@{/notification}">
             <i class="fa fa-bell-o" aria-hidden="true"></i>
           </a>
         </li>
+
 
         <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
