@@ -41,7 +41,7 @@ public class Member {
 
 	private String location;
 
-	private  String profileImg;
+	private String profileImage;
 
 	public void generateEmailCheckToken() {
 		this.emailCheckToken = UUID.randomUUID().toString();

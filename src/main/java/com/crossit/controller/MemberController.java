@@ -8,7 +8,6 @@ import com.crossit.service.MemberService;
 import com.crossit.validator.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -60,20 +59,24 @@ public class MemberController {
 
 		Member member = memberService.processNewAccount(signUpForm);
 
-
-		memberService.login(member,req);
+		memberService.login(member, req);
 		return "redirect:/";
 
 	}
 
 
 	@GetMapping("/login")
-	public String getSignInPage(HttpServletRequest req) {
+	public String getSignInPage(Member member, HttpServletRequest req) {
 		String referer = req.getHeader("Referer");
 		req.getSession().setAttribute("prevPage", referer);
 		return "member/signin";
 	}
 
+	@PostMapping("/login")
+	public String signIn(Member member, HttpServletRequest req) {
+
+		return "member/signin";
+	}
 
 	@GetMapping("/user/logout")
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
@@ -86,7 +89,7 @@ public class MemberController {
 	public String post(Model model, HttpServletRequest req) {
 
 		HttpSession session = req.getSession();
-		Member member = (Member)session.getAttribute("member");
+		Member member = (Member) session.getAttribute("member");
 		model.addAttribute("member", member);
 		return "admin/myLog";
 	}
@@ -99,24 +102,24 @@ public class MemberController {
 	}
 
 	@GetMapping("/admin/edit")
-	public String edit(Model model, Member member,HttpSession session){
+	public String edit(Model model, Member member, HttpSession session) {
 
-		member=(Member)session.getAttribute("member");
+		member = (Member) session.getAttribute("member");
 		model.addAttribute("member", member);
 		return "admin/edit";
 	}
 
 	@GetMapping("/admin/modify")
-	public String edit(HttpServletRequest req, @ModelAttribute Member member, Model model,HttpSession session ){
-		member=(Member)session.getAttribute("member");
+	public String edit(HttpServletRequest req, @ModelAttribute Member member, Model model, HttpSession session) {
+		member = (Member) session.getAttribute("member");
 		model.addAttribute("member", member);
 
 		return "admin/myLog";
 	}
 
 
-	@PostMapping ("/admin/modify")
-	public String edit(HttpServletRequest req, @ModelAttribute Member member,HttpSession session, Model model ){
+	@PostMapping("/admin/modify")
+	public String edit(HttpServletRequest req, @ModelAttribute Member member, HttpSession session, Model model) {
 
 		Member newMember = (Member) session.getAttribute("member");
 
@@ -137,12 +140,12 @@ public class MemberController {
 		Member member = memberRepository.findByEmail(email);
 		String view = "member/checked-Email";
 		if (member == null) {
-			model.addAttribute("error", "wrongEmail" );
+			model.addAttribute("error", "wrongEmail");
 			return view;
 		}
 
-		if(!member.isValidToken(token)){
-			model.addAttribute("error", "wrongEmail" );
+		if (!member.isValidToken(token)) {
+			model.addAttribute("error", "wrongEmail");
 			return view;
 
 		}

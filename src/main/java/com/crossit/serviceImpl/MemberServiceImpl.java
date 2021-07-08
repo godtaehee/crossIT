@@ -3,6 +3,7 @@ package com.crossit.serviceImpl;
 import com.crossit.dao.MemberDao;
 import com.crossit.entity.Member;
 import com.crossit.entity.SignUpForm;
+import com.crossit.entity.UserMember;
 import com.crossit.repository.MemberRepository;
 import com.crossit.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -87,7 +88,7 @@ public class MemberServiceImpl implements MemberService {
 	public void login(Member member, HttpServletRequest req) {
 
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-			member.getNickname(),
+			new UserMember(member),
 			member.getPassword(),
 			List.of(new SimpleGrantedAuthority("ROLE_USER")));
 		SecurityContext context = SecurityContextHolder.getContext();
@@ -129,6 +130,8 @@ public class MemberServiceImpl implements MemberService {
 		simpleMailMessage.setText("/check-email-token?token=" + newMember.getEmailCheckToken() +
 			"&email=" + newMember.getEmail());
 		javaMailSender.send(simpleMailMessage);
+		System.out.println("/check-email-token?token=" + newMember.getEmailCheckToken() +
+			"&email=" + newMember.getEmail());
 	}
 
 

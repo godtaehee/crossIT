@@ -2,12 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
+  <th:block th:include="layout/fragment/head :: head"></th:block>
 </head>
 
 <body>
+<header th:replace="layout/fragment/header :: header"></header>
+
     <div class="container">
         <main class="loginMain">
         <!--로그인섹션-->
@@ -19,7 +19,7 @@
                         <h1><img src="/images/logo.jpg" alt=""></h1>
                         
                         <!--로그인 인풋-->
-                        <form class="login__input"  method="POST">
+                        <form class="login__input"  method="POST" action="/login">
                         <label for="username">Username</label>
                             <input type="text" name="username" placeholder="닉네임을 입력하세요" />
                             <input type="password" name="password" placeholder="비밀번호" />

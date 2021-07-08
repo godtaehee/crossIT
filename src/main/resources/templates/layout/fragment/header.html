@@ -18,7 +18,7 @@
       </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div id="navbarBasicExample" class="navbar-menu" sec:authorize="isAuthenticated()">
       <div class="navbar-start">
         <a class="navbar-item" href="/admin/myLog">
           My Log
@@ -64,17 +64,13 @@
         </div>
       </div>
 
-      <ul sec:authorize="isAuthenticated()" class="navbar-end">
+      <ul class="navbar-end">
 
 
         <li class="image is-48x48 alarm">
           <a href="" th:href="@{/notification}">
             <i class="fa fa-bell-o" aria-hidden="true"></i>
           </a>
-        </li>
-
-        <li class="image is-48x48 profile">
-          <a href="" th:href="@{/profile}">프로젝트 생성</a>
         </li>
 
         <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
