@@ -257,17 +257,17 @@
     });
   });
 
-    function testtt(category) {
+  function testtt(category) {
     const test = new XMLHttpRequest();
     test.open('GET', 'http://localhost:8080/board/test');
     test.addEventListener('load', () => {
-    const result = JSON.parse(test.response);
-    const cardList = document.querySelector('.card-list');
-    cardList.innerHTML = '';
+      const result = JSON.parse(test.response);
+      const cardList = document.querySelector('.card-list');
+      cardList.innerHTML = '';
 
 
 
-    const go = result.filter(v => v.category === category);
+      const go = result.filter(v => v.category === category);
       console.log(go);
 
       let str = '';
@@ -278,7 +278,6 @@
         <figure class="card-image">
           <img src="../img/index.png" alt="글 이미지">
         </figure>
-
         <div class="card-desc">
           <div class="media-content">
             <p class="title is-6 mb-2">${v.title}</p>
@@ -299,8 +298,8 @@
       })
 
 
-    cardList.innerHTML = str;
-  })
+      cardList.innerHTML = str;
+    })
     test.send();
 
   }

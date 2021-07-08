@@ -187,19 +187,19 @@
     <div class="modal modal-fx-fadeInScale">
         <div class="modal-overlay"></div>
         <div class="modal-content ">
-            <form action="" id="form" class="form">
-                <h2 class="mb-4"> Minchocho 님께 팀요청을 보내보세요!</h2>
+            <form th:action="@{/admin/sendTeam}" th:object="${member}" method="post">
+                <h2 class="mb-4" th:text="*{nickname}"> Minchocho </h2> 님께 팀요청을 보내보세요!
                 <div class="form-control">
                     <label for="username">닉네임</label>
                     <input type="text" id="username" placeholder="닉네임을 입력해주세요">
                 </div>
                 <div class="form-control">
                     <label for="username">연락처(선택)</label>
-                    <input type="text" id="username" placeholder="연락처를 입력해주세요">
+                    <input type="text" id="contact" placeholder="연락처를 입력해주세요">
                 </div>
                 <div class="form-control">
                     <label for="username">메세지</label>
-                    <input type="text" id="username" placeholder="메세지를 입력해주세요" class="message">
+                    <input type="text" id="message" placeholder="메세지를 입력해주세요" class="message">
                 </div>
                 <div class="form-control">
                     <button class="button is-primary is-light" type="submit">전송하기</button>

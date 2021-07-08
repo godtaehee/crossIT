@@ -8,6 +8,7 @@ import com.crossit.service.MemberService;
 import com.crossit.validator.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -51,7 +52,7 @@ public class MemberController {
 	}
 
 	@PostMapping("/signup")
-	public String signUp(@Valid SignUpForm signUpForm, Errors errors) {
+	public String signUp(@Valid SignUpForm signUpForm, Errors errors, Model model) {
 		if (errors.hasErrors()) {
 			return "member/signup";
 		}
@@ -59,6 +60,9 @@ public class MemberController {
 		Member member = memberService.processNewAccount(signUpForm);
 
 		memberService.login(member);
+
+		model.addAttribute("member",member);
+
 		//return "util/signUpComplete";
 		return "redirect:/";
 
@@ -82,8 +86,10 @@ public class MemberController {
 
 
 	@GetMapping("/admin/myLog")
-	public String post(Model model, Member member , HttpSession session) {
+	public String post(Model model , HttpSession session, Authentication authentication) {
 
+		Member member = memberService.findMemberByNickName(authentication.getName());
+		session.setAttribute("member",member);
 		session.getAttribute("member");
 		member=(Member)session.getAttribute("member");
 		System.out.println("테스트리망너리;ㅏㅁㅇ너림ㄴ아러ㅣ" + member.getNickname());
@@ -107,8 +113,8 @@ public class MemberController {
 	}
 
 	@GetMapping("/admin/modify")
-	public String edit(HttpServletRequest req, @ModelAttribute Member member, Model model ){
-
+	public String edit(HttpServletRequest req, @ModelAttribute Member member, Model model,HttpSession session ){
+		member=(Member)session.getAttribute("member");
 		model.addAttribute("member", member);
 
 		return "admin/myLog";
