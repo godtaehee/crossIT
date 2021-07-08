@@ -158,7 +158,7 @@
   크로스잇에 가입을 완료하려면 <a href="#" th:href="@{/check-email}" class="alert-link">계정 인증 이메일을 확인</a>하세요
 </div>
 
-<div class="card-list-con">
+<div class="card-list-con">dfd
 
   <section class="index-img">
     <p class="index-text">크리에이터들을 위한 팀빌딩, 포트폴리오 관리 플랫폼<br/>
@@ -242,6 +242,7 @@
     const test = new XMLHttpRequest();
     test.open('GET', 'http://localhost:8080/board/test');
     test.addEventListener('load', () => {
+      console.log(test.response);
       const result = JSON.parse(test.response);
       const cardList = document.querySelector('.card-list');
       cardList.innerHTML = '';
