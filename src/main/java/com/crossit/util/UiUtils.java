@@ -1,14 +1,13 @@
 package com.crossit.util;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+import com.crossit.constant.Method;
+import com.crossit.paging.Criteria;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.crossit.constant.Method;
-import com.crossit.paging.Criteria;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Controller
 public class UiUtils {
@@ -18,6 +17,10 @@ public class UiUtils {
 										  @RequestParam(value = "method", required = false) Method method,
 										  @RequestParam(value = "params", required = false) Map<String, Object> params, Model model) {
 
+		if(redirectUri == "admin/myLog"){
+
+		}
+
 		model.addAttribute("message", message);
 		model.addAttribute("redirectUri", redirectUri);
 		model.addAttribute("method", method);
@@ -25,7 +28,7 @@ public class UiUtils {
 
 		return "utils/message-redirect";
 	}
-	
+
 	public Map<String, Object> getPagingParams(Criteria criteria) {
 
 		Map<String, Object> params = new LinkedHashMap<>();

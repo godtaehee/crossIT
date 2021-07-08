@@ -34,11 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.csrf()
 			.disable();
+
+		http.logout()
+			.logoutUrl("/user/logout")
+			.logoutSuccessUrl("/")
+			.invalidateHttpSession(true);
 	}
 
 	@Bean
 	public AuthenticationSuccessHandler successHandler() {
-		System.out.println("---------------------------------??--------------------");
 		return new CustomLoginSuccessHandler();
 	}
 

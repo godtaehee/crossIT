@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,11 @@ public class BoardController extends UiUtils {
 	private BoardService boardService;
 
 	@GetMapping("/board/write")
-	public String openBoardWrite(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model) {
+	public String openBoardWrite(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model, Principal principal) {
 		if (id == null) {
-			model.addAttribute("board", new BoardDTO());
+			BoardDTO boardDTO = new BoardDTO();
+			boardDTO.setWriter(principal.getName());
+			model.addAttribute("board", boardDTO);
 		} else {
 			BoardDTO board = boardService.getBoardDetail(id);
 			if (board == null || "Y".equals(board.getDeleteYn())) {
@@ -54,7 +57,7 @@ public class BoardController extends UiUtils {
 			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/board/list", Method.GET, pagingParams, model);
 		}
 
-		return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/board/list", Method.GET, pagingParams, model);
+		return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/admin/myLog", Method.GET, pagingParams, model);
 	}
 
 
@@ -69,9 +72,7 @@ public class BoardController extends UiUtils {
 	@GetMapping("/board/test")
 	@ResponseBody
 	public List<BoardDTO> getBoardList(@ModelAttribute("params") BoardDTO params) {
-		System.out.println("asdfasdfadsfdadsfasd");
 		List<BoardDTO> boardList = boardService.getList();
-		System.out.println("싸이즈:" + boardList.size());
 		return boardList;
 	}
 

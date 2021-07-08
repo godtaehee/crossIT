@@ -4,6 +4,8 @@ import com.crossit.entity.Member;
 import com.crossit.entity.SignUpForm;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 public interface MemberService {
 
@@ -15,7 +17,7 @@ public interface MemberService {
 
 	Member processNewAccount(SignUpForm signUpForm);
 
-	void login(Member member);
+	void login(Member member, HttpServletRequest req);
 
 	//회원 정보 수정
 	public void memberUpdate (Member member);
