@@ -242,6 +242,7 @@
     const test = new XMLHttpRequest();
     test.open('GET', 'http://localhost:8080/board/test');
     test.addEventListener('load', () => {
+      console.log(test.response);
       const result = JSON.parse(test.response);
       const cardList = document.querySelector('.card-list');
       cardList.innerHTML = '';

@@ -8,6 +8,7 @@ import com.crossit.service.MemberService;
 import com.crossit.validator.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -51,12 +52,14 @@ public class MemberController {
 	}
 
 	@PostMapping("/signup")
+
 	public String signUp(@Valid SignUpForm signUpForm, Errors errors, HttpServletRequest req) {
 		if (errors.hasErrors()) {
 			return "member/signup";
 		}
 
 		Member member = memberService.processNewAccount(signUpForm);
+
 
 		memberService.login(member,req);
 		return "redirect:/";
@@ -104,8 +107,8 @@ public class MemberController {
 	}
 
 	@GetMapping("/admin/modify")
-	public String edit(HttpServletRequest req, @ModelAttribute Member member, Model model ){
-
+	public String edit(HttpServletRequest req, @ModelAttribute Member member, Model model,HttpSession session ){
+		member=(Member)session.getAttribute("member");
 		model.addAttribute("member", member);
 
 		return "admin/myLog";
