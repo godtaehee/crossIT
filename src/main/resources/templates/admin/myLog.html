@@ -9,12 +9,53 @@
     <link rel="stylesheet" href="../../css/inc.css">
     <link rel="stylesheet" href="../../css/header.css">
     <link rel="stylesheet" href="/css/myLog.css">
-    <link rel="stylesheet" href="../../css/modal.css">
+    <link rel="stylesheet" href="/css/modal.css">
     <link rel="stylesheet" href="/css/signup.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <title>MyLog</title>
+
+<style>
+
+    .modal-overlay{
+        background-color: rgba(90, 90, 90, 0.082);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+
+    .modal{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content{
+        background-color: rgb(255, 255, 255);
+        text-align: center;
+        box-shadow: 0 10px 20px rgba(131, 131, 131, 0.068), 0 6px 6px rgba(128, 128, 128, 0.089);
+        position: relative;
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50px;
+        min-height: 70vh;
+    }
+    .hidden{
+        display: none;
+    }
+
+    .message{
+        height:150px;
+    }
+
+</style>
+
+
 </head>
 <body>
 
@@ -29,11 +70,12 @@
                 <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
             </figure>
 
+            <!-- 유저 자신의 프로필일때-->
             <div class="user-profile">
                 <ul>
                     <form th:action="@{/admin/myLog}" th:object="${member}" method="post">
                         <li class="title is-4 is spaced" id="nick" th:text="*{nickname}">Minchocho</li>
-                        <button class="button is-rounded is-small" data-target="lanuchModal" id="lanuchModal">팀원신청</button>
+                        <button class="button is-rounded is-small" id="open">팀원신청</button>
                         <button class="button is-rounded is-small">follow</button>
                         <li class="subtitle is-6 mb-2" th:text="*{introduction}">
                         <span class="location">
@@ -45,6 +87,7 @@
                     </form>
                 </ul>
             </div>
+
         </section>
 
 
@@ -138,11 +181,12 @@
         </section>
         </section>
     </section>
-        
+
     </div>
 
-    <div id="modal-fadeInScale-fs" class="modal modal-fx-fadeInScale ">
-        <div class="$modal-content-width 440 modal-container ">
+    <div class="modal modal-fx-fadeInScale">
+        <div class="modal-overlay"></div>
+        <div class="modal-content ">
             <form action="" id="form" class="form">
                 <h2 class="mb-4"> Minchocho 님께 팀요청을 보내보세요!</h2>
                 <div class="form-control">
@@ -161,25 +205,26 @@
                     <button class="button is-primary is-light" type="submit">전송하기</button>
                 </div>
             </form>
+            <button>X</button>
         </div>
     </div>
 
     <script>
 
-        $("#lanuchModal").click(function() {
-            $(".modal").addClass("is-active");
-        });
+        const openBtn = document.getElementById("open");
+        const modal = document.querySelector(".modal");
+        const overlay =modal.querySelector(".modal-overlay");
+        const closeBtn = modal.querySelector("button");
+        const openModal = ()=>{
+            modal.style.display="block";
+        }
 
-        $(".modal-close").click(function() {
-            $(".modal").removeClass("is-active");
-        });
-
-        $("#closebtn").click(function() {
-            $(".modal").removeClass("is-active");
-        });
-        $("#closecross").click(function() {
-            $(".modal").removeClass("is-active");
-        });
+        const closeModal=()=>{
+            modal.classList.add("hidden");
+        }
+        overlay.addEventListener("click",closeModal);
+        closeBtn.addEventListener("click",closeModal);
+        openBtn.addEventListener("click",openModal);
 
     </script>
 
