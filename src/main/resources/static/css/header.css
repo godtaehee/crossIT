@@ -8,12 +8,10 @@
 
 .navbar-end{
     margin-right: 20px;
+    display: flex;
 
 }
 
-.alarm{
-    margin-right: 20px;
-}
 
 .profile{
     margin-right: 20px;
