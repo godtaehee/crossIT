@@ -13,6 +13,8 @@
   /*  align-items: center;*/
   /*}*/
 
+
+
   .index-img {
     display: flex;
     justify-content: flex-end;
@@ -123,6 +125,10 @@
     align-items: center;
   }
 
+  .tabStyle{
+
+  }
+
   @media (min-width: 600px) {
     .card-list-con {
       --overflow-x: hidden;
@@ -158,7 +164,7 @@
   크로스잇에 가입을 완료하려면 <a href="#" th:href="@{/check-email}" class="alert-link">계정 인증 이메일을 확인</a>하세요
 </div>
 
-<div class="card-list-con">dfd
+<div class="card-list-con">
 
   <section class="index-img">
     <p class="index-text">크리에이터들을 위한 팀빌딩, 포트폴리오 관리 플랫폼<br/>
@@ -166,6 +172,7 @@
     <img src="/img/7 SCENE.svg" width="600" height="400">
   </section>
 
+  <!--내꺼 벌마 contents가 안먹음 오빠거 ㄱㅊ은지 확인(안먹으면 category에 마진 left 13%만  -->
   <section class="contents">
     <div class="category">
 
@@ -203,11 +210,11 @@
 
       <div class="tabs">
         <ul>
-          <li class="is-active"><input type="button" onclick="getBoardByCategory(0)" value="자랑하기">자랑하기</li>
-          <li class="is-active"><input type="button" onclick="getBoardByCategory(1)" value="Today I learn">Today I learn
+          <li class="is-active"><input type="button" onclick="getBoardByCategory(0)" value="자랑하기" class="button is-ghost"></li>
+          <li> <input type="button" onclick="getBoardByCategory(1)" value="Today I learn" class="button is-ghost">
           </li>
-          <li class="is-active"><input type="button" onclick="getBoardByCategory(2)" value="프로젝트 같이해요">프로젝트 같이해요</li>
-          <li class="is-active"><input type="button" onclick="getBoardByCategory(3)" value="기타">기타</li>
+          <li> <input type="button" onclick="getBoardByCategory(2)" value="프로젝트 같이해요" class="button is-ghost"></li>
+          <li> <input type="button" onclick="getBoardByCategory(3)" value="기타" class="button is-ghost"></li>
         </ul>
       </div>
     </div>
@@ -272,7 +279,7 @@
               <figure class="image is-32x32 mr-2">
                 <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
               </figure>
-              <p class="title is-7">${v.nickname}</p>
+              <p class="title is-7">${v.wirter}</p>
             </div>
           </div>
         </div>
