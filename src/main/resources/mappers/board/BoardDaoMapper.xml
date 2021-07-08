@@ -15,6 +15,7 @@
 		, insert_time
 		, update_time
 		, delete_time
+		, category
 	</sql>
 
 	<insert id="insertBoard" parameterType="BoardDTO" useGeneratedKeys="true" keyProperty="id">
@@ -32,6 +33,7 @@
 			, NOW()
 			, NULL
 			, NULL
+			,#{category}
 		)
 	</insert>
 

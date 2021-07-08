@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.crossit.dao.ProjectDao">
+<!-- 게시판과 별다를거 없음!CRUD다 구현. 프로젝트 목록은 우리 DB에 있는거 불러오는 걸로 연습.-> select -->
+
+	
+		<insert id="insert" parameterType="com.crossit.entity.Project">
+		insert into project (
+			name, count, introduce
+		) values (
+			  #{name}
+			  ,#{count}
+			  ,#{introduce}
+		)
+	</insert>
+	
+	<insert id="insertmore" parameterType="com.crossit.entity.Project">
+		insert into project (
+			 limitdate, profile, hostorg, category, qualification
+		) values (
+			  #{limitdate}
+			  ,#{profile}
+			  ,#{hostorg}
+			  ,#{category}
+			  ,#{qualification}
+		)
+	</insert>
+	<select id="getList" resultType="com.crossit.entity.Project"> 이거는 쌤꺼에서 검색한 게시글을 가져오는 거네!
+        select * from project where ${field} like '%${query}%'
+        order by regDate desc
+    </select>
+    
+    <select id="get" resultType="com.crossit.entity.Project">
+        select * from Project where id=#{id}
+    </select>
+
+	<update id="update" parameterType="com.crossit.entity.Project">
+    	update project
+    	set
+    	title=#{title},
+    	writerId = #{writerId},
+    	content = #{content},
+    	files = #{files},
+    	where id=#{id}
+    </update>
+    <delete id="delete" parameterType="int">
+    	delete from project where id=#{id}
+    </delete>
+</mapper>
+<!-- application properties에서 Mybatis가 이 매핑정보를 알 수 있도록 해줄것! -->

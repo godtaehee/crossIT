@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Project</title>
+    <link href="../css/style.css" type="text/css" rel="stylesheet">
+    <script src="createProject"></script>
+</head>
+<body>
+	<header id="header">
+		<div class = "float-content">
+			<h1 class="d-none">헤더</h1>
+			<nav class="main-menu">
+				<ul>
+				<li><a href="">프로젝트</a></li>
+				<li><a href="">북마크</a></li>	
+				</ul>
+			</nav>
+		</div>
+	</header>
+	
+	<div id="body">
+		<div class = "float-content">
+		<h1>프로젝트 생성하기</h1>
+			<form th:action="@{/project/makeproject}" th:object="${project}" method="post" enctype="multipart/form-data">
+				 <table>                        
+	               	<tr>
+	               		<th>프로젝트 이름</th>
+	               		<td colspan="3"><input type="text" th:field="*{name}" placeholder="프로젝트 이름을 입력하세요." ></td>
+	               	</tr>
+	               	<tr>
+	               		<th>인원</th>
+	               		<td colspan="3"><input type="number" min="1" max="30" th:field="*{count}"></td>
+	               	</tr>
+	               	<tr>
+	               		<th>소개</th>
+	               		<td colspan="3">
+	               		<div contenteditable="true">
+	               		</div>
+	               		<textarea rows="20" cols="80" th:field="*{introduce}"></textarea>
+	               			
+	               		</td>
+	               	</tr>
+	               </table>
+
+						<div>
+							<input type="submit" value="create project">
+						</div>
+				</form>
+			</div>
+		</div>
+
+</body>
+</html>

@@ -36,7 +36,7 @@ public class BoardDTO extends CommonDTO {
 	private String changeYn;
 
 //	1: 자랑하기, 2: Today I learn, 3: 프로젝트 같이해요, 4:기타
-	private int Category;
+	private int category;
 
 	/** 파일 인덱스 리스트 */
 	private List<Long> fileIdxs;

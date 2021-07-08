@@ -1,14 +1,5 @@
 package com.crossit.serviceImpl;
 
-import java.util.Collections;
-import java.util.List;
-
-import com.crossit.entity.Board;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.crossit.dao.BoardDao;
 import com.crossit.dao.FileDao;
 import com.crossit.domain.BoardDTO;
@@ -16,6 +7,13 @@ import com.crossit.domain.FileDTO;
 import com.crossit.paging.PaginationInfo;
 import com.crossit.service.BoardService;
 import com.crossit.util.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class BoardServiceImpl implements BoardService {

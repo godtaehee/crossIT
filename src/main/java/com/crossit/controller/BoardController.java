@@ -66,6 +66,15 @@ public class BoardController extends UiUtils {
 		return "board/list";
 	}
 
+	@GetMapping("/board/test")
+	@ResponseBody
+	public List<BoardDTO> getBoardList(@ModelAttribute("params") BoardDTO params) {
+		System.out.println("asdfasdfadsfdadsfasd");
+		List<BoardDTO> boardList = boardService.getList();
+		System.out.println("싸이즈:" + boardList.size());
+		return boardList;
+	}
+
 
 	@GetMapping(value = "/board/view")
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model) {

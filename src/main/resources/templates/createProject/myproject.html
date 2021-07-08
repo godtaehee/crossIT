@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../css/style.css" type="text/css" rel="stylesheet">
+    <script src="createProject"></script>
+</head>
+<body>
+	<header id="header">
+		<div class = "float-content">
+			<h1 class="d-none">헤더</h1>
+			<nav class="main-menu">
+				<ul>
+				<li><a href="">프로젝트</a></li>
+				<li><a href="">북마크</a></li>	
+				</ul>
+			</nav>
+		</div>
+	</header>
+	
+	<div id="body">
+		<div class = "float-content">
+			<table>                        
+               	<tr>
+           			<th>주최기관</th>
+               		<td colspan="5" th:utext="${hostorg}" ></td>
+               	</tr>                       	                 	
+               	<tr>
+           			<th>지원기간</th>
+               		<td colspan="5" th:utext="${limitdate}"></td>
+               	</tr> 
+               	<tr>
+           			<th>활동분류</th>
+               		<td colspan="5" th:utext="${category}"></td>
+               	</tr> 
+               	<tr>
+           			<th>자격요건</th>
+               		<td colspan="5" th:utext="${qualification}"></td>
+               	</tr> 
+               	<tr>
+           			<th>시상내역</th>
+               		<td colspan="5" th:utext="${awards}"></td>
+               	</tr> 
+              </table>
+		</div>
+	</div>
+
+</body>
+</html>
