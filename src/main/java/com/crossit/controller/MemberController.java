@@ -51,25 +51,23 @@ public class MemberController {
 	}
 
 	@PostMapping("/signup")
-	public String signUp(@Valid SignUpForm signUpForm, Errors errors) {
+	public String signUp(@Valid SignUpForm signUpForm, Errors errors, HttpServletRequest req) {
 		if (errors.hasErrors()) {
 			return "member/signup";
 		}
 
 		Member member = memberService.processNewAccount(signUpForm);
 
-		memberService.login(member);
-		//return "util/signUpComplete";
+		memberService.login(member,req);
 		return "redirect:/";
 
 	}
 
 
 	@GetMapping("/login")
-	public String getSignInPage(HttpServletRequest req, Model model, Member member) {
+	public String getSignInPage(HttpServletRequest req) {
 		String referer = req.getHeader("Referer");
 		req.getSession().setAttribute("prevPage", referer);
-		model.addAttribute("member", member);
 		return "member/signin";
 	}
 
@@ -82,11 +80,10 @@ public class MemberController {
 
 
 	@GetMapping("/admin/myLog")
-	public String post(Model model, Member member , HttpSession session) {
+	public String post(Model model, HttpServletRequest req) {
 
-		session.getAttribute("member");
-		member=(Member)session.getAttribute("member");
-		System.out.println("테스트리망너리;ㅏㅁㅇ너림ㄴ아러ㅣ" + member.getNickname());
+		HttpSession session = req.getSession();
+		Member member = (Member)session.getAttribute("member");
 		model.addAttribute("member", member);
 		return "admin/myLog";
 	}
@@ -132,10 +129,8 @@ public class MemberController {
 		return "admin/myLog";
 	}
 
-
-
 	@GetMapping("/check-email-token")
-	public String checkEmailToken(String token, String email, Model model) {
+	public String checkEmailToken(String token, String email, Model model, HttpServletRequest req) {
 		Member member = memberRepository.findByEmail(email);
 		String view = "member/checked-Email";
 		if (member == null) {
@@ -151,7 +146,7 @@ public class MemberController {
 
 
 		member.completeSignUp();
-		memberService.login(member);
+		memberService.login(member, req);
 
 		model.addAttribute("numberOfUser", memberRepository.count());
 		model.addAttribute("nickname", member.getNickname());

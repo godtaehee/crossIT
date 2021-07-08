@@ -7,7 +7,7 @@
           enctype="multipart/form-data" onsubmit="return registerBoard(this)">
       <!--/* update의 경우 서버로 전달할 게시글 번호 (PK) */-->
       <input type="hidden" th:if="*{id != null and id > 0}" th:field="*{id}"/>
-
+      <input type="hidden" th:field="*{writer}"/>
       <!--/* 파일이 변경된 경우, 해당 파라미터를 이용하여 파일 삭제 및 재등록 처리 */-->
       <input type="hidden" th:field="*{changeYn}" value="N"/>
 
@@ -38,12 +38,6 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="writer" class="col-sm-2 control-label">이름</label>
-        <div class="col-sm-10">
-          <input type="text" th:field="*{writer}" class="form-control" placeholder="이름을 입력해 주세요."/>
-        </div>
-      </div>
 
       <div class="form-group">
         <label for="content" class="col-sm-2 control-label">내용</label>
@@ -96,7 +90,7 @@
   </div>
 
   <div id="btnDiv" class="btn_wrap text-center" th:object="${params}">
-    <a th:href="|@{/board/list}*{makeQueryString(currentPageNo)}|"
+    <a th:href="|@{/admin/mylog}|"
        class="btn btn-default waves-effect waves-light">뒤로가기</a>
     <button type="submit" class="btn btn-primary waves-effect waves-light">저장하기</button>
   </div>

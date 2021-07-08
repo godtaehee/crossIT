@@ -17,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
@@ -50,7 +52,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int signIn(Member member) {
 
-		System.out.println("로그인 라ㅓㅘㅓㅘㅓㅘㅘㅓㅘㅓㅘㅓㅘ성공");
 		int result = memberDao.signIn(member);
 
 		if (result > 0) {
@@ -66,9 +67,6 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member findMemberByNickName(String nickName) {
 		Member member = memberDao.findMemberByNickName(nickName);
-		System.out.println("-------------ss-----------------");
-		System.out.println(member.getNickname());
-		System.out.println("------------------------------");
 		return member;
 	}
 
@@ -86,13 +84,19 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void login(Member member) {
+	public void login(Member member, HttpServletRequest req) {
+
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 			member.getNickname(),
 			member.getPassword(),
 			List.of(new SimpleGrantedAuthority("ROLE_USER")));
 		SecurityContext context = SecurityContextHolder.getContext();
 		context.setAuthentication(token);
+
+		HttpSession session = req.getSession();
+
+		session.setAttribute("member", member);
+
 	}
 
 
@@ -115,7 +119,6 @@ public class MemberServiceImpl implements MemberService {
 			.build();
 
 		Member newMember = memberRepository.save(member);
-		System.out.println(newMember.getPassword());
 		return newMember;
 	}
 

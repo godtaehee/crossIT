@@ -6,7 +6,7 @@
 <header th:fragment="header">
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://bulma.io">
+      <a class="navbar-item" href="http:/localhost:8080/">
         <img src="/img/title.png" width="112" height="28">
       </a>
 
@@ -63,23 +63,42 @@
         </div>
       </div>
 
-      <div sec:authorize="isAuthenticated()" class="navbar-end">
-
-        <figure class="image is-48x48 alarm">
-          <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-        </figure>
-
-        <figure class="image is-48x48 profile">
-          <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
-        </figure>
-
-        <a class="button is-light" onclick="logout()">
-          로그아웃
-        </a>
-
-      </div>
+      <ul sec:authorize="isAuthenticated()" class="navbar-end">
 
 
+        <li class="image is-48x48 alarm">
+          <a href="" th:href="@{/notification}">
+            <i class="fa fa-bell-o" aria-hidden="true"></i>
+          </a>
+        </li>
+
+        <li class="image is-48x48 profile">
+          <a href="" th:href="@{/profile}">프로젝트 생성</a>
+        </li>
+
+        <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
+                 width="24" height="24" class="rounded border bg-light"></svg>
+            <img th:if="${!#strings.isEmpty(member?.profileImage)}" th:src="${member.profileImage}"
+                 width="24" height="24" class="rounded border"/>
+          </a>
+          <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="userDropdown">
+            <h6 class="dropdown-header">
+              <span sec:authentication="name">Username</span>
+            </h6>
+            <a class="dropdown-item" th:href="@{'/profile/' + ${#authentication.name}}">프로필</a>
+            <a class="dropdown-item" >프로젝트</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" th:href="@{'/settings/profile'}">설정</a>
+            <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/user/logout}" method="post">
+              <button class="dropdown-item" type="submit">로그아웃</button>
+            </form>
+          </div>
+        </li>
+
+      </ul>
     </div>
   </nav>
 </header>
