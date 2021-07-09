@@ -1,6 +1,7 @@
 package com.crossit.controller;
 
 
+import com.crossit.annotation.CurrentUser;
 import com.crossit.entity.Member;
 import com.crossit.entity.SignUpForm;
 import com.crossit.repository.MemberRepository;
@@ -8,9 +9,7 @@ import com.crossit.service.MemberService;
 import com.crossit.validator.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -51,7 +49,6 @@ public class MemberController {
 	}
 
 	@PostMapping("/signup")
-
 	public String signUp(@Valid SignUpForm signUpForm, Errors errors, HttpServletRequest req) {
 		if (errors.hasErrors()) {
 			return "member/signup";
@@ -59,45 +56,26 @@ public class MemberController {
 
 		Member member = memberService.processNewAccount(signUpForm);
 
-		memberService.login(member, req);
+		memberService.login(member);
 		return "redirect:/";
 
 	}
-
 
 	@GetMapping("/login")
-	public String getSignInPage(Member member, HttpServletRequest req) {
-		String referer = req.getHeader("Referer");
-		req.getSession().setAttribute("prevPage", referer);
+	public String getSignInPage() {
 		return "member/signin";
-	}
-
-	@PostMapping("/login")
-	public String signIn(Member member, HttpServletRequest req) {
-
-		return "member/signin";
-	}
-
-	@GetMapping("/user/logout")
-	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-		new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-		return "redirect:/";
 	}
 
 
 	@GetMapping("/admin/myLog")
-	public String post(Model model, HttpServletRequest req) {
-
-		HttpSession session = req.getSession();
-		Member member = (Member) session.getAttribute("member");
-		model.addAttribute("member", member);
+	public String post(@CurrentUser Member member, Model model) {
+		model.addAttribute(member);
 		return "admin/myLog";
 	}
 
-
 	@PostMapping("/admin/myLog")
 	public String adminPage(Model model, Member member) {
-		model.addAttribute("member", member);
+		model.addAttribute(member);
 		return "admin/myLog";
 	}
 
@@ -135,6 +113,13 @@ public class MemberController {
 		return "admin/myLog";
 	}
 
+	@GetMapping("/check-email")
+	public String checkEmail(@CurrentUser Member member, Model model) {
+		model.addAttribute("email", member.getEmail());
+		return "member/check-email";
+	}
+
+
 	@GetMapping("/check-email-token")
 	public String checkEmailToken(String token, String email, Model model, HttpServletRequest req) {
 		Member member = memberRepository.findByEmail(email);
@@ -150,13 +135,28 @@ public class MemberController {
 
 		}
 
-
 		member.completeSignUp();
-		memberService.login(member, req);
+		memberRepository.save(member);
+		memberService.login(member);
 
 		model.addAttribute("numberOfUser", memberRepository.count());
 		model.addAttribute("nickname", member.getNickname());
 		return view;
 
+	}
+
+	@GetMapping("/resend-confirm-email")
+	public String resendConfirmEmail(@CurrentUser Member member, Model model) {
+		if(!member.canSendConfirmEmail()) {
+			model.addAttribute("error", "인증 이메일은 30분에 한번만 전송할 수 있습니다.");
+			model.addAttribute("email", member.getEmail());
+			return "member/check-email";
+		}
+
+		member.generateEmailCheckToken();
+		memberRepository.save(member);
+		memberService.sendSignUpConfirmEmail(member);
+
+		return "redirect:/";
 	}
 }

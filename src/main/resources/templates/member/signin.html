@@ -19,7 +19,7 @@
                         <h1><img src="/images/logo.jpg" alt=""></h1>
                         
                         <!--로그인 인풋-->
-                        <form class="login__input"  method="POST" action="/login">
+                        <form class="login__input"  th:method="post" th:action="@{/login}">
                         <label for="username">Username</label>
                             <input type="text" name="username" placeholder="닉네임을 입력하세요" />
                             <input type="password" name="password" placeholder="비밀번호" />
@@ -56,6 +56,10 @@
         </main>
         
     </div>
+
+<script th:replace="layout/fragment/validationScript :: form-validation"></script>
+
+
 </body>
 
 </html>

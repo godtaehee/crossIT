@@ -14,17 +14,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService {
+public class MemberServiceImpl implements MemberService, UserDetailsService {
 
 	@Autowired
 	MemberDao memberDao;
@@ -85,7 +86,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void login(Member member, HttpServletRequest req) {
+	public void login(Member member) {
 
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 			new UserMember(member),
@@ -93,10 +94,6 @@ public class MemberServiceImpl implements MemberService {
 			List.of(new SimpleGrantedAuthority("ROLE_USER")));
 		SecurityContext context = SecurityContextHolder.getContext();
 		context.setAuthentication(token);
-
-		HttpSession session = req.getSession();
-
-		session.setAttribute("member", member);
 
 	}
 
@@ -123,7 +120,7 @@ public class MemberServiceImpl implements MemberService {
 		return newMember;
 	}
 
-	private void sendSignUpConfirmEmail(Member newMember) {
+	public void sendSignUpConfirmEmail(Member newMember) {
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 		simpleMailMessage.setTo(newMember.getEmail());
 		simpleMailMessage.setSubject("CrossIt, 회원 가입 인증메일 입니다.");
@@ -135,4 +132,19 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+	@Override
+	public UserDetails loadUserByUsername(String emailOrNickname) throws UsernameNotFoundException {
+
+		Member member = memberRepository.findByEmail(emailOrNickname);
+
+		if(member == null) {
+			member = memberRepository.findByNickname(emailOrNickname);
+		}
+
+		if(member == null) {
+			throw new UsernameNotFoundException(emailOrNickname);
+		}
+
+		return new UserMember(member);
+	}
 }

@@ -29,57 +29,56 @@
         </a>
 
         <a class="navbar-item" href="/project/index">
-            대시보드
+          대시보드
         </a>
+      </div>
+    </div>
+
+    <div sec:authorize="isAnonymous()" class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary" href="/register">
+            <strong>Sign up</strong>
+          </a>
+          <a class="button is-light" href="/login">
+            Log in
+          </a>
         </div>
       </div>
+    </div>
 
-      <div sec:authorize="isAnonymous()" class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-primary" href="/register">
-              <strong>Sign up</strong>
-            </a>
-            <a class="button is-light" href="/login">
-              Log in
-            </a>
-          </div>
+    <ul class="navbar-end" sec:authorize="isAuthenticated()">
+
+      <li class="image is-48x48 alarm" style='margin-top: 10px'>
+        <a href="" th:href="@{/notification}">
+          <i class="fa fa-bell-o" aria-hidden="true"></i>
+        </a>
+      </li>
+
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+          <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
+               width="24" height="24" class="rounded border bg-light"></svg>
+          <img th:if="${!#strings.isEmpty(member?.profileImage)}" th:src="${member.profileImage}"
+               width="24" height="24" class="rounded border"/>
+        </a>
+        <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="userDropdown">
+          <h6 class="dropdown-header">
+            <span sec:authentication="name">Username</span>
+          </h6>
+          <a class="dropdown-item" th:href="@{'/profile/' + ${#authentication.name}}">프로필</a>
+          <a class="dropdown-item">프로젝트</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#" th:href="@{'/settings/profile'}">설정</a>
+          <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/logout}" method="post">
+            <button class="dropdown-item" type="submit">로그아웃</button>
+          </form>
         </div>
-      </div>
+      </li>
 
-      <ul class="navbar-end">
-
-
-        <li class="image is-48x48 alarm" style='margin-top: 10px'>
-          <a href="" th:href="@{/notification}">
-            <i class="fa fa-bell-o" aria-hidden="true"></i>
-          </a>
-        </li>
-
-
-        <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
-                 width="24" height="24" class="rounded border bg-light"></svg>
-            <img th:if="${!#strings.isEmpty(member?.profileImage)}" th:src="${member.profileImage}"
-                 width="24" height="24" class="rounded border"/>
-          </a>
-          <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="userDropdown">
-            <h6 class="dropdown-header">
-              <span sec:authentication="name">Username</span>
-            </h6>
-            <a class="dropdown-item" th:href="@{'/profile/' + ${#authentication.name}}">프로필</a>
-            <a class="dropdown-item" >프로젝트</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" th:href="@{'/settings/profile'}">설정</a>
-            <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/user/logout}" method="post">
-              <button class="dropdown-item" type="submit">로그아웃</button>
-            </form>
-          </div>
-        </li>
-
-      </ul>
+    </ul>
     </div>
   </nav>
 </header>
