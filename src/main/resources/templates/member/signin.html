@@ -2,70 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
 <head>
-  <th:block th:include="layout/fragment/head :: head"></th:block>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <title>로그인</title>
 </head>
 
 <body>
-<header th:replace="layout/fragment/header :: header"></header>
+<div class="container">
 
-    <div class="container">
-        <main class="loginMain">
-        <!--로그인섹션-->
-            <section class="login">
-               <!--로그인박스-->
-                <article class="login__form__container">
-                   <!--로그인 폼-->
-                   <div class="login__form">
-                        <h1><img src="/images/logo.jpg" alt=""></h1>
-                        
-                        <!--로그인 인풋-->
-                        <form class="login__input"  th:method="post" th:action="@{/login}">
-                        <label for="username">Username</label>
-                            <input type="text" name="username" placeholder="닉네임을 입력하세요" />
-                            <input type="password" name="password" placeholder="비밀번호" />
-                           <button type="submit">입력</button>
-                          <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me" checked>
-                            <label class="form-check-label" for="rememberMe" aria-describedby="rememberMeHelp">로그인 유지</label>
-                          </div>
-                        </form>
-                        <!--로그인 인풋end-->
-                        
-                        <!-- 또는 -->
-                        <div class="login__horizon">
-                            <div class="br"></div>
-                            <div class="or">또는</div>
-                            <div class="br"></div>
-                        </div>
-                        <!-- 또는end -->
+    <div class="formPanner">
+        <form method="POST" id="form" class="form">
+            <h2>Welcome back ! </h2>
+            <div class="form-control">
+                <label for="username">닉네임</label>
+                <input type="text" name="username" placeholder="usernamed">
+                <small>Error message</small>
+            </div>
 
+            <div class="form-control">
+                <label for="password">비밀번호</label>
+                <input type="password" name="password" placeholder="Eneter password">
+                <small>Error message</small>
+            </div>
 
-                        
-                        <!-- Oauth 소셜로그인 -->
-                        <div class="login__facebook">
-                            <button onclick="javascript:location.href='/oauth2/authorization/facebook'">
-                                <i class="fab fa-facebook-square"></i>
-                                <span>Facebook으로 로그인</span>
-                            </button>
-                        </div>
-                        <!-- Oauth 소셜로그인end -->
-                    </div>
-                    
-                    <!--계정이 없으신가요?-->
-                    <div class="login__register">
-                        <span>계정이 없으신가요?</span>
-                        <a href="/register">가입하기</a>
-                    </div>
-                    <!--계정이 없으신가요?end-->
-                </article>
-            </section>
-        </main>
-        
+            <div class="form-control">
+                <button type="submit">로그인</button>
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="rememberMe" name="remember-me" checked>
+              <label class="form-check-label" for="rememberMe" aria-describedby="rememberMeHelp">로그인 유지</label>
+            </div>
+        </form>
     </div>
-
+</div>
 <script th:replace="layout/fragment/validationScript :: form-validation"></script>
-
-
+  
 </body>
 
 </html>
