@@ -33,7 +33,7 @@ public class Member {
 	// TODO 쿼리에 추가해야함
 	private LocalDateTime emailCheckTokenGeneratedAt;
 
-	private  String introduction;
+	private String introduction;
 
 	private Long role;
 

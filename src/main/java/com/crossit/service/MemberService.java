@@ -24,6 +24,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberService implements UserDetailsService {
 
 	@Autowired
@@ -32,21 +33,6 @@ public class MemberService implements UserDetailsService {
 	private final PasswordEncoder passwordEncoder;
 	private final MemberRepository memberRepository;
 	private final JavaMailSender javaMailSender;
-
-	public int signUp(SignUpForm signUpForm) {
-
-		int result = memberDao.findMemberByEmail(signUpForm.getEmail());
-
-		if (result > 0) {
-			return -1;
-		} else {
-			return memberDao.signUp(signUpForm);
-		}
-	}
-
-	public int getMember(Member member) {
-		return 0;
-	}
 
 	public int signIn(Member member) {
 
@@ -61,15 +47,11 @@ public class MemberService implements UserDetailsService {
 
 	}
 
-
 	public Member findMemberByNickName(String nickName) {
 		Member member = memberDao.findMemberByNickName(nickName);
 		return member;
 	}
 
-
-
-	@Transactional
 	public Member processNewAccount(SignUpForm signUpForm) {
 		Member newMember = saveNewAccount(signUpForm);
 
@@ -90,15 +72,11 @@ public class MemberService implements UserDetailsService {
 
 	}
 
-
-/*-----------*/
 	public void memberUpdate(Member member) {
 
-	memberDao.memberUpdate(member);
+		memberDao.memberUpdate(member);
 
 	}
-/*-----------*/
-
 
 	private Member saveNewAccount(SignUpForm signUpForm) {
 		Member member = Member.builder()
@@ -123,20 +101,26 @@ public class MemberService implements UserDetailsService {
 			"&email=" + newMember.getEmail());
 	}
 
-
+	@Transactional(readOnly = true)
 	@Override
 	public UserDetails loadUserByUsername(String emailOrNickname) throws UsernameNotFoundException {
 
 		Member member = memberRepository.findByEmail(emailOrNickname);
 
-		if(member == null) {
+		if (member == null) {
 			member = memberRepository.findByNickname(emailOrNickname);
 		}
 
-		if(member == null) {
+		if (member == null) {
 			throw new UsernameNotFoundException(emailOrNickname);
 		}
 
 		return new UserMember(member);
+	}
+
+	public void completeSignUp(Member member) {
+		member.completeSignUp();
+//		memberRepository.save(member);
+		login(member);
 	}
 }

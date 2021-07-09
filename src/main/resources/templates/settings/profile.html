@@ -26,16 +26,8 @@
       min-height: 70vh;
     }
 
-    .hidden {
-      display: none !important;
-    }
-
     .message {
       height: 150px;
-    }
-
-    .log_btn {
-      display: flex;
     }
 
     .log_btn button:nth-child(2) {
@@ -52,27 +44,22 @@
 
     .introduction {
       margin-left: 15px;
+      width: 100%;
     }
 
-    .profile-btn {
-      margin-left: auto;
+    .user-name {
+      display: flex;
     }
 
+    .profile-phone,
     .profile-location {
       display: flex;
-    }
-
-    .user-name,
-    .profile-phone {
-      display: flex;
+      align-items: center;
     }
 
     .title {
       margin-right: 10px;
     }
-
-
-
 
   </style>
 </head>
@@ -87,39 +74,26 @@
 
   <!-- 유저 자신의 프로필일때-->
   <div class="user-profile">
-    <form th:action="@{/admin/myLog}" th:object="${member}" method="post">
+    <form th:action="@{/settings/profile}" th:object="${member}" method="post">
       <div class="profile">
         <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
              width="120" height="120" class="rounded border bg-light"></svg>
         <div class="introduction">
           <div class="user-name">
             <div class="title is-4 is spaced" id="nick" th:text="*{nickname}">Minchocho</div>
-            <a class="button is-info is-light is-inverted is-small edit-btn" th:href="@{/settings/profile}">프로필 수정</a>
+            <input type="submit" class="button is-info is-light is-inverted is-small edit-btn" value="수정 완료"/>
           </div>
-          <div class="subtitle is-6 mb-2" th:text="${introduction}?: '소개글이 없습니다.'"></div>
+          <input class="form-control input-sm mb-2" placeholder="간략한 소개를 부탁드립니다." th:field="*{introduction}"/>
           <div class="profile-location">
             <i class="fas fa-map-marker-alt mr-2"></i>
-            <div class="is-size-7 mb-1 " th:text="${location}?: '사시는 지역을 설정해주세요.'">korea</div>
+            <input class="form-control input-sm mb-2" placeholder="지역을 설정해 주세요." th:field="*{location}"/>
           </div>
           <div class="profile-phone">
             <i class="fas fa-phone-alt mr-1"></i>
-            <div class="is-size-7" th:text="${contact}?: '연락처를 설정해 주세요.'">
-              Contact : oowwo@gmail.com
-            </div>
+            <input class="form-control input-sm mb-2" placeholder="연락처를 입력해 주세요." th:field="*{contact}"/>
           </div>
-          <p th:if="${isOwner || member.emailVerified}">
-            <span><i class="fa fa-calendar-o"></i></span>
-            <span th:if="${isOwner && !member.emailVerified}">
-              <a href="#" th:href="@{'/checkemail?email=' + ${member.email}}" class="is-size-7">가입을 완료하려면 이메일을 확인하세요.</a>
-            </span>
-            <span th:text="${#temporals.format(member.joinedAt, 'yyyy년 M월 가입')}"></span>
-          </p>
         </div>
 
-        <div class="profile-btn">
-          <button class="button is-rounded is-small" id="open">팀원신청</button>
-          <button class="button is-rounded is-small">follow</button>
-        </div>
       </div>
 
     </form>
@@ -231,6 +205,7 @@
     const modal = document.querySelector(".modal");
     const overlay = modal.querySelector(".modal-overlay");
     const closeBtn = modal.querySelector(".close");
+    console.log(closeBtn);
 
     const test = (e) => {
       e.preventDefault();
@@ -240,6 +215,18 @@
     overlay.addEventListener("click", test);
     closeBtn.addEventListener("click", test);
     openBtn.addEventListener("click", test);
+
+
+    const profile = document.querySelector('.profile');
+    const profileEdit = document.querySelector('.profile-edit');
+
+    document.querySelector('.edit-btn').addEventListener('click', () => {
+
+      profile.classList.toggle('d-none');
+      profileEdit.classList.toggle('d-none');
+
+    })
+
 
   })();
 

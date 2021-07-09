@@ -135,9 +135,8 @@ public class MemberController {
 
 		}
 
-		member.completeSignUp();
-		memberRepository.save(member);
-		memberService.login(member);
+		memberService.completeSignUp(member);
+
 
 		model.addAttribute("numberOfUser", memberRepository.count());
 		model.addAttribute("nickname", member.getNickname());
