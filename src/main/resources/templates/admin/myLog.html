@@ -96,14 +96,14 @@
             <div class="title is-4 is spaced" id="nick" th:text="*{nickname}">Minchocho</div>
             <a class="button is-info is-light is-inverted is-small edit-btn" th:href="@{/settings/profile}">프로필 수정</a>
           </div>
-          <div class="subtitle is-6 mb-2" th:text="${introduction}?: '소개글이 없습니다.'"></div>
+          <div class="subtitle is-6 mb-2" th:text="*{introduction}?: '소개글이 없습니다.'"></div>
           <div class="profile-location">
             <i class="fas fa-map-marker-alt mr-2"></i>
-            <div class="is-size-7 mb-1 " th:text="${location}?: '사시는 지역을 설정해주세요.'">korea</div>
+            <div class="is-size-7 mb-1 " th:text="*{location}?: '사시는 지역을 설정해주세요.'">korea</div>
           </div>
           <div class="profile-phone">
             <i class="fas fa-phone-alt mr-1"></i>
-            <div class="is-size-7" th:text="${contact}?: '연락처를 설정해 주세요.'">
+            <div class="is-size-7" th:text="*{contact}?: '연락처를 설정해 주세요.'">
               Contact : oowwo@gmail.com
             </div>
           </div>

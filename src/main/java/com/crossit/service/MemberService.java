@@ -5,6 +5,7 @@ import com.crossit.entity.Member;
 import com.crossit.entity.SignUpForm;
 import com.crossit.entity.UserMember;
 import com.crossit.repository.MemberRepository;
+import com.crossit.setting.Profile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -120,7 +121,13 @@ public class MemberService implements UserDetailsService {
 
 	public void completeSignUp(Member member) {
 		member.completeSignUp();
-//		memberRepository.save(member);
 		login(member);
+	}
+
+	public void updateProfile(Member member, Profile profile) {
+		member.setIntroduction(profile.getIntroduction());
+		member.setLocation(profile.getLocation());
+		member.setContact(profile.getContact());
+		memberRepository.save(member);
 	}
 }
