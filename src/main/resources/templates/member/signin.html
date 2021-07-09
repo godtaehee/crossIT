@@ -4,28 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <title>로그인</title>
+
+  <title>로그인</title>
 </head>
 
 <body>
 <div class="container">
 
     <div class="formPanner">
-        <form method="POST" id="form" class="form">
+        <form method="post" id="form" class="form" th:action="@{/login}">
             <h2>Welcome back ! </h2>
             <div class="form-control">
                 <label for="username">닉네임</label>
-                <input type="text" name="username" placeholder="usernamed">
+                <input type="text" name="username" placeholder="username">
                 <small>Error message</small>
             </div>
 
             <div class="form-control">
                 <label for="password">비밀번호</label>
-                <input type="password" name="password" placeholder="Eneter password">
+                <input type="password" name="password" placeholder="Enter password">
                 <small>Error message</small>
             </div>
 
@@ -37,8 +37,16 @@
               <label class="form-check-label" for="rememberMe" aria-describedby="rememberMeHelp">로그인 유지</label>
             </div>
         </form>
+        <div th:if="${param.error}" class="alert alert-danger" role="alert">
+          <p>이메일(또는 닉네임)과 패스워드가 정확하지 않습니다.</p>
+          <p>또는 확인되지 않은 이메일을 사용했습니다. 이메일을 확인해 주세요.</p>
+          <p>
+            확인 후 다시 입력하시거나, <a href="#" th:href="@{/find-passsword}">패스워드 찾기</a>를 이용하세요.
+          </p>
+        </div>
     </div>
 </div>
+
 <script th:replace="layout/fragment/validationScript :: form-validation"></script>
   
 </body>

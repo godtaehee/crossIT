@@ -67,17 +67,21 @@
     .profile-btn {
       margin-left: auto;
     }
+
     .profile-location {
       display: flex;
     }
 
-    .user-name {
+    .user-name,
+    .profile-phone {
       display: flex;
     }
 
     .title {
       margin-right: 10px;
     }
+
+
 
 
   </style>
@@ -107,29 +111,21 @@
             <i class="fas fa-map-marker-alt mr-2"></i>
             <div class="is-size-7 mb-1 " th:text="${location}?: '사시는 지역을 설정해주세요.'">korea</div>
           </div>
-          <div class="is-size-7" th:text="${contact}?: '연락처를 설정해 주세요.'">Contact : oowwo@gmail.com</div>
+          <div class="profile-phone">
+            <i class="fas fa-phone-alt mr-1"></i>
+            <div class="is-size-7" th:text="${contact}?: '연락처를 설정해 주세요.'">
+              Contact : oowwo@gmail.com
+            </div>
+          </div>
+          <p th:if="${isOwner || member.emailVerified}">
+            <span><i class="fa fa-calendar-o"></i></span>
+            <span th:if="${isOwner && !member.emailVerified}">
+              <a href="#" th:href="@{'/checkemail?email=' + ${member.email}}" class="is-size-7">가입을 완료하려면 이메일을 확인하세요.</a>
+            </span>
+            <span th:text="${#temporals.format(member.joinedAt, 'yyyy년 M월 가입')}"></span>
+          </p>
         </div>
-        <div class="profile-btn">
-          <button class="button is-rounded is-small" id="open">팀원신청</button>
-          <button class="button is-rounded is-small">follow</button>
-        </div>
-      </div>
 
-      <div class="profile profile-edit d-none" >
-        <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
-             width="120" height="120" class="rounded border bg-light"></svg>
-        <div class="introduction">
-          <div class="user-name">
-            <div class="title is-4 is spaced" id="nick" th:text="*{nickname}">Minchocho</div>
-            <button type="button" class="button is-info is-light is-inverted is-small" th:if="${isOwner}">수정 완료</button>
-          </div>
-          <input type="text" class="input is-small"  th:value="${introduction}?: '소개글이 없습니다.'" th:field="*{introduction}"/>
-          <div class="profile-location">
-            <i class="fas fa-map-marker-alt mr-2"></i>
-            <input type="text" class="input is-small" th:field="*{location}" th:value="${location}?: '사시는 지역을 설정해주세요.'"/>
-          </div>
-          <input type="text" class="input is-small" th:field="*{contact}" th:value="${contact}?: '연락처를 설정해 주세요.'"/>
-        </div>
         <div class="profile-btn">
           <button class="button is-rounded is-small" id="open">팀원신청</button>
           <button class="button is-rounded is-small">follow</button>
@@ -266,7 +262,6 @@
       profileEdit.classList.toggle('d-none');
 
     })
-
 
 
   })();

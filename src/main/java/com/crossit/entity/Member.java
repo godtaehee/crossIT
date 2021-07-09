@@ -39,7 +39,7 @@ public class Member {
 
 	private Long job;
 
-	private LocalDateTime registerDate;
+	private LocalDateTime joinedAt;
 
 	private String contact;
 
@@ -54,7 +54,7 @@ public class Member {
 
 	public void completeSignUp() {
 		this.emailVerified = true;
-		this.registerDate = LocalDateTime.now();
+		this.joinedAt = LocalDateTime.now();
 	}
 
 	public boolean isValidToken(String token) {
