@@ -1,62 +1,60 @@
 package com.crossit.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.crossit.service.MemberService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import javax.sql.DataSource;
 
-
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-	@Autowired
-	DataSource dataSource;
+	private final MemberService memberService;
+	private final DataSource dataSource;
 
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.authorizeRequests()
-			.antMatchers("/admin/**").hasAnyRole("USER")
-			.and()
-			.formLogin()
-			.loginPage("/login")
-			.loginProcessingUrl("/login")
-			.successHandler(successHandler())
-			.and()
-			.csrf()
-			.disable();
+		http.authorizeRequests()
+			.mvcMatchers("/**").permitAll()
+			.anyRequest().authenticated();
+
+		http.formLogin()
+			.loginPage("/login").permitAll();
 
 		http.logout()
-			.logoutUrl("/user/logout")
-			.logoutSuccessUrl("/")
-			.invalidateHttpSession(true);
+			.logoutSuccessUrl("/");
+
+		http.rememberMe()
+			.userDetailsService(memberService)
+			.tokenRepository(tokenRepository());
+
 	}
 
 	@Bean
-	public AuthenticationSuccessHandler successHandler() {
-		return new CustomLoginSuccessHandler();
-	}
+	public PersistentTokenRepository tokenRepository() {
+		JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+		jdbcTokenRepository.setDataSource(dataSource);
 
+		return jdbcTokenRepository;
+
+	}
 
 	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth
-			.jdbcAuthentication()
-			.dataSource(dataSource)
-			// 사용자 정보를 가져오기
-			.usersByUsernameQuery("select nickname id , password, 1 enabled from member where nickname =?")
-			// 그 사용자의 역할 정보를 가져오기
-			.authoritiesByUsernameQuery("select nickname id, 'ROLE_USER' roleId from member where nickname =?");
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring()
+			.mvcMatchers("/node_modules/**")
+			.requestMatchers(PathRequest.toStaticResources().atCommonLocations());
 
 	}
-
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:include="layout/fragment/head :: head"></th:block>
+</head>
+
+<body>
+
+<header th:replace="layout/fragment/header :: header"></header>
+
+<div class="email-error" th:if="${error != null}">
+  <div th:text="${error}"></div>
+  <div th:text="${email}"></div>
+</div>
+
+<div th:if="${error == null}">
+  <div th:text="${email}"></div>로 인증메일을  보냈습니다. 확인해주세요
+
+  <a th:href="@{/resend-confirm-email}">이메일 다시 보내기</a>
+</div>
+
+
+</body>
+</html>

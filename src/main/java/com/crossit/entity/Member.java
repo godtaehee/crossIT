@@ -29,6 +29,10 @@ public class Member {
 
 	private String emailCheckToken;
 
+
+	// TODO 쿼리에 추가해야함
+	private LocalDateTime emailCheckTokenGeneratedAt;
+
 	private  String introduction;
 
 	private Long role;
@@ -41,10 +45,11 @@ public class Member {
 
 	private String location;
 
-	private  String profileImg;
+	private String profileImage;
 
 	public void generateEmailCheckToken() {
 		this.emailCheckToken = UUID.randomUUID().toString();
+		this.emailCheckTokenGeneratedAt = LocalDateTime.now();
 	}
 
 	public void completeSignUp() {
@@ -54,5 +59,9 @@ public class Member {
 
 	public boolean isValidToken(String token) {
 		return this.emailCheckToken.equals(token);
+	}
+
+	public boolean canSendConfirmEmail() {
+		return this.emailCheckTokenGeneratedAt.isBefore(LocalDateTime.now().minusSeconds(10));
 	}
 }

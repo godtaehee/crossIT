@@ -1,6 +1,7 @@
 package com.crossit.controller;
 
 
+import com.crossit.annotation.CurrentUser;
 import com.crossit.entity.Member;
 import com.crossit.entity.SignUpForm;
 import com.crossit.repository.MemberRepository;
@@ -8,21 +9,14 @@ import com.crossit.service.MemberService;
 import com.crossit.validator.SignUpFormValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -52,7 +46,6 @@ public class MemberController {
 	}
 
 	@PostMapping("/signup")
-
 	public String signUp(@Valid SignUpForm signUpForm, Errors errors, HttpServletRequest req) {
 		if (errors.hasErrors()) {
 			return "member/signup";
@@ -60,100 +53,110 @@ public class MemberController {
 
 		Member member = memberService.processNewAccount(signUpForm);
 
-
-		memberService.login(member,req);
+		memberService.login(member);
 		return "redirect:/";
 
 	}
 
-
 	@GetMapping("/login")
-	public String getSignInPage(HttpServletRequest req) {
-		String referer = req.getHeader("Referer");
-		req.getSession().setAttribute("prevPage", referer);
+	public String getSignInPage() {
 		return "member/signin";
 	}
 
 
-	@GetMapping("/user/logout")
-	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-		new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-		return "redirect:/";
-	}
+	@GetMapping("/admin/mylog/{nickname}")
+	public String post(@PathVariable String nickname, Model model, @CurrentUser Member member) {
+		Member byNickname = memberRepository.findByNickname(nickname);
 
+		if(nickname == null) {
+			throw new IllegalArgumentException(nickname + "에 해당하는 사용자가 없습니다.");
+		}
 
-	@GetMapping("/admin/myLog")
-	public String post(Model model, HttpServletRequest req) {
-
-		HttpSession session = req.getSession();
-		Member member = (Member)session.getAttribute("member");
-		model.addAttribute("member", member);
+		model.addAttribute(byNickname);
+		model.addAttribute("isOwner", byNickname.equals(member));
 		return "admin/myLog";
 	}
 
-
-	@PostMapping("/admin/myLog")
+	@PostMapping("/admin/mylog")
 	public String adminPage(Model model, Member member) {
-		model.addAttribute("member", member);
+		model.addAttribute(member);
+		model.addAttribute("editStart", "true");
 		return "admin/myLog";
 	}
 
 	@GetMapping("/admin/edit")
-	public String edit(Model model, Member member,HttpSession session){
+	public String edit(Model model, @CurrentUser Member member, HttpSession session) {
 
-		member=(Member)session.getAttribute("member");
-		model.addAttribute("member", member);
+		model.addAttribute( member);
 		return "admin/edit";
 	}
 
 	@GetMapping("/admin/modify")
-	public String edit(HttpServletRequest req, @ModelAttribute Member member, Model model,HttpSession session ){
-		member=(Member)session.getAttribute("member");
+	public String edit(@ModelAttribute Member member, Model model, HttpSession session) {
 		model.addAttribute("member", member);
-
 		return "admin/myLog";
 	}
 
 
-	@PostMapping ("/admin/modify")
-	public String edit(HttpServletRequest req, @ModelAttribute Member member,HttpSession session, Model model ){
+	@PostMapping("/admin/modify")
+	public String edit(@ModelAttribute Member member, HttpSession session, Model model) {
 
-		Member newMember = (Member) session.getAttribute("member");
 
-		newMember.setIntroduction(member.getIntroduction());
-		newMember.setLocation(member.getLocation());
-		newMember.setContact(member.getContact());
+		member.setIntroduction(member.getIntroduction());
+		member.setLocation(member.getLocation());
+		member.setContact(member.getContact());
 
-		memberService.memberUpdate(newMember);
+		memberService.memberUpdate(member);
 
-		model.addAttribute("member", newMember);
-		System.out.println("=======================================");
-		System.out.println(newMember.getIntroduction());
+		System.out.println(member.getNickname());
+		model.addAttribute(member);
 		return "admin/myLog";
 	}
+
+	@GetMapping("/check-email")
+	public String checkEmail(@CurrentUser Member member, Model model) {
+		model.addAttribute("email", member.getEmail());
+		return "member/check-email";
+	}
+
 
 	@GetMapping("/check-email-token")
 	public String checkEmailToken(String token, String email, Model model, HttpServletRequest req) {
 		Member member = memberRepository.findByEmail(email);
 		String view = "member/checked-Email";
 		if (member == null) {
-			model.addAttribute("error", "wrongEmail" );
+			model.addAttribute("error", "wrongEmail");
 			return view;
 		}
 
-		if(!member.isValidToken(token)){
-			model.addAttribute("error", "wrongEmail" );
+		if (!member.isValidToken(token)) {
+			model.addAttribute("error", "wrongEmail");
 			return view;
 
 		}
-
 
 		member.completeSignUp();
-		memberService.login(member, req);
+		memberRepository.save(member);
+		memberService.login(member);
 
 		model.addAttribute("numberOfUser", memberRepository.count());
 		model.addAttribute("nickname", member.getNickname());
 		return view;
 
+	}
+
+	@GetMapping("/resend-confirm-email")
+	public String resendConfirmEmail(@CurrentUser Member member, Model model) {
+		if(!member.canSendConfirmEmail()) {
+			model.addAttribute("error", "인증 이메일은 30분에 한번만 전송할 수 있습니다.");
+			model.addAttribute("email", member.getEmail());
+			return "member/check-email";
+		}
+
+		member.generateEmailCheckToken();
+		memberRepository.save(member);
+		memberService.sendSignUpConfirmEmail(member);
+
+		return "redirect:/";
 	}
 }

@@ -1,17 +1,16 @@
 package com.crossit.serviceImpl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.crossit.dao.ProjectDao;
 import com.crossit.entity.Project;
 import com.crossit.service.ProjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProjectServiceImp implements ProjectService {
-@Autowired 
+@Autowired
 	private ProjectDao dao;
 
 	@Override
@@ -22,7 +21,7 @@ public class ProjectServiceImp implements ProjectService {
 
 	@Override
 	public int insert(Project project) {
-		
+
 		return dao.insert(project);
 	}
 
@@ -31,7 +30,7 @@ public class ProjectServiceImp implements ProjectService {
 		// TODO Auto-generated method stub
 		return dao.insert(project);
 	}
-	
+
 	@Override
 	public List<Project> getList() {
 		List<Project> list = dao.getList();
@@ -40,12 +39,8 @@ public class ProjectServiceImp implements ProjectService {
 
 	@Override
 	public int delete(int id) {
-		
+
 		return dao.delete(id);
 	}
-
-
-
-
 
 }
