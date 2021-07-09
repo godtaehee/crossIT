@@ -5,41 +5,119 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="../css/style.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/dashBoard.css">
+	<link rel="stylesheet" href="/css/reset.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <script src="createProject"></script>
 </head>
-<body>
-	<header id="header">
-		<div class = "float-content">
-			<h1 class="d-none">헤더</h1>
-			<nav class="main-menu">
-				<ul>
-				<li><a href="">프로젝트</a></li>
-				<li><a href="">북마크</a></li>	
-				</ul>
-			</nav>
-		</div>
-	</header>
-	
-	<div id="body">
+
+
+<header th:replace="layout/fragment/header :: header"></header>
+
+<body class="body">
+
+
+<div class="containers">
+
+	<nav class="mynavbar ">
+		<div class="navbar-items tabs is-centered">
+
+			<ul>
+				<li><a class="navbar-item" href="">프로젝트</a></li>
+				<li><a class="navbar-item" href="">북마크</a></li>
+			</ul>
+
+
+	</nav>
+
+	</nav>
+
+
+	<div>
+
 		<div class = "container">
-			<h1>진행중인 프로젝트</h1>
-			
-			<div>진행중인 프로젝트가 없어요!<br />
-			프로젝트를 생성해보세요.</div>
+
+			<div class="mycard">
+				<div class="ingProg">진행중인 프로젝트</div>
+
+				<div class="noProg">
+                        <span>
+                            진행중인 프로젝트가 없어요!<br/>
+                            프로젝트를 생성해보세요.
+                        </span>
+				</div>
+
+				<div class="createBtn">
+					<a href="/project/makeproject" class="button is-info is-rounded">프로젝트 생성하기</a>
+				</div>
+
+
+			</div>
+
 		</div>
-		<a href="makeproject.html">프로젝트 생성하기</a>
+
 		<div class = "container">
-			<h1>지난 프로젝트</h1>
-			
-			<div>프로젝트가 없어요!<br />
-			프로젝트를 진행해보세요.</div>
+
+			<div class="mycard2">
+				<div class="ingProg">지난 프로젝트</div>
+
+				<div class="noProg">
+                        <span>
+                            프로젝트가 없어요!<br />
+                              프로젝트를 진행해보세요.
+                        </span>
+				</div>
+			</div>
 		</div>
 	</div>
+</div>
+
+<div class="modal modal-fx-fadeInScale">
+	<div class="modal-overlay"></div>
+	<div class="modal-content ">
+		<form  method="post" enctype="multipart/form-data">
+			<div class="form-control">
+				<label for="name">프로젝트 이름</label>
+				<input type="text"  placeholder="프로젝트 이름을 입력하세요">
+			</div>
+			<div class="form-control">
+				<label for="count">인원 (선택) </label>
+				<input type="number" min="1" max="30">
+			</div>
+			<div class="form-control">
+				<label for="introduce">소개</label>
+				<input type="text" id="message"  placeholder="소개를 입력해주세요" class="message">
+			</div>
+			<div class="form-control">
+				<button class="button is-primary is-light" type="submit" value="create project"> 프로젝트 만들기</button>
+			</div>
+		</form>
+		<button class="close">X</button>
+	</div>
+</div>
 
 
+<script>
+
+	const openBtn = document.getElementById("open");
+	const modal = document.querySelector(".modal");
+	const overlay =modal.querySelector(".modal-overlay");
+	const closeBtn = modal.querySelector(".close");
+	console.log(closeBtn);
+
+	const test = (e) => {
+		e.preventDefault();
+		modal.classList.toggle('is-active');
+	}
+
+	overlay.addEventListener("click",test);
+	closeBtn.addEventListener("click",test);
+	openBtn.addEventListener("click",test);
+
+</script>
+
+
+
+</div>
 </body>
-
-
-
 </html>
