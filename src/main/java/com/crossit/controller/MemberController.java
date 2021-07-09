@@ -14,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -67,49 +64,52 @@ public class MemberController {
 	}
 
 
-	@GetMapping("/admin/myLog")
-	public String post(@CurrentUser Member member, Model model) {
-		model.addAttribute(member);
+	@GetMapping("/admin/mylog/{nickname}")
+	public String post(@PathVariable String nickname, Model model, @CurrentUser Member member) {
+		Member byNickname = memberRepository.findByNickname(nickname);
+
+		if(nickname == null) {
+			throw new IllegalArgumentException(nickname + "에 해당하는 사용자가 없습니다.");
+		}
+
+		model.addAttribute(byNickname);
+		model.addAttribute("isOwner", byNickname.equals(member));
 		return "admin/myLog";
 	}
 
-	@PostMapping("/admin/myLog")
+	@PostMapping("/admin/mylog")
 	public String adminPage(Model model, Member member) {
 		model.addAttribute(member);
+		model.addAttribute("editStart", "true");
 		return "admin/myLog";
 	}
 
 	@GetMapping("/admin/edit")
-	public String edit(Model model, Member member, HttpSession session) {
+	public String edit(Model model, @CurrentUser Member member, HttpSession session) {
 
-		member = (Member) session.getAttribute("member");
-		model.addAttribute("member", member);
+		model.addAttribute( member);
 		return "admin/edit";
 	}
 
 	@GetMapping("/admin/modify")
-	public String edit(HttpServletRequest req, @ModelAttribute Member member, Model model, HttpSession session) {
-		member = (Member) session.getAttribute("member");
+	public String edit(@ModelAttribute Member member, Model model, HttpSession session) {
 		model.addAttribute("member", member);
-
 		return "admin/myLog";
 	}
 
 
 	@PostMapping("/admin/modify")
-	public String edit(HttpServletRequest req, @ModelAttribute Member member, HttpSession session, Model model) {
+	public String edit(@ModelAttribute Member member, HttpSession session, Model model) {
 
-		Member newMember = (Member) session.getAttribute("member");
 
-		newMember.setIntroduction(member.getIntroduction());
-		newMember.setLocation(member.getLocation());
-		newMember.setContact(member.getContact());
+		member.setIntroduction(member.getIntroduction());
+		member.setLocation(member.getLocation());
+		member.setContact(member.getContact());
 
-		memberService.memberUpdate(newMember);
+		memberService.memberUpdate(member);
 
-		model.addAttribute("member", newMember);
-		System.out.println("=======================================");
-		System.out.println(newMember.getIntroduction());
+		System.out.println(member.getNickname());
+		model.addAttribute(member);
 		return "admin/myLog";
 	}
 

@@ -20,7 +20,7 @@
 
     <div id="navbarBasicExample" class="navbar-menu" sec:authorize="isAuthenticated()">
       <div class="navbar-start">
-        <a class="navbar-item" href="/admin/myLog">
+        <a class="navbar-item" th:href="@{'admin/mylog/' + ${#authentication.name}}">
           My Log
         </a>
 
@@ -79,7 +79,6 @@
       </li>
 
     </ul>
-    </div>
   </nav>
 </header>
 
