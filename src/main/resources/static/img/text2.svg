@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1333" height="305" viewBox="0 0 1333 305">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.024" y1="0.5" x2="-0.05" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#d0f0e4"/>
+      <stop offset="0.399" stop-color="#d0f0e4"/>
+      <stop offset="0.734" stop-color="#d4f1e6" stop-opacity="0.596"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0.29"/>
+    </linearGradient>
+    <filter id="Cross_IT" x="150" y="191" width="356" height="114" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="6" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#1f1d1d" flood-opacity="0.243"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient-2" x1="0.916" y1="0.5" x2="0" y2="0.5" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#d0ebf0"/>
+      <stop offset="0.335" stop-color="#d0ebf0" stop-opacity="0.557"/>
+      <stop offset="0.571" stop-color="#cae4e9" stop-opacity="0.482"/>
+      <stop offset="0.729" stop-color="#c9e3e8" stop-opacity="0.424"/>
+      <stop offset="1" stop-color="#f4f6f7" stop-opacity="0.192"/>
+    </linearGradient>
+    <filter id="크리에이터들을_위한_팀빌딩_포트폴리오_관리_플랫폼_" x="145" y="39" width="1188" height="96" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="그룹_3" data-name="그룹 3" transform="translate(0 -348)">
+    <g id="그룹_2" data-name="그룹 2" transform="translate(0 23)">
+      <rect id="사각형_6" data-name="사각형 6" width="645" height="122" transform="translate(0 506)" fill="url(#linear-gradient)"/>
+      <path id="다각형_1" data-name="다각형 1" d="M61,0l61,85H0Z" transform="translate(560 628) rotate(-90)" fill="#f9fafb"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 0, 348)" filter="url(#Cross_IT)">
+      <text id="Cross_IT-2" data-name="Cross IT" transform="translate(154 194)" fill="#fff" font-size="80" font-family="AppleSDGothicNeo-Bold, Apple SD Gothic Neo" font-weight="700"><tspan x="0" y="72">Cross IT</tspan></text>
+    </g>
+    <g id="그룹_1" data-name="그룹 1">
+      <rect id="사각형_7" data-name="사각형 7" width="645" height="122" transform="translate(1225 470) rotate(180)" fill="url(#linear-gradient-2)"/>
+      <path id="다각형_2" data-name="다각형 2" d="M61,0l61,85H0Z" transform="translate(665 348) rotate(90)" fill="#f9fafb"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 0, 348)" filter="url(#크리에이터들을_위한_팀빌딩_포트폴리오_관리_플랫폼_)">
+      <text id="크리에이터들을_위한_팀빌딩_포트폴리오_관리_플랫폼_2" data-name="크리에이터들을 위한 팀빌딩, 포트폴리오 관리 플랫폼 " transform="translate(154 45)" fill="#504949" font-size="40" font-family="AppleSDGothicNeo-Light, Apple SD Gothic Neo" font-weight="300"><tspan x="0" y="36">크리에이터들을 위한 팀빌딩, 포트폴리오 관리 플랫폼 </tspan></text>
+    </g>
+  </g>
+</svg>

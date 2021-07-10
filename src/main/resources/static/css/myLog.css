@@ -1,0 +1,262 @@
+.user-profile{
+    display: flex;
+    padding: 2em 2em;
+    background-color: rgba(214, 214, 214, 0.164);
+    border-radius: 0.5em;
+    box-shadow: 5px 10px 20px rgba(153, 153, 153, 0.13);
+}
+
+.user-profile-text{
+    width: 100%;
+    border-radius: 2em;
+    margin-right: 2em;
+}
+
+.user-profile-text ul{
+
+    margin-top: 2em;
+}
+
+
+.user-avatar{
+    margin: 4em;
+}
+
+.title{
+    font-size: 1.5em;
+    color:var(--gray);
+    font-weight: 500;
+}
+
+.subtitle{
+    font-size: 1em;
+    font-weight: 300;
+    color:var(--grayLiter);
+    margin-bottom: .5em;
+}
+
+.content{
+    font-size: 1em;
+    font-weight: 400;
+    color:var(--grayLiter);
+    margin-top: .5em;
+    margin-bottom: .5em;
+
+}
+.smallText{
+    font-weight: 200;
+    font-size: .8em;
+    margin-top: .5em;
+}
+
+.smallText img:first-child{
+    margin-top: .5em;
+}
+.smallText li:nth-child(2){
+    margin-top: .5em;
+}
+
+
+.rounded{
+    border-radius: 70%;
+    overflow:hidden;
+}
+
+
+.log_btn{
+    display: flex;
+    margin-bottom: 1em;
+    cursor: pointer;
+}
+
+.log_btn button:nth-child(2){
+    margin-left: 2em;
+}
+
+.log_btn button{
+    margin-left: 1em;
+}
+
+
+
+
+.mini-icon{
+    width: 1em;
+    margin-right: 1em;
+
+}
+
+.align{
+
+    display: flex;
+}
+
+
+.btn {
+    -webkit-border-radius: 60;
+    -moz-border-radius: 60;
+    border-radius: 60px;
+    color: #737173;
+    background: #ffffff;
+    padding: 6px 20px 6px 20px;
+    border: solid #c7c7c7 1px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #f5f5f5;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.btn-edit{
+    -webkit-border-radius: 7;
+    -moz-border-radius: 7;
+    border-radius: 7px;
+    color: #4778c2;
+    font-size: .8em;
+    background: #EFF5FB;
+    border:  #c7c7c7 1px;
+    padding: 5px 10px 5px 10px;
+    text-decoration: none;
+    margin-top: 1em;
+    cursor: pointer;
+}
+
+.btn-edit:hover {
+    background: #f5f5f5;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*탭 */
+
+.tabs{
+    width: 100%;
+    margin-top: 2em;
+}
+.tabs ul{
+    width: 100%;
+}
+
+hr{
+    background-color: #73717388;
+    height: .001em;
+}
+
+.tagList{
+    margin-right: 7em;
+}
+
+
+.tagList p{
+    display: inline-block;
+}
+
+.contents{
+    display: flex;
+
+}
+
+.hero{
+    width: 100%;
+}
+
+.searchtags{
+    display: flex;
+    align-items: center;
+    flex-grow: 2;
+
+}
+.input-search{
+    padding: 9px;
+    border-width: 1px;
+    border-color: #cccccc;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-style: hidden;
+    border-radius: 5px;
+    box-shadow: 0px 0px 4px rgba(66,66,66,.25);
+    text-shadow: 0px 0px 5px rgba(66,66,66,.100);
+    cursor: pointer;
+
+}
+
+
+.css-input:focus {
+    outline:none;
+    border-color: #b9d2f3c4;
+    cursor: pointer;
+}
+
+.btn-write{
+    -webkit-border-radius: 7;
+    -moz-border-radius: 7;
+    border-radius: 7px;
+    color: #5e5e5e;
+    font-size: .8em;
+    background: #D0EBF0;
+    border:  #c7c7c7 1px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
+.btn-write:hover {
+    background: #f5f5f5;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.top{
+    display: flex;
+    margin-bottom: 3em;
+}
+
+.write{
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    align-items:center;
+}
+
+.hero-body{
+    max-height: 300vh;
+    max-width: 70vh;
+    padding:2em 2em;
+}
+
+
+
+.content-image {
+    height:0;
+    padding-bottom: 60%;
+    margin-top: 10px;
+    background-color: rgb(129, 129, 129);
+    background-image: url('/img/index.png');
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size:cover;
+}
+
+.content-image img{
+    display: none;
+}
+
+.card-desc{
+    border-bottom-color: #dbdbdb;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.tagLine{
+    border-bottom-color: #dbdbdb;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    width: 70%;
+    margin-bottom: 1.5em;
+}

@@ -1,0 +1,75 @@
+* {
+    font-family:BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto;
+
+    /*글씨 색상들*/
+    --gray:rgb(70, 66, 66);
+    --grayLiter:rgb(100, 99, 99);
+
+
+    /*글씨 색상들 / */
+}
+
+body {
+    background-color: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    line-height: 1.5;
+}
+
+
+.container{
+    min-height: 100vh;
+    min-width: 600px;
+    width: 90%;
+}
+
+.mini-icon{
+    width: 1em;
+    margin-right: 1em;
+}
+
+
+/*탭 스타일 */
+
+/* ----탭 --- */
+
+.tabs {
+    display: flex;
+    font-size: 1em;
+
+
+}
+
+.tabs ul{
+    display: flex;
+    align-items: center;
+    margin-left :2em;
+    border-bottom-color: #dbdbdb;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.tabs ul li{
+    margin-right: .5em;
+    cursor: pointer;
+}
+
+.tabs li.is-active a {
+    border-bottom-color: #485fc7;
+    color: #485fc7;
+    border-bottom-style: solid;
+}
+
+.tabs a{
+    display: flex;
+    border-bottom-width: 1px;
+    display: flex;
+    justify-content: center;
+
+    padding:.5em 1em;
+}
