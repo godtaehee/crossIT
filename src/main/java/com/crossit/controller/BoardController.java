@@ -71,7 +71,7 @@ public class BoardController extends UiUtils {
 
 	@GetMapping("/board/test")
 	@ResponseBody
-	public List<BoardDTO> getBoardList(@ModelAttribute("params") BoardDTO params) {
+	public List<BoardDTO> getBoardList() {
 		List<BoardDTO> boardList = boardService.getList();
 		return boardList;
 	}

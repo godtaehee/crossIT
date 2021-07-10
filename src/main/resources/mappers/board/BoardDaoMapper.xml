@@ -95,7 +95,7 @@
 		<include refid="CommonMapper.search" />
 	</select>
 
-	<select id ="getList" resultType="com.crossit.entity.Board">
+	<select id ="getList" resultType="com.crossit.domain.BoardDTO">
 		SELECT
 		<include refid="boardColumns" />
 		FROM

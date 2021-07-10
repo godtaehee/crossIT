@@ -5,7 +5,6 @@
 <head>
   <th:block th:include="layout/fragment/head :: head"></th:block>
   <link rel="stylesheet" href="/css/index.css">
-  <link rel="stylesheet" href="/css/card.css">
 </head>
 
 <body>
@@ -45,42 +44,40 @@
 
       <div class="tabs">
         <ul>
-          <li class="is-active"><a>자랑하기</a></li>
-          <li><a>Today I learn</a></li>
-          <li><a>프로젝트 같이해요</a></li>
-          <li><a>기타</a></li>
+          <li class="is-active"><input type="button" onclick="getBoardByCategory(0)" value="자랑하기" class="button is-ghost"></li>
+          <li> <input type="button" onclick="getBoardByCategory(1)" value="Today I learn" class="button is-ghost">
+          </li>
+          <li> <input type="button" onclick="getBoardByCategory(2)" value="프로젝트 같이해요" class="button is-ghost"></li>
+          <li> <input type="button" onclick="getBoardByCategory(3)" value="기타" class="button is-ghost"></li>
         </ul>
       </div>
     </div>
     <!-- 카테고리 영역 /-->
 
-    <!--글 영역 -->
     <ul class="card-list">
-      <li class="card-item">
+      <li class="card-item" th:if="${not #lists.isEmpty( boardList )}" th:each="board : ${boardList}">
         <figure class="card-image">
-          <img src="../img/index.png" alt="글 이미지">
+          <svg th:if="${#strings.isEmpty(board?.thumbnail)}" th:data-jdenticon-value="${board.title}"
+               width="150" height="150" class="jdenticon-svg"></svg>
+          <img th:if="${!#strings.isEmpty(board.thumbnail)}" th:src="@{'upload/' + ${board.insertTimeFormat} + '/' + ${board.thumbnail}}" class="thumbnail">
         </figure>
-
         <div class="card-desc">
           <div class="media-content">
-            <p class="title ">Lorem ipsum</p>
-            <div class="content ">
-              Lorem ipsum dolor sit amet consectetur adipisicing.
-              Lorem ipsum dolor sit amet consectetur adipisicing.
-              Lorem ipsum dolor sit amet consectetur adipisicing.
-              <p class="content date">2021년 6월 26일</p>
+            <a class="title is-6 mb-2" href="/board/view?id=${v.id}" th:text="${board.title}"></a>
+            <div class="content is-6 mb-3">
+              <div th:text="${board.content}"></div>
+              <p class="content is-size-7 date" th:text="${board.insertTime}"></p>
               <hr class="line">
             </div>
             <div class="writer">
-              <figure class="profile-image">
+              <figure class="image is-32x32 mr-2">
                 <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
               </figure>
-              <p class="nickname">John Smith</p>
+              <p class="title is-7" th:text="${board.writer}"></p>
             </div>
           </div>
         </div>
       </li>
-
     </ul>
     <!--글 영역 / -->
 
@@ -95,9 +92,90 @@
 
 <script>
 
+
+
+  on(window, 'DOMContentLoaded', () => {
+    const cardImage = qsAll('.card-image');
+    const width = cardImage[0].offsetWidth;
+    const height = cardImage[0].offsetHeight;
+
+    console.log(cardImage);
+
+    for(const card of cardImage) {
+      const jdenticonSvg = qs('.jdenticon-svg', card);
+      if(jdenticonSvg){
+        jdenticonSvg.style.width = `${width}`;
+        jdenticonSvg.style.height = `${height}`;
+      }
+    }
+  });
+
+
+
 const dropDown = qs('.dropdown');
 
 on(dropDown, 'click', () => qs('.dropdown-menu').classList.toggle('is-active'));
+
+on(window, 'resize', () => {
+  const cardImage = qsAll('.card-image');
+  const width = cardImage[0].offsetWidth;
+  const height = cardImage[0].offsetHeight;
+
+  for(const card of cardImage) {
+    const jdenticonSvg = qs('.jdenticon-svg', card);
+    if(jdenticonSvg){
+      jdenticonSvg.style.width = `${width}`;
+      jdenticonSvg.style.height = `${height}`;
+    }
+  }
+});
+
+
+
+function getBoardByCategory(category) {
+  const test = new XMLHttpRequest();
+  test.open('GET', 'http://localhost:8080/board/test');
+  test.addEventListener('load', () => {
+    const result = JSON.parse(test.response);
+    const cardList = document.querySelector('.card-list');
+    cardList.innerHTML = '';
+
+
+    const go = result.filter(v => v.category === category);
+
+    let str = '';
+
+    go.forEach(v => {
+      str += `
+      <li class="card-item">
+        <figure class="card-image">
+          <img src="../img/index.png" alt="글 이미지">
+        </figure>
+        <div class="card-desc">
+          <div class="media-content">
+            <a class="title is-6 mb-2" href="/board/view?id=${v.id}">${v.title}</a>
+            <div class="content is-6 mb-3">
+            ${v.content}
+              <p class="content is-size-7 date">${v.insertTime}</p>
+              <hr class="line">
+            </div>
+            <div class="writer">
+              <figure class="image is-32x32 mr-2">
+                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+              </figure>
+              <p class="title is-7">${v.wirter}</p>
+            </div>
+          </div>
+        </div>
+      </li>`
+    })
+
+
+    cardList.innerHTML = str;
+  })
+  test.send();
+
+}
 
 </script>
 </body>

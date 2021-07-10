@@ -1,22 +1,20 @@
 package com.crossit.util;
 
 
+import com.crossit.domain.FileDTO;
+import com.crossit.exception.AttachFileException;
+import org.apache.commons.io.FilenameUtils;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
-import org.apache.commons.io.FilenameUtils;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.crossit.domain.FileDTO;
-import com.crossit.exception.AttachFileException;
 
 @Component
 public class FileUtils {
@@ -25,7 +23,7 @@ public class FileUtils {
 	private final String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
 
 	/** 업로드 경로 */
-	private final String uploadPath = Paths.get("Users", "imone", "upload", today).toString();
+	private final String uploadPath = Paths.get("src", "main", "resources", "static", "upload", today).toString();
 
 	/**
 	 * 서버에 생성할 파일명을 처리할 랜덤 문자열 반환

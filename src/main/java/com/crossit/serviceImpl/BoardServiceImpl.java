@@ -28,7 +28,6 @@ public class BoardServiceImpl implements BoardService {
 	private FileUtils fileUtils;
 
 
-
 	@Override
 	public boolean registerBoard(BoardDTO params) {
 
@@ -122,7 +121,19 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<BoardDTO> getList() {
-		List<BoardDTO> list =boardDao.getList();
+		List<BoardDTO> list = boardDao.getList();
+
+		for (BoardDTO board : list) {
+			List<FileDTO> fileList = getAttachFileList(board.getId());
+
+
+			if (fileList.size() > 0) {
+				String timeFormat = String.join("",board.getInsertTime().toString().substring(2,10).split("-"));
+				board.setThumbnail(fileList.get(0).getSaveName());
+				board.setInsertTimeFormat(timeFormat);
+			}
+
+		}
 
 		return list;
 	}

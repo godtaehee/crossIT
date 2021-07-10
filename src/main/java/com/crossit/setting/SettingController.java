@@ -37,8 +37,6 @@ public class SettingController {
 	public String updateProfile(@CurrentUser Member member, @Valid Profile profile, Errors errors,
 								Model model, RedirectAttributes redirectAttributes) {
 		if(errors.hasErrors()) {
-			System.out.println("오류님");
-			System.out.println(errors.getAllErrors());
 			model.addAttribute(member);
 			return SETTINGS_PROFILE_VIEW_NAME;
 		}

@@ -108,7 +108,6 @@ public class MemberController {
 
 		memberService.memberUpdate(member);
 
-		System.out.println(member.getNickname());
 		model.addAttribute(member);
 		return "admin/myLog";
 	}
