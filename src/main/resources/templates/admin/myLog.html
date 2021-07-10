@@ -2,136 +2,97 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
 <head>
-
   <th:block th:include="layout/fragment/head :: head"></th:block>
-
-  <style>
-
-    .modal-overlay {
-      background-color: rgba(90, 90, 90, 0.082);
-      width: 100%;
-      height: 100%;
-      position: absolute;
-    }
-
-    .modal-content {
-      background-color: rgb(255, 255, 255);
-      text-align: center;
-      box-shadow: 0 10px 20px rgba(131, 131, 131, 0.068), 0 6px 6px rgba(128, 128, 128, 0.089);
-      position: relative;
-      width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 50px;
-      min-height: 70vh;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .message {
-      height: 150px;
-    }
-
-    .log_btn {
-      display: flex;
-    }
-
-    .log_btn button:nth-child(2) {
-      margin-left: 30px;
-    }
-
-    .log_btn button {
-      margin-left: 10px;
-    }
-
-    .profile {
-      display: flex;
-    }
-
-    .introduction {
-      margin-left: 15px;
-    }
-
-    .profile-btn {
-      margin-left: auto;
-    }
-
-    .profile-location {
-      display: flex;
-    }
-
-    .user-name,
-    .profile-phone {
-      display: flex;
-    }
-
-    .title {
-      margin-right: 10px;
-    }
-
-
-
-
-  </style>
 </head>
+
+<style>
+
+  /*util*/
+
+  .flex {
+    display: flex;
+  }
+
+  .button {
+    padding: 0.5em 1em;
+    border: #dbdbdb 1px solid;
+  }
+
+  .button.basic {
+    /*background-color: #28a745;*/
+  }
+
+  .user-profile {
+    height: 12em;
+  }
+
+  .introduction {
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .user-name {
+    display: flex;
+  }
+
+  .nickname {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+
+</style>
 
 <body>
 
+<div class="container">
 
-<div class="card-list-con container">
-
-  <!-- 헤더-->
   <header th:replace="layout/fragment/header :: header"></header>
 
-  <div th:if="${message != null}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+  <div th:if="${message != null}" class="" role="alert">
     <span th:text="${message}">메시지</span>
     <button type="button" class="close" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <!-- 유저 자신의 프로필일때-->
-  <div class="user-profile">
-
-    <form th:action="@{/admin/myLog}" th:object="${member}" method="post">
-      <div class="profile">
-        <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
-             width="120" height="120" class="rounded border bg-light"></svg>
-        <img th:if="${!#strings.isEmpty(member.profileImage)}" class="img-fluid float-left rounded img-thumbnail"
-             th:src="${member.profileImage}"
-             width="125" height="125"/>
-        <div class="introduction">
-          <div class="user-name">
-            <div class="title is-4 is spaced" id="nick" th:text="*{nickname}">Minchocho</div>
-            <a class="button is-info is-light is-inverted is-small edit-btn" th:if="${isOwner}" th:href="@{/settings/profile}">프로필 수정</a>
-          </div>
-          <div class="subtitle is-6 mb-2" th:text="*{introduction}?: '소개글이 없습니다.'"></div>
-          <div class="profile-location">
-            <i class="fas fa-map-marker-alt mr-2"></i>
-            <div class="is-size-7 mb-1 " th:text="*{location}?: '사시는 지역을 설정해주세요.'">korea</div>
-          </div>
-          <div class="profile-phone">
-            <i class="fas fa-phone-alt mr-1"></i>
-            <div class="is-size-7" th:text="*{contact}?: '연락처를 설정해 주세요.'">
-              Contact : oowwo@gmail.com
-            </div>
-          </div>
-          <p th:if="${isOwner || member.emailVerified}">
-            <span><i class="fa fa-calendar-o"></i></span>
-            <span th:if="${isOwner && !member.emailVerified}">
-              <a href="#" th:href="@{'/checkemail?email=' + ${member.email}}" class="is-size-7">가입을 완료하려면 이메일을 확인하세요.</a>
-            </span>
-            <span th:text="${#temporals.format(member.joinedAt, 'yyyy년 M월 가입')}"></span>
-          </p>
-        </div>
-
-        <div class="profile-btn">
-          <button class="button is-rounded is-small" id="open">팀원신청</button>
-          <button class="button is-rounded is-small">follow</button>
+  <div class="user-profile flex">
+    <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
+         width="150" height="150"></svg>
+    <img th:if="${!#strings.isEmpty(member.profileImage)}" class=""
+         th:src="${member.profileImage}"
+         width="150" height="150"/>
+    <div class="introduction flex">
+      <div class="user-name flex">
+        <div class="nickname" th:text="${member.nickname}">Minchocho</div>
+        <a class="button basic" th:if="${isOwner}"
+           th:href="@{/settings/profile}">프로필 수정</a>
+      </div>
+      <div class="subtitle is-6 mb-2" th:text="${member.introduction}?: '소개글이 없습니다.'"></div>
+      <div class="profile-location">
+        <i class="fas fa-map-marker-alt mr-2"></i>
+        <div class="is-size-7 mb-1 " th:text="${member.location}?: '사시는 지역을 설정해주세요.'">korea</div>
+      </div>
+      <div class="profile-phone">
+        <i class="fas fa-phone-alt mr-1"></i>
+        <div class="is-size-7" th:text="${member.contact}?: '연락처를 설정해 주세요.'">
+          Contact : oowwo@gmail.com
         </div>
       </div>
+      <p th:if="${isOwner || member.emailVerified}">
+        <span><i class="fa fa-calendar-o"></i></span>
+        <span th:if="${isOwner && !member.emailVerified}">
+              <a href="#" th:href="@{'/checkemail?email=' + ${member.email}}"
+                 class="is-size-7">가입을 완료하려면 이메일을 확인하세요.</a>
+            </span>
+        <span th:text="${#temporals.format(member.joinedAt, 'yyyy년 M월 가입')}"></span>
+      </p>
+    </div>
 
+    <div class="profile-btn">
+      <button class="button is-rounded is-small" id="open">팀원신청</button>
+      <button class="button is-rounded is-small">follow</button>
+    </div>
     </form>
   </div>
 
@@ -232,7 +193,6 @@
     <button class="close">X</button>
   </div>
 </div>
-
 
 
 <script>
