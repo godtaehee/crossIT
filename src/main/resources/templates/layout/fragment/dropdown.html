@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<script type="application/javascript" th:fragment="dropDown">
+  const dropDown = qs('.dropdown');
+  on(dropDown, 'click', () => qs('.dropdown-menu').classList.toggle('is-active-dropdown'));
+</script>
+
+</html>

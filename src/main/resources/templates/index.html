@@ -90,16 +90,15 @@
 
 
 
-<script>
+<script th:replace="layout/fragment/dropdown :: dropDown"></script>
 
+<script>
 
 
   on(window, 'DOMContentLoaded', () => {
     const cardImage = qsAll('.card-image');
     const width = cardImage[0].offsetWidth;
     const height = cardImage[0].offsetHeight;
-
-    console.log(cardImage);
 
     for(const card of cardImage) {
       const jdenticonSvg = qs('.jdenticon-svg', card);
@@ -112,9 +111,6 @@
 
 
 
-const dropDown = qs('.dropdown');
-
-on(dropDown, 'click', () => qs('.dropdown-menu').classList.toggle('is-active'));
 
 on(window, 'resize', () => {
   const cardImage = qsAll('.card-image');

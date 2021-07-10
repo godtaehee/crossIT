@@ -1,0 +1,87 @@
+.navbar{
+    min-height: 3em;
+    align-items: center;
+    display: flex;
+    z-index: 30;
+    margin:1em;
+    font-size: 1em;
+    font-weight: 300;
+    --gray:rgb(70, 66, 66);
+    --grayLiter:rgb(100, 99, 99);
+    color:var(--gray);
+
+}
+
+.nav-start{
+    display: flex;
+    width:70%;
+
+}
+
+
+.nav-end{
+    justify-content: flex-end;
+    margin-left: auto;
+    display: flex;
+    align-items: stretch;
+
+}
+
+
+.navbar-item{
+    margin:  1.4em;
+    align-items: center;
+    display: flex;
+    flex-grow:0;
+    flex-shrink:0;
+
+}
+
+.navbar-end {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 6em;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border-radius: .375em;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    right: 0;
+    width: 10em;
+}
+
+.dropdown-header {
+    padding: .5rem 1rem;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.dropdown-item {
+    padding: .375rem 1rem;
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+
+.dropdown-item:hover {
+    cursor:pointer;
+    background-color: #f5f5f5;
+    color: #0a0a0a;
+}
+
+button.dropdown-item {
+    border:0;
+    color: black;
+    background-color: transparent;
+    width: 100%;
+}
