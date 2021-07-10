@@ -72,12 +72,7 @@ public class MemberController {
 			throw new IllegalArgumentException(nickname + "에 해당하는 사용자가 없습니다.");
 		}
 
-		System.out.println("시작 ㅉㄸㄲㄹㅁㅉㄸㄹㅁㄸㄹ");
-		System.out.println(byNickname.getNickname());
-		System.out.println(byNickname.getIntroduction());
-		System.out.println(byNickname.getContact());
 		model.addAttribute(byNickname);
-
 		model.addAttribute("isOwner", byNickname.equals(member));
 		return "admin/myLog";
 	}

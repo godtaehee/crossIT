@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -31,14 +32,18 @@ public class SettingController {
 	}
 
 	@PostMapping(SETTINGS_PROFILE_URL)
-	public String updateProfile(@CurrentUser Member member, @Valid Profile profile, Errors errors, Model model) {
-
+	public String updateProfile(@CurrentUser Member member, @Valid Profile profile, Errors errors,
+								Model model, RedirectAttributes redirectAttributes) {
 		if(errors.hasErrors()) {
+			System.out.println("오류님");
+			System.out.println(errors.getAllErrors());
 			model.addAttribute(member);
 			return SETTINGS_PROFILE_VIEW_NAME;
 		}
 
+
 		memberService.updateProfile(member, profile);
+		redirectAttributes.addFlashAttribute("message", "프로필을 수정했습니다.");
 
 		return "redirect:/admin/mylog/" + member.getNickname();
 

@@ -85,16 +85,26 @@
   <!-- 헤더-->
   <header th:replace="layout/fragment/header :: header"></header>
 
+  <div th:if="${message != null}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+    <span th:text="${message}">메시지</span>
+    <button type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
   <!-- 유저 자신의 프로필일때-->
   <div class="user-profile">
+
     <form th:action="@{/admin/myLog}" th:object="${member}" method="post">
       <div class="profile">
         <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
              width="120" height="120" class="rounded border bg-light"></svg>
+        <img th:if="${!#strings.isEmpty(member.profileImage)}" class="img-fluid float-left rounded img-thumbnail"
+             th:src="${member.profileImage}"
+             width="125" height="125"/>
         <div class="introduction">
           <div class="user-name">
             <div class="title is-4 is spaced" id="nick" th:text="*{nickname}">Minchocho</div>
-            <a class="button is-info is-light is-inverted is-small edit-btn" th:href="@{/settings/profile}">프로필 수정</a>
+            <a class="button is-info is-light is-inverted is-small edit-btn" th:if="${isOwner}" th:href="@{/settings/profile}">프로필 수정</a>
           </div>
           <div class="subtitle is-6 mb-2" th:text="*{introduction}?: '소개글이 없습니다.'"></div>
           <div class="profile-location">
@@ -222,6 +232,8 @@
     <button class="close">X</button>
   </div>
 </div>
+
+
 
 <script>
 
