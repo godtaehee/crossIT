@@ -1,0 +1,352 @@
+* {
+    font-family:BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto;
+  
+}
+
+body {
+    background-color: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+
+.container{
+    min-height: 100vh;
+    min-width: 600px;
+    width: 90%;
+}
+
+.navbar{
+    min-height: 3em;
+    align-items: center;
+    display: flex;
+    z-index: 30;
+    margin:1em;
+    font-size: 1em;   
+    font-weight: 300;
+    --gray:rgb(70, 66, 66);
+    --grayLiter:rgb(100, 99, 99);
+    color:var(--gray);
+
+}
+
+.nav-start{
+    display: flex;
+    width:70%;
+    
+}
+
+
+.nav-end{
+    justify-content: flex-end;
+    margin-left: auto;
+    display: flex;
+    align-items: stretch;
+   
+}
+
+
+.navbar-item{
+    margin:  1.4em;
+    align-items: center;
+    display: flex;
+    flex-grow:0;
+    flex-shrink:0;
+   
+}
+
+
+.btn-normal {
+    -webkit-border-radius: 6;
+    -moz-border-radius: 6;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 1em;   
+    background: #60dbb2;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+  }
+
+
+  
+  .btn-normal:hover {
+    background: #75d1b2;
+    text-decoration: none;
+  }
+
+
+  .btn-gray {
+    -webkit-border-radius: 6;
+    -moz-border-radius: 6;
+    border-radius: 6px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 1em;  
+    background: #dfe3e2;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    color:var(--grayLiter);
+  }
+  
+  .btn-gray:hover {
+    background: #d6d9d8;
+    text-decoration: none;
+  }
+
+  .nav-buttons a:first-child{
+    
+      margin-right: 0.5em;
+  }
+
+  .jumbo{
+      height: 25em;
+      max-width: 50%;
+  }
+
+  .index-img{
+      display: flex;
+      justify-content: center;
+  }
+
+  .index-img img:first-child{
+    margin-left: 5em;
+    flex-grow: 1;
+    
+  }
+
+  .index-img img:last-child{
+    flex-grow: 2;
+  }
+
+
+
+.contents{
+    margin:2em;
+}
+
+
+/*---------- 카테고리 ----------*/
+
+.category{
+    display: flex;
+    font-weight: 300;
+    margin-bottom: 2em;
+}
+
+
+
+/* 드롭다운 메뉴 */
+
+      /* Style The Dropdown Button */
+      .dropbtn {
+        -webkit-border-radius: 6;
+        -moz-border-radius: 6;
+        border-radius: 6px;
+        color: #737173;
+        font-size: 1em;
+        background: #ffffff;
+        padding: 10px 20px 10px 20px;
+        border: solid #c7c7c7 1px;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      
+
+      /* The container <div> - needed to position the dropdown content */
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      
+      /* Dropdown Content (Hidden by Default) */
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+      
+      /* Links inside the dropdown */
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      
+      /* Change color of dropdown links on hover */
+      .dropdown-content a:hover {background-color: #485fc767}
+      
+      /* Show the dropdown menu on hover */
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      
+      /* Change the background color of the dropdown button when the dropdown content is shown */
+      .dropdown:hover .dropbtn {
+        background: #e3e3e381;
+    text-decoration: none;
+      }
+
+/* ----드롭다운 메뉴 / ---- */
+
+
+/* ----탭 --- */
+
+.tabs {
+    display: flex;
+    font-size: 1em;   
+
+}
+
+.tabs ul{
+    display: flex;
+    align-items: center;
+    margin-left :2em;
+    border-bottom-color: #dbdbdb;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.tabs ul li{
+    margin-right: .5em;
+}
+
+.tabs li.is-active a {
+    border-bottom-color: #485fc7;
+    color: #485fc7;
+    border-bottom-style: solid;
+}
+
+.tabs a{
+    display: flex;
+    border-bottom-width: 1px;
+    display: flex;
+    justify-content: center;
+   
+    padding:.5em 1em;
+}
+
+
+/*카드  부분 CSS */
+
+
+.card-list-con{
+    width: 90%;
+   
+}
+
+.card-list{
+    display: flex;
+    align-items: center;
+  
+}
+
+
+.card-item{
+    
+  /* margin-bottom: 2rem;     */
+  border-radius: 1em;
+
+  margin:0 0 2em 1em;
+
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 5em -1em rgba(112, 111, 111, 0.411);
+  position: relative;
+  --border: 1px solid rgba(204, 204, 204, 0.356);
+  text-decoration: none;
+}
+
+
+.card-image {
+    height:0;
+    padding-bottom: 60%;
+    margin-top: 10px;
+    border-radius: 1em;
+    background-color: rgb(129, 129, 129);
+    background-image: url('/img/index.png');
+    background-repeat: no-repeat;
+    background-position:center;
+    background-size:cover;
+ }
+
+
+.card-image img{
+   display: none;
+}
+
+.card-desc{
+    flex: 1 1 auto;
+    padding : 1em;
+    /* background:rgb(255, 237, 237); */
+
+}
+
+.card-desc .line{
+    height:1px;
+    background-color: rgba(141, 141, 141, 0.432);
+    border: none;
+    margin-top: .5em;
+    margin-bottom: .5em;
+    
+   
+}
+
+.date{
+    color: rgb(105, 105, 105);
+   padding-top: 7px;
+
+}
+
+.writer{
+    display: flex;
+}
+
+.nickname{
+    display: flex;
+    align-items: center;
+}
+
+
+.profile-image{
+    width: 3em;
+    height:3em;
+    border-radius: 70%;
+    overflow:hidden;
+    margin-right: 1em;
+}
+
+@media (min-width: 600px){
+    .card-list-con{
+        --overflow-x:hidden ;
+    }
+    .card-list{
+        display: flex;
+        flex-wrap:wrap;
+        margin:0 -1rem;
+       
+    }
+
+    .card-item{
+        width: 50%;
+        padding: 0 1rem;
+
+    }
+}
+
+@media (min-width:1200px){
+    .card-item{
+       width:20%;
+       
+    }
+
+}
