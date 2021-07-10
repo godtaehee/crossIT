@@ -1,62 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="stylesheet" href="/newCss/index.css">
-  <link rel="stylesheet" href="/css/reset.css">
+  <th:block th:include="layout/fragment/head :: head"></th:block>
+  <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/css/card.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-  <title>CrossIt</title>
 </head>
+
 <body>
 
 <div class="container">
 
   <!--헤더 영역-->
-  <header class="navbar">
-
-    <div class="nav-start">
-      <a class="navbar-item" href="">
-        <img src="/img/title.png" width="112" height="30" >
-      </a>
-
-
-      <a class="navbar-item">
-        My Log
-      </a>
-
-      <a class="navbar-item">
-        Project
-      </a>
-
-      <a class="navbar-item">
-        Dashboard
-      </a>
-    </div>
-
-
-    <div class="nav-end">
-      <div class="nav-buttons">
-        <a class="btn-normal">
-          <Strong>Sign up</Strong>
-        </a>
-
-        <a class="btn-gray">
-          <Strong>Log in</Strong>
-        </a>
-      </div>
-    </div>
-
-  </header>
-
-  <!--헤더 영역 /-->
-
+  <header th:replace="layout/fragment/header :: header"></header>
 
   <!-- 중간 이미지영역 -->
   <section class="index-img">
-
     <img class="jumbo" src="/img/text2.svg">
     <img class="jumbo" src="/img/7 SCENE.svg">
   </section>
@@ -71,8 +31,8 @@
       <div class="dropdown">
         <button class="dropbtn"> 전체글 보기
           <span class="icon is-small">
-                            <i class="fas fa-angle-down"></i>
-                        </span>
+            <i class="fas fa-angle-down"></i>
+          </span>
         </button>
 
         <div class="dropdown-content">
@@ -90,7 +50,6 @@
           <li><a>프로젝트 같이해요</a></li>
           <li><a>기타</a></li>
         </ul>
-
       </div>
     </div>
     <!-- 카테고리 영역 /-->
@@ -130,7 +89,16 @@
   <!-- 콘텐츠 영역 /-->
 
 
-
 </div>
+
+
+
+<script>
+
+const dropDown = qs('.dropdown');
+
+on(dropDown, 'click', () => qs('.dropdown-menu').classList.toggle('is-active'));
+
+</script>
 </body>
 </html>

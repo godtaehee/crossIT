@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<script type="application/javascript" th:fragment="helper">
+
+  // querySelector
+  function qs(selector, scope = document) {
+    if (!selector) throw "no selector";
+
+    return scope.querySelector(selector);
+  }
+
+  // querySelectorAll
+  function qsAll(selector, scope = document) {
+    if (!selector) throw "no selector";
+
+    return Array.from(scope.querySelectorAll(selector));
+  }
+
+  // addEventListener
+  function on(target, eventName, handler) {
+    target.addEventListener(eventName, handler);
+  }
+</script>
+
+</html>

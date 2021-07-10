@@ -3,83 +3,70 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<header th:fragment="header">
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
+<header class="navbar">
 
-      <a class="navbar-item" href="/">
-        <img src="/img/title.png" width="112" height="28">
+  <a class="navbar-item" href="/">
+    <img src="/img/title.png" width="112" height="30">
+  </a>
+
+  <div class="nav-start" sec:authorize="isAuthenticated()">
+
+    <a class="navbar-item" th:href="@{'admin/mylog/' + ${#authentication.name}}">
+      My Log
+    </a>
+
+    <a class="navbar-item">
+      Project
+    </a>
+
+    <a class="navbar-item" href="/project/index">
+      Dashboard
+    </a>
+  </div>
+
+  <div class="nav-end" sec:authorize="isAnonymous()">
+    <div class="nav-buttons">
+      <a class="btn-normal" th:href="@{/register}">
+        <Strong>Sign up</Strong>
       </a>
 
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
+      <a class="btn-gray" th:href="@{/login}">
+        <Strong>Log in</Strong>
       </a>
     </div>
+  </div>
 
-    <div id="navbarBasicExample" class="navbar-menu" sec:authorize="isAuthenticated()">
-      <div class="navbar-start">
-        <a class="navbar-item" th:href="@{'admin/mylog/' + ${#authentication.name}}">
-          My Log
-        </a>
+  <ul class="navbar-end" sec:authorize="isAuthenticated()">
 
-        <a class="navbar-item">
-          Project
-        </a>
+    <li>
+      <a href="" th:href="@{/notification}">
+        <i class="fa fa-bell-o fa-lg" aria-hidden="true"></i>
+      </a>
+    </li>
 
-        <a class="navbar-item" href="/project/index">
-          대시보드
-        </a>
-      </div>
-    </div>
-
-    <div sec:authorize="isAnonymous()" class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary" href="/register">
-            <strong>Sign up</strong>
-          </a>
-          <a class="button is-light" href="/login">
-            Log in
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <ul class="navbar-end" sec:authorize="isAuthenticated()">
-
-      <li class="image is-48x48 alarm" style='margin-top: 10px'>
-        <a href="" th:href="@{/notification}">
-          <i class="fa fa-bell-o" aria-hidden="true"></i>
-        </a>
-      </li>
-
-
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
-          <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
-               width="24" height="24" class="rounded border bg-light"></svg>
-          <img th:if="${!#strings.isEmpty(member?.profileImage)}" th:src="${member.profileImage}"
-               width="24" height="24" class="rounded border"/>
-        </a>
-        <div class="dropdown-menu dropdown-menu-sm-right" aria-labelledby="userDropdown">
-          <h6 class="dropdown-header">
-            <span sec:authentication="name">Username</span>
-          </h6>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button">
+        <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
+             width="40" height="40"></svg>
+        <img th:if="${!#strings.isEmpty(member?.profileImage)}" th:src="${member.profileImage}"
+             width="40" height="40"/>
+      </a>
+      <div class="dropdown-menu">
+        <h6 class="dropdown-header">
+          <span sec:authentication="name">Username</span>
+        </h6>
+        <div class="dropdown-items">
           <a class="dropdown-item" th:href="@{'/profile/' + ${#authentication.name}}">프로필</a>
           <a class="dropdown-item">프로젝트</a>
-          <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" th:href="@{'/settings/profile'}">설정</a>
-          <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/logout}" method="post">
+          <form action="#" th:action="@{/logout}" method="post">
             <button class="dropdown-item" type="submit">로그아웃</button>
           </form>
         </div>
-      </li>
+      </div>
+    </li>
+  </ul>
 
-    </ul>
-  </nav>
 </header>
 
 </html>
