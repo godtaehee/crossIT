@@ -18,10 +18,12 @@ import javax.validation.Valid;
 public class SettingController {
 
 	private static final String SETTINGS_PROFILE_VIEW_NAME = "settings/profile";
-
 	private static final String SETTINGS_PROFILE_URL = "/settings/profile";
-	private final MemberService memberService;
 
+	private static final String SETTINGS_PASSWORD_VIEW_NAME = "settings/password";
+	private static final String SETTINGS_PASSWORD_URL = "/settings/password";
+
+	private final MemberService memberService;
 
 	@GetMapping(SETTINGS_PROFILE_URL)
 	public String profileUpdatedForm(@CurrentUser Member member, Model model) {
@@ -47,8 +49,9 @@ public class SettingController {
 
 		return "redirect:/admin/mylog/" + member.getNickname();
 
-
-
 	}
+
+//	@GetMapping(SETTINGS_PROFILE_URL)
+//	public String passwordUpdateForm(@CurrentUser Member member, )
 
 }
