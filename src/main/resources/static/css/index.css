@@ -90,6 +90,15 @@
 }
 
 .title {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.2;
+    height: 1.2em;
+    text-align: left;
+    word-wrap: break-word;
+    display: -webkit-box;
     font-size: 1.5em;
     font-weight: bold;
 }
