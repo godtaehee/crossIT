@@ -46,6 +46,7 @@
 
       <div class="tabs">
         <ul>
+          <li><input type="button" class="tabs-btn-index" onclick="getBoardByCategory()" value="전체 글"></li>
           <li class="is-active"><input type="button" class="tabs-btn-index" onclick="getBoardByCategory(0)" value="자랑하기"></li>
           <li> <input type="button" class="tabs-btn-index" onclick="getBoardByCategory(1)" value="Today I learn">
           </li>
@@ -133,7 +134,9 @@ on(window, 'resize', () => {
 
 
 
-function getBoardByCategory(category) {
+function getBoardByCategory(category = -1) {
+  let go;
+  let str = '';
   const test = new XMLHttpRequest();
   test.open('GET', 'http://localhost:8080/board/category');
   test.addEventListener('load', () => {
@@ -141,12 +144,7 @@ function getBoardByCategory(category) {
     const cardList = document.querySelector('.card-list');
     cardList.innerHTML = '';
 
-    console.log(result);
-
-
-    const go = result.filter(v => v.category === category);
-
-    let str = '';
+    category !== -1 ? go = result.filter(v => v.category === category) : go = result;
 
     go.forEach(v => {
       str += `
@@ -206,10 +204,9 @@ function getBoardByCategory(category) {
 
 }
 
-
   function getBoardByJob(job) {
     const test = new XMLHttpRequest();
-    test.open('GET', 'http://localhost:8080/board/category');
+    test.open('GET', 'http://localhost:8080/board/job');
     test.addEventListener('load', () => {
       const result = JSON.parse(test.response);
       const cardList = document.querySelector('.card-list');

@@ -38,7 +38,6 @@ public class SettingController {
 								Model model, RedirectAttributes redirectAttributes) {
 		if(errors.hasErrors()) {
 			model.addAttribute(member);
-			System.out.println("test");
 			return SETTINGS_PROFILE_VIEW_NAME;
 		}
 

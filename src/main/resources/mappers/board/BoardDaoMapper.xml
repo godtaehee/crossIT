@@ -118,7 +118,7 @@
 		b.update_time,
 		b.delete_time,
 		b.category,
-		m.role
+		m.job
 		FROM board as b
 		left join
 		member as m

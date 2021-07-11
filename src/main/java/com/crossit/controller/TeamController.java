@@ -1,26 +1,30 @@
 package com.crossit.controller;
 
 
+import com.crossit.annotation.CurrentUser;
 import com.crossit.entity.Member;
+import com.crossit.entity.Team;
+import com.crossit.repository.TeamRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class TeamController {
 
+	private final TeamRepository teamRepository;
 
-//    @PostMapping("/admin/sendTeam")
-//    public String sendTeamModal(Model model, Member member){
-//
-//        //히든으로 유저 id 받아서
-//         Member sendMember = memberService.findMemberByNickName(member.id);
-//         Member receiveMember = memberService.
-//
-//
-//        model.addAttribute("member",member);
-//        return "";
-//    }
+	@PostMapping("/request-team")
+	public String requestTeam(@CurrentUser Member member, Team team) {
+
+		team.setRequestor(member.getNickname());
+		teamRepository.save(team);
+
+		return "redirect:/";
+	}
+
+
+
 
 }

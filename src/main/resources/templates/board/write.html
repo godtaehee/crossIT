@@ -1,153 +1,224 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <th:block th:include="layout/fragment/head :: head"></th:block>
   <link rel="stylesheet" href="/css/index.css">
-  <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/myLog.css">
-  <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/css/write.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CrossIt</title>
 </head>
+
 <body>
 
 <!--컨테이너 영역-->
 <div class="container">
 
-  <th:block layout:fragment="content">
+  <!--헤더 영역 /-->
 
-    <!--헤더 영역-->
-    <header class="navbar">
-
-      <div class="nav-start">
-        <a class="navbar-item" href="">
-          <img src="/img/title.png" width="112" height="30" >
-        </a>
+  <header th:replace="layout/fragment/header :: header"></header>
 
 
-        <a class="navbar-item">
-          My Log
-        </a>
-
-        <a class="navbar-item">
-          Project
-        </a>
-
-        <a class="navbar-item">
-          Dashboard
-        </a>
-      </div>
-
-
-      <div class="nav-end">
-        <div class="nav-buttons">
-          <a class="btn-normal">
-            <Strong>Sign up</Strong>
-          </a>
-
-          <a class="btn-gray">
-            <Strong>Log in</Strong>
-          </a>
-        </div>
-      </div>
-
-    </header>
-    <!--헤더 영역 /-->
-
+  <form class="form-horizontal" th:action="@{/board/register}" th:object="${board}" method="post"
+        enctype="multipart/form-data" onsubmit="return registerBoard(this)">
+    <input type="hidden" th:if="*{id != null and id > 0}" th:field="*{id}"/>
+    <input type="hidden" th:field="*{writer}"/>
+    <input type="hidden" th:field="*{changeYn}" value="N"/>
     <div class="category-content">
-      <form>
-        <div class="category">
-
-          <div class="category-seclect">
-            <label>카테고리</label>
-          </div>
-
-          <div class="dropdown">
-            <select class="dropbtn">
-              <option value="1">자랑하기</option>
-              <option value="2">Today I learn</option>
-              <option value="3">프로젝트 같이해요</option>
-              <option value="4">기타</option>
-            </select>
-          </div>
-
+      <div class="category">
+        <div class="category-seclect">
+          <label>카테고리</label>
         </div>
 
+        <div class="dropdown">
+          <select class="dropbtn" th:field="*{category}" th:value="*{category}">
+            <option value="1" th:value="0">자랑하기</option>
+            <option value="2" th:value="1">Today I learn</option>
+            <option value="3" th:value="2">프로젝트 같이해요</option>
+            <option value="4" th:value="3">기타</option>
+          </select>
+        </div>
+        <small class="invalid-feedback">포지션을 선택해주세요!</small>
+      </div>
+
+      <div>
+        <label>제목</label>
+        <div class="write-text">
+          <input type="text" th:field="*{title}" placeholder="제목을 입력해 주세요."/>
+        </div>
+      </div>
+
+
+      <div>
+        <label>내용</label>
+        <div class="write-text">
+          <textarea th:field="*{content}" placeholder="내용을 입력해 주세요." cols="80"
+                    rows="10"></textarea>
+        </div>
+      </div>
+
+
+      <!--/* 저장된 파일이 없는 파일 영역 */-->
+      <div th:if="${#lists.isEmpty( fileList )}" data-name="fileDiv">
+        <label>첨부파일</label>
         <div>
-          <label>제목</label>
-          <div class="write-text">
-            <input/>
-          </div>
-        </div>
+          <input type="text" value="파일 찾기" readonly/>
+          <label>찾아보기</label>
+          <input type="file" name="files" id="file_0" class="upload-hidden" onchange="changeFilename(this)"/>
 
-
-        <div>
-          <label>내용</label>
-          <div class="write-text">
-            <textarea class="write-contents" textarea placeholder="내용을 입력해 주세요." cols="80"></textarea>
-          </div>
-        </div>
-
-
-        <!--/* 저장된 파일이 없는 파일 영역 */-->
-        <div data-name="fileDiv">
-          <label>첨부파일</label>
-          <div>
-            <input type="text" value="파일 찾기" readonly/>
-            <label>찾아보기</label>
-            <input type="file" name="files" id="file_0"/>
-
-            <button type="button" onclick="addFile()">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-            <button type="button" onclick="removeFile(this)">
-              <i class="fa fa-minus" aria-hidden="true"></i>
-            </button>
-          </div>
-        </div>
-
-        <!--/* 저장된 파일이 있는 파일 영역 */-->
-        <div data-name="fileDiv">
-          <label></label>
-          <div>
-            <input type="hidden" name="fileIdxs"/>
-            <input type="text" class="upload-name" readonly/>
-            <label class="control-label">찾아보기</label>
-            <input type="file" name="files" onchange="changeFilename(this)"/>
-
-            <button class="wrBtn" type="button" onclick="addFile()">
-              <img class="write-icon"  src="/img/plus.svg"></i>
-            </button>
-            <button class="wrBtn2" type="button" onclick="removeFile(this)">
-              <img class="write-icon"  src="/img/minus.svg"></i>
-            </button>
-          </div>
-        </div>
-
-        <div id="btnDiv">
-
-          <button class="back-btn" type="submit">
-            <img class="write-contents-icon" src="/img/back.svg"></i>
-            뒤로가기
+          <button type="button" onclick="addFile()">
+            <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
-
-          <button class="save" type="submit">
-            <img class="write-contents-icon" src="/img/write_contents.svg"></i>
-            저장하기
+          <button type="button" onclick="removeFile(this)">
+            <i class="fa fa-minus" aria-hidden="true"></i>
           </button>
         </div>
+      </div>
 
-      </form>
+      <!--/* 저장된 파일이 있는 파일 영역 */-->
+      <div th:unless="${#lists.isEmpty( fileList )}" th:each="row, status : ${fileList}" data-name="fileDiv">
+        <label th:for="|file_${status.index}|">[[ |파일${status.count}| ]]</label>
+        <div>
+          <input type="hidden" name="fileIdxs" th:value="${row.id}"/>
+          <input type="text" class="upload-name" th:value="${row.originalName}" readonly/>
+          <label th:for="|file_${status.index}|" class="control-label">찾아보기</label>
+          <input type="file" name="files" th:id="|file_${status.index}|" class="upload-hidden"
+                 onchange="changeFilename(this)"/>
+
+          <button class="wrBtn" th:if="${status.first}" type="button" onclick="addFile()">
+            <img class="write-icon" src="/img/plus.svg"></i>
+          </button>
+          <button class="wrBtn2" type="button" onclick="removeFile(this)">
+            <img class="write-icon" src="/img/minus.svg"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="btnDiv" th:object="${params}">
+        <button class="back-btn" type="submit">
+          <img class="write-contents-icon" src="/img/back.svg"></i>
+          <a th:href="|@{/admin/mylog}|">뒤로가기</a>
+        </button>
+
+        <button class="save" type="submit">
+          <img class="write-contents-icon" src="/img/write_contents.svg"></i>
+          저장하기
+        </button>
+      </div>
     </div>
     <!-- /.card-content -->
 
 
-
-  </th:block>
+  </form>
 </div>
 <!--컨테이너 영역 /-->
+
+
+
+<script th:src="@{/scripts/common.js}"></script>
+
+<script th:inline="javascript">
+
+  /*<![CDATA[*/
+
+  function registerBoard(form) {
+
+    form.noticeYn.value = form.noticeYn.checked == false ? 'N' : 'Y';
+    form.secretYn.value = form.secretYn.checked == false ? 'N' : 'Y';
+
+    var result = (
+      isValid(form.title, "제목", null)
+      && isValid(form.writer, "이름", null)
+      && isValid(form.content, "내용", null)
+    );
+
+    if (!result) {
+      return false;
+    }
+
+    var id = /*[[ ${board.id} ]]*/;
+    if (isEmpty(id) == false) {
+      var queryString = /*[[ ${params.makeQueryString(params.currentPageNo)} ]]*/;
+
+      /*[- 쿼리 스트링을 오브젝트 형태로 변환 -]*/
+      queryString = new URLSearchParams(queryString);
+      queryString.forEach(function (value, key) {
+        if (isEmpty(value) == false) {
+          $(form).append('<input type="hidden" name="' + key + '" value="' + value + '" />');
+        }
+      });
+    }
+  }
+
+  /*[- end of function -]*/
+
+  /*]]>*/
+
+
+  const fileList = /*[[ ${fileList} ]]*/; /*[- 업로드 파일 리스트 -]*/
+  let fileIdx = isEmpty(fileList) ? 0 : fileList.length; /*[- 파일 인덱스 처리용 전역 변수 -]*/
+
+  function addFile() {
+    console.log(fileIdx);
+
+    console.log('에드');
+
+    const fileDivs = $('div[data-name="fileDiv"]');
+    if (fileDivs.length > 2) {
+      alert('파일은 최대 세 개까지 업로드 할 수 있습니다.');
+      return false;
+    }
+
+    document.getElementById('changeYn').value = 'Y';
+    fileIdx++;
+
+    const fileHtml = `
+					<div data-name="fileDiv" class="form-group filebox bs3-primary">
+						<label for="file_${fileIdx}" class="col-sm-2 control-label"></label>
+						<div class="col-sm-10">
+							<input type="text" class="upload-name" value="파일 찾기" readonly />
+							<label for="file_${fileIdx}" class="control-label">찾아보기</label>
+							<input type="file" name="files" id="file_${fileIdx}" class="upload-hidden" onchange="changeFilename(this)" />
+							<button type="button" onclick="removeFile(this)" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+								<i class="fa fa-minus" aria-hidden="true"></i>
+							</button>
+						</div>
+					</div>
+				`;
+
+    $('#btnDiv').before(fileHtml);
+  }
+
+  function removeFile(elem) {
+
+    document.getElementById('changeYn').value = 'Y';
+
+    const prevTag = $(elem).prev().prop('tagName');
+    if (prevTag === 'BUTTON') {
+      const file = $(elem).prevAll('input[type="file"]');
+      const filename = $(elem).prevAll('input[type="text"]');
+      file.val('');
+      filename.val('파일 찾기');
+
+      $(elem).prevAll('input[name="fileIdxs"]').remove();
+      return false;
+    }
+
+    const target = $(elem).parents('div[data-name="fileDiv"]');
+    target.remove();
+  }
+
+  function changeFilename(file) {
+
+    document.getElementById('changeYn').value = 'Y';
+
+    file = $(file);
+    const filename = file[0].files[0].name;
+    const target = file.prevAll('input.upload-name'); // 변경된 코드
+    target.val(filename);
+
+    file.prevAll('input[name="fileIdxs"]').remove(); // 추가된 로직
+  }
+</script>
 
 
 </body>

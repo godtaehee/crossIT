@@ -47,5 +47,5 @@ public class BoardListViewByJob extends CommonDTO {
 
 	private String insertTimeFormat;
 
-	private int role;
+	private int job;
 }

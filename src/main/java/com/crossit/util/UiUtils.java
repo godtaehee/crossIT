@@ -17,10 +17,6 @@ public class UiUtils {
 										  @RequestParam(value = "method", required = false) Method method,
 										  @RequestParam(value = "params", required = false) Map<String, Object> params, Model model) {
 
-		if(redirectUri == "admin/myLog"){
-
-		}
-
 		model.addAttribute("message", message);
 		model.addAttribute("redirectUri", redirectUri);
 		model.addAttribute("method", method);

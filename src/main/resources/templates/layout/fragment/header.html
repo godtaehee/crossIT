@@ -39,8 +39,9 @@
   <ul class="navbar-end" sec:authorize="isAuthenticated()">
 
     <li>
-      <a href="" th:href="@{/notification}">
+      <a href="" th:href="@{/alarm}">
         <i class="fa fa-bell-o fa-lg" aria-hidden="true"></i>
+        <span th:text="${alarmCnt}"></span>
       </a>
     </li>
 

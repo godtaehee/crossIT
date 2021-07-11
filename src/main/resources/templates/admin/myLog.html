@@ -101,7 +101,6 @@
     </section>
     <!--태그 목록 end-->
 
-
     <!--글 섹션-->
     <section class="hero">
 
@@ -146,22 +145,25 @@
 
   <!--모달 창-->
 
+
+  <form th:action="@{/request-team}" th:object="${team}" method="post">
   <div class="modal hidden">
+    <input type="hidden" th:field="*{requestor}">
     <div class="modal-overlay"></div>
     <div class="modal-content ">
       <form action="" id="form" class="form">
         <h2 class="modal-title"> Minchocho 님께 팀요청을 보내보세요!</h2>
         <div class="form-control">
           <label for="username">닉네임</label>
-          <input type="text" id="username" placeholder="닉네임을 입력해주세요">
+          <input type="text" id="username" placeholder="닉네임을 입력해주세요" th:field="*{sender}">
         </div>
         <div class="form-control">
           <label for="username">연락처(선택)</label>
-          <input type="text" placeholder="연락처를 입력해주세요">
+          <input type="text" placeholder="연락처를 입력해주세요" th:field="*{contact}">
         </div>
         <div class="form-control">
           <label for="username">메세지</label>
-          <input class="message" type="text" placeholder="메세지를 입력해주세요">
+          <input class="message" type="text" placeholder="메세지를 입력해주세요" th:field="*{message}">
         </div>
         <div class="form-control">
           <button class="btn-write subBtn" type="submit">전송하기</button>
@@ -170,15 +172,9 @@
       <button class="closeBtn">X</button>
     </div>
   </div>
+  </form>
 
   <script th:replace="layout/fragment/dropdown :: dropDown"></script>
-
-
-  <script>
-    const closeBtn = qs('.close');
-    on(closeBtn,'click', (e) => {e.currentTarget.parentNode.classList.add('d-none')});
-
-  </script>
 
   <script>
 
