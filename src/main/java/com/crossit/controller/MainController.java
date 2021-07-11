@@ -5,6 +5,7 @@ import com.crossit.annotation.CurrentUser;
 import com.crossit.domain.BoardDTO;
 import com.crossit.entity.Member;
 import com.crossit.service.BoardService;
+import com.crossit.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +19,17 @@ public class MainController {
 	@Autowired
 	private BoardService boardService;
 
+	@Autowired
+	private TeamService teamService;
+
+
 	@GetMapping("/")
 	public String home(@CurrentUser Member member, Model model) {
 		if(member != null) {
 		model.addAttribute(member);
+			int alarmCnt = 0;
+			alarmCnt = teamService.getMyTeamRequest(member.getNickname());
+			model.addAttribute("alarmCnt", alarmCnt);
 		}
 
 		List<BoardDTO> boardList = boardService.getList();
@@ -29,6 +37,16 @@ public class MainController {
 		model.addAttribute("boardList", boardList);
 
 		return "index";
+	}
+
+	@GetMapping("/alarm")
+	public String alarm(@CurrentUser Member member, Model model) {
+		if(member != null) {
+			model.addAttribute(member);
+		}
+
+
+		return "alarm/alarm-list";
 	}
 
 }

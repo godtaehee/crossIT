@@ -4,6 +4,7 @@ package com.crossit.controller;
 import com.crossit.annotation.CurrentUser;
 import com.crossit.entity.Member;
 import com.crossit.entity.SignUpForm;
+import com.crossit.entity.Team;
 import com.crossit.repository.MemberRepository;
 import com.crossit.service.MemberService;
 import com.crossit.validator.SignUpFormValidator;
@@ -68,12 +69,17 @@ public class MemberController {
 	public String post(@PathVariable String nickname, Model model, @CurrentUser Member member) {
 		Member byNickname = memberRepository.findByNickname(nickname);
 
+		Team team = Team.builder()
+			.requestor(nickname)
+			.build();
+
 		if(nickname == null) {
 			throw new IllegalArgumentException(nickname + "에 해당하는 사용자가 없습니다.");
 		}
 
 		model.addAttribute(byNickname);
 		model.addAttribute("isOwner", byNickname.equals(member));
+		model.addAttribute(new Team());
 		return "admin/myLog";
 	}
 
