@@ -23,6 +23,9 @@ public class BoardDTO extends CommonDTO {
 	/** 작성자 */
 	private String writer;
 
+	/** 작성자 프로필 */
+	private String writerProfile;
+
 	/** 조회 수 */
 	private int viewCnt;
 

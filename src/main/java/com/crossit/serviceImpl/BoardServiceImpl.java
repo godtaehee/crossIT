@@ -6,6 +6,7 @@ import com.crossit.domain.BoardDTO;
 import com.crossit.domain.FileDTO;
 import com.crossit.paging.PaginationInfo;
 import com.crossit.service.BoardService;
+import com.crossit.service.MemberService;
 import com.crossit.util.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private FileUtils fileUtils;
+
+	@Autowired
+	private MemberService memberService;
 
 
 	@Override
@@ -125,8 +129,7 @@ public class BoardServiceImpl implements BoardService {
 
 		for (BoardDTO board : list) {
 			List<FileDTO> fileList = getAttachFileList(board.getId());
-
-
+			board.setWriterProfile(memberService.getMemberProfile(board.getWriter()));
 			if (fileList.size() > 0) {
 				String timeFormat = String.join("",board.getInsertTime().toString().substring(2,10).split("-"));
 				board.setThumbnail(fileList.get(0).getSaveName());

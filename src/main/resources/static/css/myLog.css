@@ -41,7 +41,12 @@
     color:var(--grayLiter);
     margin-top: .5em;
     margin-bottom: .5em;
+}
 
+.content div {
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 .smallText{
     font-weight: 200;
