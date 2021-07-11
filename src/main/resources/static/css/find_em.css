@@ -66,3 +66,13 @@
   color: rgb(144, 145, 145);
   margin-left: 110px;
 } */
+
+
+/*--------여기서 부터 사용 -------*/
+.email-container{
+    margin: 4em;
+}
+
+.alert{
+    margin: 4em;
+}

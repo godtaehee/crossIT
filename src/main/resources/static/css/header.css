@@ -94,6 +94,7 @@
 .dropdown {
     position: relative;
     display: inline-block;
+    margin-top: .5em;
 }
 
 .dropdown-menu {
