@@ -29,9 +29,7 @@
     <div class="category">
       <div class="dropdown">
         <button class="dropbtn"> 전체글 보기
-          <span class="icon is-small">
-            <i class="fas fa-angle-down"></i>
-          </span>
+          <img class="mini-icon" src="/img/arrow-down.svg"></i>
         </button>
 
         <div class="dropdown-content">
@@ -44,11 +42,11 @@
 
       <div class="tabs">
         <ul>
-          <li class="is-active"><input type="button" onclick="getBoardByCategory(0)" value="자랑하기" class="button is-ghost"></li>
-          <li> <input type="button" onclick="getBoardByCategory(1)" value="Today I learn" class="button is-ghost">
+          <li class="is-active"><input type="button" class="tabs-btn-index" onclick="getBoardByCategory(0)" value="자랑하기"></li>
+          <li> <input type="button" class="tabs-btn-index" onclick="getBoardByCategory(1)" value="Today I learn">
           </li>
-          <li> <input type="button" onclick="getBoardByCategory(2)" value="프로젝트 같이해요" class="button is-ghost"></li>
-          <li> <input type="button" onclick="getBoardByCategory(3)" value="기타" class="button is-ghost"></li>
+          <li> <input type="button" class="tabs-btn-index" onclick="getBoardByCategory(2)" value="프로젝트 같이해요" ></li>
+          <li> <input type="button" class="tabs-btn-index" onclick="getBoardByCategory(3)" value="기타" ></li>
         </ul>
       </div>
     </div>

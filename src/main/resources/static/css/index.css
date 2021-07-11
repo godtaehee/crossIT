@@ -29,14 +29,14 @@
 }
 
 
-.navbar-item{
-    margin:  1.4em;
-    align-items: center;
-    display: flex;
-    flex-grow:0;
-    flex-shrink:0;
+/*.navbar-item{*/
+/*    margin:  1.4em;*/
+/*    align-items: center;*/
+/*    display: flex;*/
+/*    flex-grow:0;*/
+/*    flex-shrink:0;*/
 
-}
+/*}*/
 
 
 .btn-normal {
@@ -216,6 +216,39 @@
     width: 90%;
 
 }
+
+
+/*---탭 버튼 부분 ---*/
+.tabs-btn-index{
+    -webkit-border-radius: 10;
+    -moz-border-radius: 10;
+    border-radius: 10px;
+    font-family: Arial;
+    color: #737173;
+    font-size: 15px;
+    background: #F9FAFB;
+    padding: 10px 25px 10px 25px;
+    border: solid #c7c7c7 0px;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
+
+.tabs-btn-index:hover {
+    background: #f5f5f5;
+    text-decoration: none;
+    border-bottom-color: #485fc7;
+    color: #485fc7;
+    border-bottom-style: solid;
+}
+
+/*---탭 버튼 부분 /---*/
+
+
+
+
+
 
 .card-list{
     display: flex;
