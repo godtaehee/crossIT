@@ -317,6 +317,16 @@
     border-radius: 70%;
     overflow: hidden;
     margin-right: 1em;
+
+
+}
+
+.profile-image-user{
+    width: 3em;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 

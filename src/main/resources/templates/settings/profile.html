@@ -51,15 +51,15 @@
 
         <form th:action="@{/settings/profile}" th:object="${profile}" method="post">
           <span class="introduction">
-            <input class="subtitle" placeholder="간략한 소개를 부탁드립니다." th:field="*{introduction}"/>
+            <input class="subtitle input-search" placeholder="간략한 소개를 부탁드립니다." th:field="*{introduction}"/>
           </span>
           <span class="smallText align">
               <img class="mini-icon" src="/img/location.svg"/>
-              <input placeholder="지역을 설정해 주세요." th:field="*{location}"/>
+              <input class="input-search" placeholder="지역을 설정해 주세요." th:field="*{location}"/>
             </span>
           <span class="smallText align">
               <img class="mini-icon" src="/img/contact.svg"/>
-              <input class="smallText" placeholder="연락처를 입력해 주세요." th:field="*{contact}">
+              <input class="smallText input-search" placeholder="연락처를 입력해 주세요." th:field="*{contact}">
             </span>
           <div class="form-group">
             <input type="hidden" id="profileImage" th:field="*{profileImage}" class="form-control"/>
