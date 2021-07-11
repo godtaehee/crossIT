@@ -61,17 +61,17 @@
         </figure>
         <div class="card-desc">
           <div class="media-content">
-            <a class="title is-6 mb-2" href="/board/view?id=${v.id}" th:text="${board.title}"></a>
-            <div class="content is-6 mb-3">
+            <a class="title" href="/board/view?id=${v.id}" th:text="${board.title}"></a>
+            <div class="content">
               <div th:text="${board.content}"></div>
-              <p class="content is-size-7 date" th:text="${board.insertTime}"></p>
+              <p class="content date" th:text="${board.insertTime}"></p>
               <hr class="line">
             </div>
             <div class="writer">
-              <figure class="image is-32x32 mr-2">
-                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+              <figure class="profile-image">
+                <img src="https://bulma.io/images/placeholders/128x128.png">
               </figure>
-              <p class="title is-7" th:text="${board.writer}"></p>
+              <p class="nickname" th:text="${board.writer}"></p>
             </div>
           </div>
         </div>
@@ -147,17 +147,17 @@ function getBoardByCategory(category) {
         </figure>
         <div class="card-desc">
           <div class="media-content">
-            <a class="title is-6 mb-2" href="/board/view?id=${v.id}">${v.title}</a>
-            <div class="content is-6 mb-3">
+            <a class="title" href="/board/view?id=${v.id}">${v.title}</a>
+            <div class="content">
             ${v.content}
-              <p class="content is-size-7 date">${v.insertTime}</p>
+              <p class="content date">${v.insertTime}</p>
               <hr class="line">
             </div>
             <div class="writer">
-              <figure class="image is-32x32 mr-2">
-                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+              <figure class="profile-image">
+                <img src="https://bulma.io/images/placeholders/128x128.png">
               </figure>
-              <p class="title is-7">${v.wirter}</p>
+              <p class="nickname">${v.wirter}</p>
             </div>
           </div>
         </div>
