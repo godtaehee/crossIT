@@ -1,0 +1,139 @@
+
+.navbar-items{
+    width: 100%;
+    margin-left: auto;
+    display: flex;
+}
+
+.nav-tabs{
+    align-items: stretch;
+    display: flex;
+    font-size: 1em;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-tabs a:hover{
+    border-bottom-color: #363636;
+    color: #363636;
+
+}
+
+a.navbar-item:hover{
+
+    background-color: #fafafa;
+}
+
+
+.mynavbar{
+    background-color: #1b60ce38;
+    min-width: 5em;
+    max-height: 4em;
+    display: block;
+    margin-bottom: 1em;
+    display: flex;
+    margin-top: 1em;
+}
+
+.mynavbar div ul li {
+    margin-right: 20px;
+}
+
+.card-container{
+    margin: 3em;
+
+}
+
+.mycard{
+
+    width: 100%;
+    min-height: 70vh;
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    margin-bottom: 4em;
+
+}
+
+.ingProg{
+    margin: 3em;
+}
+
+.noProg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top:10em
+}
+
+.mycard2{
+
+    width: 100%;
+    min-height: 70vh;
+    background: rgba(199, 199, 199, 0.171);
+    border-radius: 2px;
+    display: inline-block;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    margin-bottom: 4em;
+
+}
+.createBtn{
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    margin-top: 2em;
+    margin-right:7em;
+
+}
+
+.prjList{
+    background: rgba(250, 249, 249, 0.781);
+    border-radius: 2px;
+    display: inline-block;
+    height: 7em;
+    margin: 1em;
+    position: relative;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 5px 16px rgba(148, 147, 147, 0.123), 0 5px 5px rgba(128, 125, 125, 0.144);
+}
+
+.prjCard{
+    display: flex;
+}
+.prjTitle{
+    display: inline-block;
+    margin: 1em;
+    display: flex;
+    padding-left:2em;
+}
+
+.prjList p:nth-child(1){
+    color:var(--grayLiter);
+
+}
+
+.btn {
+    -webkit-border-radius: 10;
+    -moz-border-radius: 10;
+    border-radius: 10px;
+    font-family: Arial;
+    color: #757575;
+    font-size: 15px;
+    background: #a3f7ef;
+    padding: 10px 25px 10px 25px;
+    border: solid #c7c7c7 0px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #f5f5f5;
+    text-decoration: none;
+}
