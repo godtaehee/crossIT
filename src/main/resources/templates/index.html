@@ -204,10 +204,9 @@ function getBoardByCategory(category = -1) {
 
 }
 
-
   function getBoardByJob(job) {
     const test = new XMLHttpRequest();
-    test.open('GET', 'http://localhost:8080/board/category');
+    test.open('GET', 'http://localhost:8080/board/job');
     test.addEventListener('load', () => {
       const result = JSON.parse(test.response);
       const cardList = document.querySelector('.card-list');

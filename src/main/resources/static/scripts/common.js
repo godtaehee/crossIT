@@ -5,7 +5,6 @@
  * @returns true or false
  */
 function isEmpty(value) {
-    console.log("이즈 엠프티");
 	if (value == null || value == "" || value == undefined || (value != null && typeof value == "object" && !Object.keys(value).length)) {
 		return true;
 	}

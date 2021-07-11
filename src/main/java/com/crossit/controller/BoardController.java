@@ -58,7 +58,7 @@ public class BoardController extends UiUtils {
 			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/board/list", Method.GET, pagingParams, model);
 		}
 
-		return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/admin/myLog", Method.GET, pagingParams, model);
+		return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "admin/mylog", Method.GET, pagingParams, model);
 	}
 
 
