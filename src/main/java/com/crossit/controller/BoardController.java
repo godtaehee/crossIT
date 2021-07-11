@@ -70,11 +70,6 @@ public class BoardController extends UiUtils {
 		return "board/list";
 	}
 
-
-
-
-
-
 	@GetMapping(value = "/board/view")
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model) {
 		if (id == null) {
