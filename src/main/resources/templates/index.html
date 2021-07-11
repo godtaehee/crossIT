@@ -19,7 +19,7 @@
   </div>
 
   <!-- 중간 이미지영역 -->
-  <section class="index-img">
+  <section class="index-img">을
     <img class="jumbo" src="/img/text2.svg">
     <img class="jumbo" src="/img/7 SCENE.svg">
   </section>
@@ -76,7 +76,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button">
                   <svg th:if="${#strings.isEmpty(board.writerProfile)}" th:data-jdenticon-value="${board.writer}"
                        width="40" height="40"></svg>
-                  <img th:if="${!#strings.isEmpty(board.writerProfile)}" th:src="${member.profileImage}"
+                  <img th:if="${!#strings.isEmpty(board.writerProfile)}" th:src="${board.writerProfile}"
                        width="40" height="40"/>
                 </a>
               </figure>

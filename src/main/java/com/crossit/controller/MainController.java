@@ -26,11 +26,6 @@ public class MainController {
 
 		List<BoardDTO> boardList = boardService.getList();
 
-		for(BoardDTO board : boardList) {
-			String writer = board.getWriter();
-
-		}
-
 		model.addAttribute("boardList", boardList);
 
 		return "index";
