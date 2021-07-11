@@ -135,7 +135,7 @@ on(window, 'resize', () => {
 
 function getBoardByCategory(category) {
   const test = new XMLHttpRequest();
-  test.open('GET', 'http://localhost:8080/board/test');
+  test.open('GET', 'http://localhost:8080/board/category');
   test.addEventListener('load', () => {
     const result = JSON.parse(test.response);
     const cardList = document.querySelector('.card-list');

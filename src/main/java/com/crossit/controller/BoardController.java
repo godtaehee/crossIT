@@ -69,7 +69,7 @@ public class BoardController extends UiUtils {
 		return "board/list";
 	}
 
-	@GetMapping("/board/test")
+	@GetMapping("/board/category")
 	@ResponseBody
 	public List<BoardDTO> getBoardList() {
 		List<BoardDTO> boardList = boardService.getList();
