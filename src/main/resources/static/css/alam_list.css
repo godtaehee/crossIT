@@ -1,0 +1,110 @@
+
+.navbar-items{
+    width: 100%;
+    margin-left: auto;
+    display: flex;
+}
+
+.nav-tabs{
+    align-items: stretch;
+    display: flex;
+    font-size: 1em;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mynavbar{
+    background-color: #e9e7e738;
+    min-width: 5em;
+    min-height: 3em;
+    display: block;
+    display: flex;
+    margin-top: 1em;
+    font-weight: 600;
+    font-size: 1.2em;
+
+
+}
+.navBlock{
+    background: rgb(204,237,194);
+    background: linear-gradient(90deg, rgba(204, 237, 194, 0.555) 0%,
+    rgba(169, 241, 255, 0.582) 25%,
+    rgba(193, 246, 221, 0.514) 70%,
+    rgba(135, 228, 249, 0.349) 100%);
+    min-width: 5em;
+    min-height: 1em;
+    display: block;
+    margin-bottom: 1em;
+    display: flex;
+
+}
+
+.alamListCon{
+
+    margin: 0 auto;
+}
+
+
+.prjList{
+
+    display: flex;
+    background: rgba(250, 249, 249, 0.781);
+    border-radius: 4em;
+    height: 4.4em;
+    margin: 1em;
+    position: relative;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 5px 16px rgba(182, 193, 214, 0.342), 0 5px 5px rgba(165, 178, 196, 0.144);
+
+}
+
+.prjCard{
+    display: flex;
+    font-size: 1.2em;
+}
+
+.prjTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1em;
+    margin-left: 4em;
+    width: 90%;
+
+}
+
+.prjList p:nth-child(1){
+    color:var(--grayLiter);
+
+}
+
+.medium-icon{
+    width: 2.4em;
+    margin-right: 2.3em;
+}
+
+.right-space{
+    font-weight: 600;
+    margin-right: .5em;
+}
+
+.medium-icon2{
+    width: 1.4em;
+
+}
+
+.fl-left{
+    display: flex;
+    justify-content: flex-start;
+    margin-right: auto;
+    align-items: center;
+}
+
+.fl-right{
+    display: flex;
+
+    margin-right: 3em;
+}
