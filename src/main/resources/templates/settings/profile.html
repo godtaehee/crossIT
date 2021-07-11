@@ -85,110 +85,9 @@
     </div>
   </div>
 
-  <!--글 카테고리 /-->
-
-
-  <!--컨텐츠 부분-->
-
-  <section class="contents">
-
-    <!--태그 목록-->
-    <section class="tag-list">
-      <p class="tagLine">태그 목록</p>
-      <span class="tagList">
-          <p class=""> 전체 보기 </p>
-          <p>(20)</p>
-      </span>
-    </section>
-    <!--태그 목록 end-->
-
-
-    <!--글 섹션-->
-    <section class="hero">
-
-      <div class="top">
-        <div class="searchtags">
-          <img class="mini-icon" src="/img/search.svg"></i>
-          <input class="input-search" type="text" placeholder="검색어를 입력하세요">
-        </div>
-        <div class="write">
-          <button class="btn-write">글쓰기</button>
-        </div>
-      </div>
-
-      <!--콘텐츠 영역 -->
-      <div class="hero-body">
-        <figure class="content-image">
-          <img src="/img/index.png"/>
-        </figure>
-
-        <div class="card-desc">
-          <div class="content">
-            <h1 class="title">Getting Started</h1>
-
-            <p class="content">
-              This is a starter template for creating a beautiful, customizable blog with minimal
-              effort. You’ll only have to change a few settings and you’re ready to go. As with all Jigsaw sites,
-              configuration settings can be found in config
-            </p>
-
-            <h2 class="subtitle">December 25, 2018</h2>
-          </div>
-        </div>
-      </div>
-
-    </section>
-    <!--글 섹션 end-->
-  </section>
-  <!--컨텐츠 부분 /-->
-
-
-  <!--모달 창-->
-
-  <div class="modal hidden">
-    <div class="modal-overlay"></div>
-    <div class="modal-content ">
-      <form action="" id="form" class="form">
-        <h2 class="modal-title"> Minchocho 님께 팀요청을 보내보세요!</h2>
-        <div class="form-control">
-          <label for="username">닉네임</label>
-          <input type="text" id="username" placeholder="닉네임을 입력해주세요">
-        </div>
-        <div class="form-control">
-          <label for="username">연락처(선택)</label>
-          <input type="text" placeholder="연락처를 입력해주세요">
-        </div>
-        <div class="form-control">
-          <label for="username">메세지</label>
-          <input class="message" type="text" placeholder="메세지를 입력해주세요">
-        </div>
-        <div class="form-control">
-          <button class="btn-write subBtn" type="submit">전송하기</button>
-        </div>
-      </form>
-      <button class="closeBtn">X</button>
-    </div>
-  </div>
-
 </div>
 
 <script th:replace="layout/fragment/dropdown :: dropDown"></script>
-<!--<script>-->
-<!--  const openBtn = document.getElementById("open");-->
-<!--  const modal = document.querySelector(".modal");-->
-<!--  const overlay = modal.querySelector(".modal-overlay");-->
-<!--  const closeBtn = modal.querySelector(".closeBtn");-->
-<!--  const openModal = () => {-->
-<!--    modal.classList.remove("hidden");-->
-<!--  }-->
-
-<!--  const closeModal = () => {-->
-<!--    modal.classList.add("hidden");-->
-<!--  }-->
-<!--  overlay.addEventListener("click", closeModal);-->
-<!--  closeBtn.addEventListener("click", closeModal);-->
-<!--  openBtn.addEventListener("click", openModal);-->
-<!--</script>-->
 <link href="/node_modules/cropper/dist/cropper.css" rel="stylesheet">
 <script src="/node_modules/cropper/dist/cropper.js"></script>
 <script src="/node_modules/jquery-cropper/dist/jquery-cropper.js"></script>
@@ -264,38 +163,6 @@
       });
     });
   });
-
-  //
-  // (() => {
-  //
-  //   const openBtn = document.getElementById("open");
-  //   const modal = document.querySelector(".modal");
-  //   const overlay = modal.querySelector(".modal-overlay");
-  //   const closeBtn = modal.querySelector(".close");
-  //   console.log(closeBtn);
-  //
-  //   const test = (e) => {
-  //     e.preventDefault();
-  //     modal.classList.toggle('is-active');
-  //   }
-  //
-  //   overlay.addEventListener("click", test);
-  //   closeBtn.addEventListener("click", test);
-  //   openBtn.addEventListener("click", test);
-  //
-  //
-  //   const profile = document.querySelector('.profile');
-  //   const profileEdit = document.querySelector('.profile-edit');
-  //
-  //   document.querySelector('.edit-btn').addEventListener('click', () => {
-  //
-  //     profile.classList.toggle('d-none');
-  //     profileEdit.classList.toggle('d-none');
-  //
-  //   })
-  //
-  //
-  // })();
 
 </script>
 </body>
