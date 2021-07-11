@@ -47,7 +47,7 @@
 
         <li class="subtitle" th:if="${member.job == 0}">개발자</li>
         <li class="subtitle" th:if="${member.job == 1}">디자이너</li>
-        <li class="subtitle" th:if="${member.job == 2}">선생님</li>
+        <li class="subtitle" th:if="${member.job == 2}">기획자</li>
 
         <form th:action="@{/settings/profile}" th:object="${profile}" method="post">
           <span class="introduction">

@@ -1,26 +1,27 @@
 package com.crossit.service;
 
-import java.util.List;
-
-import com.crossit.entity.Board;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.crossit.domain.BoardDTO;
 import com.crossit.domain.FileDTO;
+import com.crossit.view.BoardListViewByJob;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 public interface BoardService {
 
-	public boolean registerBoard(BoardDTO params);
-	
-	public boolean registerBoard(BoardDTO params, MultipartFile[] files);
+    boolean registerBoard(BoardDTO params);
 
-	public BoardDTO getBoardDetail(Long idx);
+    boolean registerBoard(BoardDTO params, MultipartFile[] files);
 
-	public boolean deleteBoard(Long idx);
+    BoardDTO getBoardDetail(Long idx);
 
-	public List<BoardDTO> getBoardList(BoardDTO boardDTO);
-	
-	public List<FileDTO> getAttachFileList(Long boardId);
+    boolean deleteBoard(Long idx);
 
-    public List<BoardDTO> getList();
+    List<BoardDTO> getBoardList(BoardDTO boardDTO);
+
+    List<FileDTO> getAttachFileList(Long boardId);
+
+    List<BoardDTO> getList();
+
+	List<BoardListViewByJob> getListByJob();
 }

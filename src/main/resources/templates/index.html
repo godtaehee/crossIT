@@ -206,6 +206,82 @@ function getBoardByCategory(category) {
 
 }
 
+
+  function getBoardByJob(job) {
+    const test = new XMLHttpRequest();
+    test.open('GET', 'http://localhost:8080/board/category');
+    test.addEventListener('load', () => {
+      const result = JSON.parse(test.response);
+      const cardList = document.querySelector('.card-list');
+      cardList.innerHTML = '';
+
+      console.log(result);
+
+
+      const go = result.filter(v => v.category === category);
+
+      let str = '';
+
+      go.forEach(v => {
+        str += `
+           <li class="card-item">
+        <figure class="card-image">`;
+
+        if(!v.thumbnail) {
+          str += `<svg data-jdenticon-value="${v.title}"
+               width="150" height="150" class="jdenticon-svg"></svg>`;
+        }else {
+          str += `<img src="upload/${v.insertTimeFormat}/${v.thumbnail}" class="thumbnail">`
+        }
+
+        str += `
+              </figure>
+        <div class="card-desc">
+          <div class="media-content">
+            <a class="title" href="/board/view?id=${v.id}">${v.title}</a>
+            <div class="description">
+              <div class="content">${v.content}</div>
+              <p class="content date">${v.insertTime.date.year}-${v.insertTime.date.month}-${v.insertTime.date.day}</p>
+            </div>
+            <hr class="line">
+            <div class="writer">
+              <figure class="profile-image">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button">
+      `;
+
+        const svgValue = jdenticon.toSvg(v.writer, 40);
+
+        if(!v.writerProfile) {
+          str += `
+         <svg data-jdenticon-value="${v.writer}" width="40" height="40">
+         ${svgValue}</svg>
+        `;
+        }else {
+          str += `
+         <img src="${v.writerProfile}"
+           width="40" height="40"/>
+        `;
+        }
+        str += `
+                      </a>
+              </figure>
+              <p class="nickname">${v.writer}</p>
+            </div>
+          </div>
+        </div>
+      </li>
+        `;
+
+      });
+
+      cardList.innerHTML = str;
+    })
+    test.send();
+
+  }
+
+
+
 </script>
 </body>
 </html>

@@ -8,6 +8,7 @@ import com.crossit.paging.PaginationInfo;
 import com.crossit.service.BoardService;
 import com.crossit.service.MemberService;
 import com.crossit.util.FileUtils;
+import com.crossit.view.BoardListViewByJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -135,10 +136,29 @@ public class BoardServiceImpl implements BoardService {
 				board.setThumbnail(fileList.get(0).getSaveName());
 				board.setInsertTimeFormat(timeFormat);
 			}
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<BoardListViewByJob> getListByJob() {
+		List<BoardListViewByJob> list = boardDao.getListByJob();
+
+		for (BoardListViewByJob board : list) {
+			List<FileDTO> fileList = getAttachFileList(board.getId());
+			board.setWriterProfile(memberService.getMemberProfile(board.getWriter()));
+			if (fileList.size() > 0) {
+				String timeFormat = String.join("", board.getInsertTime().toString().substring(2,10).split("-"));
+				board.setThumbnail(fileList.get(0).getSaveName());
+				board.setInsertTimeFormat(timeFormat);
+			}
 
 		}
 
 		return list;
 	}
+
+
 
 }

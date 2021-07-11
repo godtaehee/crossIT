@@ -41,7 +41,7 @@
 
         <li class="subtitle" th:if="${member.job == 0}">개발자</li>
         <li class="subtitle" th:if="${member.job == 1}">디자이너</li>
-        <li class="subtitle" th:if="${member.job == 2}">선생님</li>
+        <li class="subtitle" th:if="${member.job == 2}">기획자</li>
 
         <li class="subtitle" th:text="*{member.introduction}?: '소개글을 작성해주세요.'">주니어 UI디자이너 민초초입니다</li>
         <span class="smallText align">

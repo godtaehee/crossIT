@@ -5,6 +5,7 @@ import com.crossit.domain.BoardDTO;
 import com.crossit.domain.FileDTO;
 import com.crossit.service.BoardService;
 import com.crossit.util.UiUtils;
+import com.crossit.view.BoardListViewByJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -69,12 +70,9 @@ public class BoardController extends UiUtils {
 		return "board/list";
 	}
 
-	@GetMapping("/board/category")
-	@ResponseBody
-	public List<BoardDTO> getBoardList() {
-		List<BoardDTO> boardList = boardService.getList();
-		return boardList;
-	}
+
+
+
 
 
 	@GetMapping(value = "/board/view")
@@ -118,13 +116,19 @@ public class BoardController extends UiUtils {
 	}
 
 
-	@RequestMapping("/")
-	public String list(Model model) {
-		List<BoardDTO> list = boardService.getList();
-		model.addAttribute("list", list);
-
-		return "index";
-
-
+	@GetMapping("/board/category")
+	@ResponseBody
+	public List<BoardDTO> getBoardList() {
+		List<BoardDTO> boardList = boardService.getList();
+		return boardList;
 	}
+
+
+	@GetMapping("/board/job")
+	@ResponseBody
+	public List<BoardListViewByJob> getBoardListViewByJob() {
+		List<BoardListViewByJob> boardList = boardService.getListByJob();
+		return boardList;
+	}
+
 }

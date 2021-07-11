@@ -8,16 +8,16 @@ import com.crossit.entity.Member;
 @Mapper
 public interface MemberDao {
 
-	public int signUp(SignUpForm signUpForm);
+	int signUp(SignUpForm signUpForm);
 
-	public int findMemberById(Long id);
+	int findMemberById(Long id);
 
-	public int findMemberByEmail(String email);
+	int findMemberByEmail(String email);
 
-	public int signIn(Member member);
+	int signIn(Member member);
 
-	public Member findMemberByNickName(String nickName);
+	Member findMemberByNickName(String nickName);
 
-	public void memberUpdate (Member member);
+	void memberUpdate(Member member);
 
 }

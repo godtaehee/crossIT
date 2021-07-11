@@ -1,33 +1,31 @@
 package com.crossit.dao;
 
-import java.util.List;
-
-import com.crossit.entity.Board;
+import com.crossit.domain.BoardDTO;
+import com.crossit.view.BoardListViewByJob;
 import org.apache.ibatis.annotations.Mapper;
 
-import com.crossit.domain.BoardDTO;
-import com.crossit.paging.Criteria;
-
+import java.util.List;
 
 @Mapper
 public interface BoardDao {
 
-	public int insertBoard(BoardDTO params);
+	int insertBoard(BoardDTO params);
 
-	public BoardDTO selectBoardDetail(Long idx);
+	BoardDTO selectBoardDetail(Long idx);
 
-	public int updateBoard(BoardDTO params);
+	int updateBoard(BoardDTO params);
 
-	public int deleteBoard(Long idx);
+	int deleteBoard(Long idx);
 
-	public List<BoardDTO> selectBoardList(BoardDTO params);
+	List<BoardDTO> selectBoardList(BoardDTO params);
 
-	public Long selectBoardTotalCount(BoardDTO params);
+	Long selectBoardTotalCount(BoardDTO params);
 
-	public List<BoardDTO> getList();
-	
-	
+	List<BoardDTO> getList();
+
+	List<BoardListViewByJob> getListByJob();
+
 
 }
 
-	
+
