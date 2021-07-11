@@ -77,3 +77,15 @@ body {
 .is-active-dropdown {
     display: block !important;
 }
+
+.alert {
+    background-color: #fff8dc;
+    padding: 1em 0.5em;
+    box-shadow: 0 10px 20px rgba(131, 131, 131, 0.068), 0 6px 6px rgba(128, 128, 128, 0.089);
+    border-radius: 5px;
+}
+
+.alert a {
+    font-weight: bold;
+    color: #4778c2;
+}
