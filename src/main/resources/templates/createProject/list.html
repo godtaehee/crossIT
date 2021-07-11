@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="/css/reset.css">
   <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/css/dashBoard.css">
+  <link rel="stylesheet" href="/css/modal.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CrossIt</title>
@@ -57,8 +58,7 @@
   <!--nav 영역-->
 
   <nav class="mynavbar ">
-    <div class="navbar-items ">
-
+    <div class="navbar-items">
       <ul class="nav-tabs">
         <li><a class="navbar-item" href="">프로젝트</a></li>
         <li><a class="navbar-item" href="">북마크</a></li>
@@ -94,7 +94,7 @@
       -->
 
       <div class="createBtn">
-        <a href="" id="open"  class="btn">프로젝트 생성하기</a>
+        <a href="#" id="open" class="btn">프로젝트 생성하기</a>
       </div>
 
 
@@ -114,8 +114,52 @@
 
 
     </div>
-
   </div>
+  <!--컨테이너 영역/-->
+
+  <!--모달 영역 -->
+  <div class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content ">
+      <form th:action="@{/project/makeproject}" th:object="${project}" method="post" enctype="multipart/form-data">
+        <div class="form-control">
+          <label for="prjName">프로젝트 이름</label>
+          <input type="text" th:field="*{name}" placeholder="프로젝트 이름을 입력하세요">
+        </div>
+        <div class="form-control">
+          <label for="count">인원 (선택) </label>
+          <input type="number" min="1" max="30" th:field="*{count}">
+        </div>
+        <div class="form-control">
+          <label for="intro">소개</label>
+          <input class="message"type="text" id="message" th:field="*{introduce}" placeholder="소개를 입력해주세요" class="message">
+        </div>
+        <div class="form-control">
+          <button class="btn-write subBtn" type="submit" value="create project"> 프로젝트 만들기</button>
+        </div>
+      </form>
+      <button class="closeBtn">X</button>
+    </div>
+  </div>
+
+
+  <script>
+    const openBtn = document.getElementById("open");
+    const modal = document.querySelector(".modal");
+    const overlay =modal.querySelector(".modal-overlay");
+    const closeBtn = modal.querySelector(".closeBtn");
+    const openModal = ()=>{
+      modal.classList.remove("hidden");
+    }
+
+    const closeModal=()=>{
+      modal.classList.add("hidden");
+    }
+    overlay.addEventListener("click",closeModal);
+    closeBtn.addEventListener("click",closeModal);
+    openBtn.addEventListener("click",openModal);
+  </script>
+
 
 </div>
 </body>

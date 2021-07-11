@@ -1,8 +1,4 @@
 
-
-.hidden{
-    display: none;
-}
 .navbar-items{
     width: 100%;
     margin-left: auto;
@@ -122,4 +118,22 @@ a.navbar-item:hover{
 .prjList p:nth-child(1){
     color:var(--grayLiter);
 
+}
+
+.btn {
+    -webkit-border-radius: 10;
+    -moz-border-radius: 10;
+    border-radius: 10px;
+    font-family: Arial;
+    color: #757575;
+    font-size: 15px;
+    background: #a3f7ef;
+    padding: 10px 25px 10px 25px;
+    border: solid #c7c7c7 0px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #f5f5f5;
+    text-decoration: none;
 }
