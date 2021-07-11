@@ -19,7 +19,7 @@
   </div>
 
   <!-- 중간 이미지영역 -->
-  <section class="index-img">을
+  <section class="index-img">
     <img class="jumbo" src="/img/text2.svg">
     <img class="jumbo" src="/img/7 SCENE.svg">
   </section>
@@ -117,8 +117,6 @@
   });
 
 
-
-
 on(window, 'resize', () => {
   const cardImage = qsAll('.card-image');
   const width = cardImage[0].offsetWidth;
@@ -143,6 +141,8 @@ function getBoardByCategory(category) {
     const cardList = document.querySelector('.card-list');
     cardList.innerHTML = '';
 
+    console.log(result);
+
 
     const go = result.filter(v => v.category === category);
 
@@ -150,29 +150,55 @@ function getBoardByCategory(category) {
 
     go.forEach(v => {
       str += `
-      <li class="card-item">
-        <figure class="card-image">
-          <img src="../img/index.png" alt="글 이미지">
-        </figure>
+           <li class="card-item">
+        <figure class="card-image">`;
+
+      if(!v.thumbnail) {
+        str += `<svg data-jdenticon-value="${v.title}"
+               width="150" height="150" class="jdenticon-svg"></svg>`;
+      }else {
+        str += `<img src="upload/${v.insertTimeFormat}/${v.thumbnail}" class="thumbnail">`
+      }
+
+      str += `
+              </figure>
         <div class="card-desc">
           <div class="media-content">
             <a class="title" href="/board/view?id=${v.id}">${v.title}</a>
-            <div class="content">
-            ${v.content}
-              <p class="content date">${v.insertTime}</p>
-              <hr class="line">
+            <div class="description">
+              <div class="content">${v.content}</div>
+              <p class="content date">${v.insertTime.date.year}-${v.insertTime.date.month}-${v.insertTime.date.day}</p>
             </div>
+            <hr class="line">
             <div class="writer">
               <figure class="profile-image">
-                <img src="https://bulma.io/images/placeholders/128x128.png">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button">
+      `;
+
+      const svgValue = jdenticon.toSvg(v.writer, 40);
+
+      if(!v.writerProfile) {
+        str += `
+         <svg data-jdenticon-value="${v.writer}" width="40" height="40">
+         ${svgValue}</svg>
+        `;
+      }else {
+        str += `
+         <img src="${v.writerProfile}"
+           width="40" height="40"/>
+        `;
+      }
+      str += `
+                      </a>
               </figure>
-              <p class="nickname">${v.wirter}</p>
+              <p class="nickname">${v.writer}</p>
             </div>
           </div>
         </div>
-      </li>`
-    })
+      </li>
+        `;
 
+    });
 
     cardList.innerHTML = str;
   })
