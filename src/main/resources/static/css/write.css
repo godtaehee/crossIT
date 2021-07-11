@@ -1,0 +1,171 @@
+.category{
+    display:flex;
+    flex-direction: column;
+}
+
+.category-seclect{
+    margin-bottom: 1em;
+}
+
+.category-content{
+    width:70%;
+    min-height:140vh ;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+}
+
+.category-content label{
+    font-weight: 500;
+    font-size: 1.2em;
+}
+
+
+.mini-icon{
+    width: .5em;
+    margin-right: 1em;
+
+}
+
+
+.write-text input {
+    border: .03em solid #f0f0f0;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 1em;
+    margin-bottom: 3em;
+}
+
+.write-text input:focus {
+    outline: 0;
+    border-radius: 4px;
+    border-color: rgba(177, 177, 177, 0.767);
+}
+
+
+
+.write-text textarea {
+    border: .03em solid #f0f0f0;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 1em;
+    margin-bottom: 3em;
+}
+
+.write-text textarea:focus {
+    outline: 0;
+    border-radius: 4px;
+    border-color: rgba(177, 177, 177, 0.767);
+}
+
+
+.write-contents{
+    height:70vh
+}
+
+/*글 이미지 버튼*/
+
+.wrBtn{
+    border:0;
+    background-color: white;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.wrBtn2{
+    border:0;
+    background-color: white;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+.wrBtn:hover {
+    background: #7fe5f3;
+    text-decoration: none;
+}
+
+.wrBtn2:hover {
+    background: #ffd0b4;
+    text-decoration: none;
+}
+
+
+
+.write-icon{
+    width: 2em;
+    height:2em;
+
+}
+
+/*글 이미지 버튼  / */
+
+.write-contents-icon{
+    width: 1em;
+    height:1em;
+    margin-right: .3em;
+}
+
+.save{
+    -webkit-border-radius: 7;
+    -moz-border-radius: 7;
+    border-radius: 7px;
+    font-family: Arial;
+    color: #757575;
+    font-size: 15px;
+    background: #edfac0;
+    padding: 10px 25px 10px 15px;
+    border: solid #c7c7c7 0px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.save:hover {
+    background: #e8f0bd;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.back-btn{
+    -webkit-border-radius: 7;
+    -moz-border-radius: 7;
+    border-radius: 7px;
+    font-family: Arial;
+    color: #757575;
+    font-size: 15px;
+    background: #d3d3d333;
+    padding: 10px 25px 10px 15px;
+    border: solid #c7c7c7 0px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    background: #c4c4c4;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#btnDiv{
+    display: flex;
+    justify-content: end;
+    margin-top: 2em;
+}
+
+#btnDiv button{
+    margin-right: 1em;
+}

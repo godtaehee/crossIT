@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="38" height="37" viewBox="0 0 38 37">
+  <g id="그룹_5" data-name="그룹 5" transform="translate(-138 -585)">
+    <g id="사각형_10" data-name="사각형 10" transform="translate(138 585)" fill="#58b4dd" stroke="#58b4dd" stroke-width="1">
+      <rect width="38" height="37" rx="2" stroke="none"/>
+      <rect x="0.5" y="0.5" width="37" height="36" rx="1.5" fill="none"/>
+    </g>
+    <path id="plus" d="M30.938,16.875H19.125V5.063h-2.25V16.876H5.063v2.25H16.876V30.939h2.25V19.125H30.939v-2.25Z" transform="translate(138.937 585.937)" fill="#fff"/>
+  </g>
+</svg>
