@@ -1,32 +1,32 @@
 
-.navbar{
-    min-height: 3em;
-    align-items: center;
-    display: flex;
-    z-index: 30;
-    margin:1em;
-    font-size: 1em;
-    font-weight: 300;
-    --gray:rgb(70, 66, 66);
-    --grayLiter:rgb(100, 99, 99);
-    color:var(--gray);
+/*.navbar{*/
+/*    min-height: 3em;*/
+/*    align-items: center;*/
+/*    display: flex;*/
+/*    z-index: 30;*/
+/*    margin:1em;*/
+/*    font-size: 1em;*/
+/*    font-weight: 300;*/
+/*    --gray:rgb(70, 66, 66);*/
+/*    --grayLiter:rgb(100, 99, 99);*/
+/*    color:var(--gray);*/
 
-}
+/*}*/
 
-.nav-start{
-    display: flex;
-    width:70%;
+/*.nav-start{*/
+/*    display: flex;*/
+/*    width:70%;*/
 
-}
+/*}*/
 
 
-.nav-end{
-    justify-content: flex-end;
-    margin-left: auto;
-    display: flex;
-    align-items: stretch;
+/*.nav-end{*/
+/*    justify-content: flex-end;*/
+/*    margin-left: auto;*/
+/*    display: flex;*/
+/*    align-items: stretch;*/
 
-}
+/*}*/
 
 
 /*.navbar-item{*/
@@ -39,46 +39,46 @@
 /*}*/
 
 
-.btn-normal {
-    -webkit-border-radius: 6;
-    -moz-border-radius: 6;
-    border-radius: 6px;
-    color: #ffffff;
-    font-size: 1em;
-    background: #60dbb2;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
-}
+/*.btn-normal {*/
+/*    -webkit-border-radius: 6;*/
+/*    -moz-border-radius: 6;*/
+/*    border-radius: 6px;*/
+/*    color: #ffffff;*/
+/*    font-size: 1em;*/
+/*    background: #60dbb2;*/
+/*    padding: 10px 20px 10px 20px;*/
+/*    text-decoration: none;*/
+/*}*/
 
 
 
-.btn-normal:hover {
-    background: #75d1b2;
-    text-decoration: none;
-}
+/*.btn-normal:hover {*/
+/*    background: #75d1b2;*/
+/*    text-decoration: none;*/
+/*}*/
 
 
-.btn-gray {
-    -webkit-border-radius: 6;
-    -moz-border-radius: 6;
-    border-radius: 6px;
-    color: #ffffff;
-    font-size: 1em;
-    background: #dfe3e2;
-    padding: 10px 20px 10px 20px;
-    text-decoration: none;
-    color:var(--grayLiter);
-}
+/*.btn-gray {*/
+/*    -webkit-border-radius: 6;*/
+/*    -moz-border-radius: 6;*/
+/*    border-radius: 6px;*/
+/*    color: #ffffff;*/
+/*    font-size: 1em;*/
+/*    background: #dfe3e2;*/
+/*    padding: 10px 20px 10px 20px;*/
+/*    text-decoration: none;*/
+/*    color:var(--grayLiter);*/
+/*}*/
 
-.btn-gray:hover {
-    background: #d6d9d8;
-    text-decoration: none;
-}
+/*.btn-gray:hover {*/
+/*    background: #d6d9d8;*/
+/*    text-decoration: none;*/
+/*}*/
 
-.nav-buttons a:first-child{
+/*.nav-buttons a:first-child{*/
 
-    margin-right: 0.5em;
-}
+/*    margin-right: 0.5em;*/
+/*}*/
 
 .jumbo{
     height: 25em;
