@@ -1,273 +1,302 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-
   <th:block th:include="layout/fragment/head :: head"></th:block>
-
-  <style>
-
-    .modal-overlay {
-      background-color: rgba(90, 90, 90, 0.082);
-      width: 100%;
-      height: 100%;
-      position: absolute;
-    }
-
-    .modal-content {
-      background-color: rgb(255, 255, 255);
-      text-align: center;
-      box-shadow: 0 10px 20px rgba(131, 131, 131, 0.068), 0 6px 6px rgba(128, 128, 128, 0.089);
-      position: relative;
-      width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 50px;
-      min-height: 70vh;
-    }
-
-    .message {
-      height: 150px;
-    }
-
-    .log_btn button:nth-child(2) {
-      margin-left: 30px;
-    }
-
-    .log_btn button {
-      margin-left: 10px;
-    }
-
-    .profile {
-      display: flex;
-    }
-
-    .introduction {
-      margin-left: 15px;
-      width: 100%;
-    }
-
-    .user-name {
-      display: flex;
-    }
-
-    .profile-phone,
-    .profile-location {
-      display: flex;
-      align-items: center;
-    }
-
-    .title {
-      margin-right: 10px;
-    }
-
-  </style>
+  <link rel="stylesheet" href="/css/myLog.css">
 </head>
-
 <body>
-
-
 <div class="container">
 
-  <!-- 헤더-->
   <header th:replace="layout/fragment/header :: header"></header>
 
-
-  <div class="col-2">
-    <div th:replace="layout/fragment/toggleSetting :: settings-menu(currentMenu='profile')"></div>
+  <div th:if="${message != null}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+    <span th:text="${message}">메시지</span>
+    <button type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
 
-  <div class="col-8">
-    <div class="user-profile">
+  <!--유저 프로필 영역 -->
+  <section class="user-profile">
+    <figure>
+      <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
+           width="120" height="120" class="user-avatar"></svg>
+      <img th:if="${!#strings.isEmpty(member.profileImage)}" class="user-avatar"
+           th:src="${member.profileImage}"
+           width="125" height="125"/>
+      <div id="new-profile-image"></div>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="profile-image-file">
+      </div>
+      <div id="new-profile-image-control">
+        <button class="btn" id="cut-button">자르기</button>
+        <button class="btn" id="confirm-button">확인</button>
+        <button class="btn" id="reset-button">취소</button>
+      </div>
+      <div id="cropped-new-profile-image" class="mt-3"></div>
+    </figure>
 
-      <div class="profile">
-        <div class="card text-center">
-          <div class="card-header">
-            프로필 이미지
-          </div>
-          <div id="current-profile-image" class="mt-3">
-            <svg th:if="${#strings.isEmpty(profile.profileImage)}" class="rounded"
-                 th:data-jdenticon-value="${member.nickname}" width="125" height="125"></svg>
-            <img th:if="${!#strings.isEmpty(profile.profileImage)}" class="rounded"
-                 th:src="${profile.profileImage}"
-                 width="125" height="125" alt="name" th:alt="${member.nickname}"/>
-          </div>
-          <div id="new-profile-image" class="mt-3"></div>
-          <div class="card-body">
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" id="profile-image-file">
-            </div>
-            <div id="new-profile-image-control" class="mt-3">
-              <button class="btn btn-outline-primary btn-block" id="cut-button">자르기</button>
-              <button class="btn btn-outline-success btn-block" id="confirm-button">확인</button>
-              <button class="btn btn-outline-warning btn-block" id="reset-button">취소</button>
-            </div>
-            <div id="cropped-new-profile-image" class="mt-3"></div>
-          </div>
+    <div class="user-profile-text">
+      <ul>
+        <div class="log_btn">
+          <div class="title" th:text="${member.nickname}">Minchocho</div>
         </div>
 
-        <div class="title is-4 is spaced" id="nick" th:text="*{member.nickname}">Minchocho</div>
+        <li class="subtitle" th:if="${member.job == 0}">개발자</li>
+        <li class="subtitle" th:if="${member.job == 1}">디자이너</li>
+        <li class="subtitle" th:if="${member.job == 2}">선생님</li>
+
         <form th:action="@{/settings/profile}" th:object="${profile}" method="post">
-          <div class="introduction">
-            <div class="user-name">
-              <input type="submit" class="button is-info is-light is-inverted is-small edit-btn" value="수정 완료"/>
-            </div>
-            <input class="form-control input-sm mb-2" placeholder="간략한 소개를 부탁드립니다." th:field="*{introduction}"/>
-            <div class="profile-location">
-              <i class="fas fa-map-marker-alt mr-2"></i>
-              <input class="form-control input-sm mb-2" placeholder="지역을 설정해 주세요." th:field="*{location}"/>
-            </div>
-            <div class="profile-phone">
-              <i class="fas fa-phone-alt mr-1"></i>
-              <input class="form-control input-sm mb-2" placeholder="연락처를 입력해 주세요." th:field="*{contact}"/>
-            </div>
-          </div>
+          <span class="introduction">
+            <input class="subtitle" placeholder="간략한 소개를 부탁드립니다." th:field="*{introduction}"/>
+          </span>
+          <span class="smallText align">
+              <img class="mini-icon" src="/img/location.svg"/>
+              <input placeholder="지역을 설정해 주세요." th:field="*{location}"/>
+            </span>
+          <span class="smallText align">
+              <img class="mini-icon" src="/img/contact.svg"/>
+              <input class="smallText" placeholder="연락처를 입력해 주세요." th:field="*{contact}">
+            </span>
           <div class="form-group">
             <input type="hidden" id="profileImage" th:field="*{profileImage}" class="form-control"/>
           </div>
+          <input type="submit" class="btn-edit" th:href="@{/settings/profile}" value="수정완료"/>
         </form>
-      </div>
+      </ul>
     </div>
-
-  </div>
-
-
+  </section>
   <!--유저 프로필 영역 end -->
 
-  <div class="modal modal-fx-fadeInScale">
+
+  <!--글 카테고리 -->
+
+  <div class="category">
+    <div class="tabs ">
+      <ul>
+        <li class="is-active"><a>글</a></li>
+        <li><a>작업물</a></li>
+        <li><a>소개</a></li>
+        <li><a>정보</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!--글 카테고리 /-->
+
+
+  <!--컨텐츠 부분-->
+
+  <section class="contents">
+
+    <!--태그 목록-->
+    <section class="tag-list">
+      <p class="tagLine">태그 목록</p>
+      <span class="tagList">
+          <p class=""> 전체 보기 </p>
+          <p>(20)</p>
+      </span>
+    </section>
+    <!--태그 목록 end-->
+
+
+    <!--글 섹션-->
+    <section class="hero">
+
+      <div class="top">
+        <div class="searchtags">
+          <img class="mini-icon" src="/img/search.svg"></i>
+          <input class="input-search" type="text" placeholder="검색어를 입력하세요">
+        </div>
+        <div class="write">
+          <button class="btn-write">글쓰기</button>
+        </div>
+      </div>
+
+      <!--콘텐츠 영역 -->
+      <div class="hero-body">
+        <figure class="content-image">
+          <img src="/img/index.png"/>
+        </figure>
+
+        <div class="card-desc">
+          <div class="content">
+            <h1 class="title">Getting Started</h1>
+
+            <p class="content">
+              This is a starter template for creating a beautiful, customizable blog with minimal
+              effort. You’ll only have to change a few settings and you’re ready to go. As with all Jigsaw sites,
+              configuration settings can be found in config
+            </p>
+
+            <h2 class="subtitle">December 25, 2018</h2>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!--글 섹션 end-->
+  </section>
+  <!--컨텐츠 부분 /-->
+
+
+  <!--모달 창-->
+
+  <div class="modal hidden">
     <div class="modal-overlay"></div>
     <div class="modal-content ">
-      <form th:action="@{/admin/sendTeam}" th:object="${member}" method="post">
-        <h2 class="mb-4" th:text="*{nickname}"> Minchocho </h2> 님께 팀요청을 보내보세요!
+      <form action="" id="form" class="form">
+        <h2 class="modal-title"> Minchocho 님께 팀요청을 보내보세요!</h2>
         <div class="form-control">
           <label for="username">닉네임</label>
           <input type="text" id="username" placeholder="닉네임을 입력해주세요">
         </div>
         <div class="form-control">
           <label for="username">연락처(선택)</label>
-          <input type="text" id="contact" placeholder="연락처를 입력해주세요">
+          <input type="text" placeholder="연락처를 입력해주세요">
         </div>
         <div class="form-control">
           <label for="username">메세지</label>
-          <input type="text" id="message" placeholder="메세지를 입력해주세요" class="message">
+          <input class="message" type="text" placeholder="메세지를 입력해주세요">
         </div>
         <div class="form-control">
-          <button class="button is-primary is-light" type="submit">전송하기</button>
+          <button class="btn-write subBtn" type="submit">전송하기</button>
         </div>
       </form>
-      <button class="close">X</button>
+      <button class="closeBtn">X</button>
     </div>
   </div>
 
-  <link href="/node_modules/cropper/dist/cropper.min.css" rel="stylesheet">
-  <script src="/node_modules/cropper/dist/cropper.min.js"></script>
-  <script src="/node_modules/jquery-cropper/dist/jquery-cropper.min.js"></script>
-  <script type="application/javascript">
-    $(function () {
-      cropper = '';
-      let $confirmBtn = $("#confirm-button");
-      let $resetBtn = $("#reset-button");
-      let $cutBtn = $("#cut-button");
-      let $newProfileImage = $("#new-profile-image");
-      let $currentProfileImage = $("#current-profile-image");
-      let $resultImage = $("#cropped-new-profile-image");
-      let $profileImage = $("#profileImage");
+</div>
 
-      $newProfileImage.hide();
-      $cutBtn.hide();
-      $resetBtn.hide();
-      $confirmBtn.hide();
+<script th:replace="layout/fragment/dropdown :: dropDown"></script>
+<!--<script>-->
+<!--  const openBtn = document.getElementById("open");-->
+<!--  const modal = document.querySelector(".modal");-->
+<!--  const overlay = modal.querySelector(".modal-overlay");-->
+<!--  const closeBtn = modal.querySelector(".closeBtn");-->
+<!--  const openModal = () => {-->
+<!--    modal.classList.remove("hidden");-->
+<!--  }-->
 
-      $("#profile-image-file").change(function (e) {
-        if (e.target.files.length === 1) {
-          const reader = new FileReader();
-          reader.onload = e => {
-            if (e.target.result) {
-              let img = document.createElement("img");
-              img.id = 'new-profile';
-              img.src = e.target.result;
-              img.width = 250;
+<!--  const closeModal = () => {-->
+<!--    modal.classList.add("hidden");-->
+<!--  }-->
+<!--  overlay.addEventListener("click", closeModal);-->
+<!--  closeBtn.addEventListener("click", closeModal);-->
+<!--  openBtn.addEventListener("click", openModal);-->
+<!--</script>-->
+<link href="/node_modules/cropper/dist/cropper.css" rel="stylesheet">
+<script src="/node_modules/cropper/dist/cropper.js"></script>
+<script src="/node_modules/jquery-cropper/dist/jquery-cropper.js"></script>
+<script type="application/javascript">
+  $(function () {
+    cropper = '';
+    let $confirmBtn = $("#confirm-button");
+    let $resetBtn = $("#reset-button");
+    let $cutBtn = $("#cut-button");
+    let $newProfileImage = $("#new-profile-image");
+    let $currentProfileImage = $("#current-profile-image");
+    let $resultImage = $("#cropped-new-profile-image");
+    let $profileImage = $("#profileImage");
 
-              $newProfileImage.html(img);
-              $newProfileImage.show();
-              $currentProfileImage.hide();
+    $newProfileImage.hide();
+    $cutBtn.hide();
+    $resetBtn.hide();
+    $confirmBtn.hide();
 
-              let $newImage = $(img);
-              $newImage.cropper({aspectRatio: 1});
-              cropper = $newImage.data('cropper');
+    $("#profile-image-file").change(function (e) {
+      if (e.target.files.length === 1) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          if (e.target.result) {
+            let img = document.createElement("img");
+            img.id = 'new-profile';
+            img.src = e.target.result;
+            img.width = 250;
 
-              $cutBtn.show();
-              $confirmBtn.hide();
-              $resetBtn.show();
-            }
-          };
+            $newProfileImage.html(img);
+            $newProfileImage.show();
+            $currentProfileImage.hide();
 
-          reader.readAsDataURL(e.target.files[0]);
-        }
-      });
+            let $newImage = $(img);
+            $newImage.cropper({aspectRatio: 1});
+            cropper = $newImage.data('cropper');
 
-      $resetBtn.click(function () {
-        $currentProfileImage.show();
-        $newProfileImage.hide();
-        $resultImage.hide();
-        $resetBtn.hide();
-        $cutBtn.hide();
-        $confirmBtn.hide();
-        $profileImage.val('');
-      });
+            $cutBtn.show();
+            $confirmBtn.hide();
+            $resetBtn.show();
+          }
+        };
 
-      $cutBtn.click(function () {
-        let dataUrl = cropper.getCroppedCanvas().toDataURL();
-        let newImage = document.createElement("img");
-        newImage.id = "cropped-new-profile-image";
-        newImage.src = dataUrl;
-        newImage.width = 125;
-        $resultImage.html(newImage);
-        $resultImage.show();
-        $confirmBtn.show();
-
-        $confirmBtn.click(function () {
-          $newProfileImage.html(newImage);
-          $cutBtn.hide();
-          $confirmBtn.hide();
-          $profileImage.val(dataUrl);
-        });
-      });
+        reader.readAsDataURL(e.target.files[0]);
+      }
     });
 
+    $resetBtn.click(function () {
+      $currentProfileImage.show();
+      $newProfileImage.hide();
+      $resultImage.hide();
+      $resetBtn.hide();
+      $cutBtn.hide();
+      $confirmBtn.hide();
+      $profileImage.val('');
+    });
 
-    (() => {
+    $cutBtn.click(function () {
+      let dataUrl = cropper.getCroppedCanvas().toDataURL();
+      let newImage = document.createElement("img");
+      newImage.id = "cropped-new-profile-image";
+      newImage.src = dataUrl;
+      newImage.width = 125;
+      $resultImage.html(newImage);
+      $resultImage.show();
+      $confirmBtn.show();
 
-      const openBtn = document.getElementById("open");
-      const modal = document.querySelector(".modal");
-      const overlay = modal.querySelector(".modal-overlay");
-      const closeBtn = modal.querySelector(".close");
-      console.log(closeBtn);
+      $confirmBtn.click(function () {
+        $newProfileImage.html(newImage);
+        $cutBtn.hide();
+        $confirmBtn.hide();
+        $profileImage.val(dataUrl);
+      });
+    });
+  });
 
-      const test = (e) => {
-        e.preventDefault();
-        modal.classList.toggle('is-active');
-      }
+  //
+  // (() => {
+  //
+  //   const openBtn = document.getElementById("open");
+  //   const modal = document.querySelector(".modal");
+  //   const overlay = modal.querySelector(".modal-overlay");
+  //   const closeBtn = modal.querySelector(".close");
+  //   console.log(closeBtn);
+  //
+  //   const test = (e) => {
+  //     e.preventDefault();
+  //     modal.classList.toggle('is-active');
+  //   }
+  //
+  //   overlay.addEventListener("click", test);
+  //   closeBtn.addEventListener("click", test);
+  //   openBtn.addEventListener("click", test);
+  //
+  //
+  //   const profile = document.querySelector('.profile');
+  //   const profileEdit = document.querySelector('.profile-edit');
+  //
+  //   document.querySelector('.edit-btn').addEventListener('click', () => {
+  //
+  //     profile.classList.toggle('d-none');
+  //     profileEdit.classList.toggle('d-none');
+  //
+  //   })
+  //
+  //
+  // })();
 
-      overlay.addEventListener("click", test);
-      closeBtn.addEventListener("click", test);
-      openBtn.addEventListener("click", test);
-
-
-      const profile = document.querySelector('.profile');
-      const profileEdit = document.querySelector('.profile-edit');
-
-      document.querySelector('.edit-btn').addEventListener('click', () => {
-
-        profile.classList.toggle('d-none');
-        profileEdit.classList.toggle('d-none');
-
-      })
-
-
-    })();
-
-  </script>
-
+</script>
 </body>
 </html>

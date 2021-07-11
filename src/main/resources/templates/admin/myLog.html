@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
   <th:block th:include="layout/fragment/head :: head"></th:block>
   <link rel="stylesheet" href="/css/myLog.css">
@@ -11,33 +14,56 @@
 
   <header th:replace="layout/fragment/header :: header"></header>
 
+  <div th:if="${message != null}" class="alert alert-info alert-dismissible fade show mt-3" role="alert">
+    <span th:text="${message}">메시지</span>
+    <button type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
   <!--유저 프로필 영역 -->
   <section class="user-profile">
-
     <figure>
-      <img class="user-avatar" src="/img/user-avatar.svg" alt="프로필사진">
+      <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
+           width="120" height="120" class="user-avatar"></svg>
+      <img th:if="${!#strings.isEmpty(member.profileImage)}" class="user-avatar"
+           th:src="${member.profileImage}"
+           width="125" height="125"/>
     </figure>
 
     <div class="user-profile-text">
       <ul>
         <ul class="log_btn">
-          <li class="title">Minchocho</li>
-          <button class="btn" id="open">팀원신청</button>
-          <button class="btn">follow</button>
+          <li class="title" th:text="${member.nickname}">Minchocho</li>
+          <button class="btn" id="open" th:if="${!isOwner}">팀원신청</button>
+          <button class="btn" th:if="${!isOwner}">follow</button>
         </ul>
-        <li class="subtitle">그래픽 디자인</li>
-        <li class="subtitle">주니어 UI디자이너 민초초입니다</li>
+
+        <li class="subtitle" th:if="${member.job == 0}">개발자</li>
+        <li class="subtitle" th:if="${member.job == 1}">디자이너</li>
+        <li class="subtitle" th:if="${member.job == 2}">선생님</li>
+
+        <li class="subtitle" th:text="*{member.introduction}?: '소개글을 작성해주세요.'">주니어 UI디자이너 민초초입니다</li>
         <span class="smallText align">
-                                  <img class="mini-icon" src="/img/location.svg"></i>
-          <li class="">Seoul, Korea</li>
-                              </span>
+            <img class="mini-icon" src="/img/location.svg"/>
+          <li th:text="*{member.location}?: '사시는 지역을 설정해주세요.'">Seoul, Korea</li>
+        </span>
 
         <span class="smallText align">
-                                    <img class="mini-icon" src="/img/contact.svg"></i>
-          <li class="smallText">Contact : oowwo@gmail.com</li>
-                              </span>
+          <img class="mini-icon" src="/img/contact.svg"/>
+          <li class="smallText" th:text="*{member.contact}?: '연락처를 입력해 주세요.'">Contact : oowwo@gmail.com</li>
+        </span>
 
-        <button class="btn-edit">수정</button>
+        <span class="smallText align" th:if="${isOwner || member.emailVerified}">
+          <span><i class="fa fa-calendar-o mini-icon"></i></span>
+          <span th:if="${isOwner && !member.emailVerified}">
+              <a href="#" th:href="@{'/checkemail?email=' + ${member.email}}">가입을 완료하려면 이메일을 확인하세요.</a>
+            </span>
+          <span th:text="${#temporals.format(member.joinedAt, 'yyyy년 M월 가입')}"></span>
+        </span>
+
+        <a class="btn-edit" th:if="${isOwner}" th:href="@{/settings/profile}">수정</a>
+
       </ul>
     </div>
   </section>

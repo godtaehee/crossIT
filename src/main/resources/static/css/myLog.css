@@ -65,12 +65,9 @@
 
 .log_btn{
     display: flex;
+    align-items: center;
     margin-bottom: 1em;
     cursor: pointer;
-}
-
-.log_btn button:nth-child(2){
-    margin-left: 2em;
 }
 
 .log_btn button{
@@ -111,9 +108,8 @@
     font-size: .8em;
     background: #EFF5FB;
     border:  #c7c7c7 1px;
-    padding: 5px 10px 5px 10px;
+    margin-top: 5px;
     text-decoration: none;
-    margin-top: 1em;
     cursor: pointer;
 }
 
