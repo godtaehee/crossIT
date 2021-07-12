@@ -18,9 +18,11 @@ public class ProjectController {
 	ProjectService service;
 
 	@GetMapping("index")
-	public String index() {
+	public String index(Model model) {
 
-		return "createProject/index";
+		model.addAttribute("project",new Project());
+
+		return "createProject/list";
 	}
 
 

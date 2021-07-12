@@ -12,4 +12,13 @@
 			sender = #{nickname}
 	</select>
 
+	<select id="getMyTeamRequestList" parameterType="String" resultType="Team">
+		SELECT
+			*
+		FROM
+			team
+		WHERE
+			sender = #{nickname}
+	</select>
+
 </mapper>

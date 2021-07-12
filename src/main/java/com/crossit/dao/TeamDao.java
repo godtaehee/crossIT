@@ -7,6 +7,8 @@ public interface TeamDao {
 
 	int getMyTeamRequest(String nickname);
 
+	int getMyTeamRequestList(String nickname);
+
 }
 
 

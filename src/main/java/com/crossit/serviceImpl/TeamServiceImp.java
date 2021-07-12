@@ -15,4 +15,9 @@ public class TeamServiceImp implements TeamService {
 	public int getMyTeamRequest(String nickname) {
 		return teamDao.getMyTeamRequest(nickname);
 	}
+
+	@Override
+	public int getMyTeamRequestList(String nickname) {
+		return teamDao.getMyTeamRequestList(nickname);
+	}
 }

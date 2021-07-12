@@ -1,120 +1,159 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <th:block th:include="layout/fragment/head :: head"></th:block>
 	<link rel="stylesheet" href="/css/dashBoard.css">
-	<link rel="stylesheet" href="/css/reset.css">
     <script src="createProject"></script>
 </head>
 
-
-<header th:replace="layout/fragment/header :: header"></header>
-
 <body class="body">
 
+<div class="container">
 
-<div class="containers">
-
-	<nav class="mynavbar ">
-		<div class="navbar-items tabs is-centered">
-
-			<ul>
-				<li><a class="navbar-item" href="">프로젝트</a></li>
-				<li><a class="navbar-item" href="">북마크</a></li>
-			</ul>
+  <!--헤더 영역-->
+  <header th:replace="layout/fragment/header :: header"></header>
 
 
-	</nav>
+    <div class="nav-start">
+      <a class="navbar-item" href="">
+        <img src="/img/title.png" width="112" height="30" >
+      </a>
 
-	</nav>
+
+      <a class="navbar-item">
+        My Log
+      </a>
+
+      <a class="navbar-item">
+        Project
+      </a>
+
+      <a class="navbar-item">
+        Dashboard
+      </a>
+    </div>
 
 
-	<div>
+    <div class="nav-end">
+      <div class="nav-buttons">
+        <a class="btn-normal">
+          <Strong>Sign up</Strong>
+        </a>
 
-		<div class = "container">
+        <a class="btn-gray">
+          <Strong>Log in</Strong>
+        </a>
+      </div>
+    </div>
 
-			<div class="mycard">
-				<div class="ingProg">진행중인 프로젝트</div>
+  </header>
 
-				<div class="noProg">
+  <!--헤더 영역 /-->
+
+  <!--nav 영역-->
+
+  <nav class="mynavbar ">
+    <div class="navbar-items">
+      <ul class="nav-tabs">
+        <li><a class="navbar-item" href="">프로젝트</a></li>
+        <li><a class="navbar-item" href="">북마크</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!--nav 영역 /-->
+
+  <!--컨테이너 영역-->
+  <div class="card-container">
+
+    <div class="mycard">
+      <div class="ingProg">진행중인 프로젝트</div>
+
+
+      <div class="prjCard">
+        <div class="prjList">
+          <p class="prjTitle">프로젝트 명</p>
+          <p class="prjTitle">부산 게임 공모전 프로젝트</p>
+        </div>
+      </div>
+
+
+
+      <!-- 만약에 프로젝트가 하나도 없으면 여기 주석 해제 + 위에 prjCard 없이 사용하면 됨
+          <div class="noProg">
+              <span>
+                  진행중인 프로젝트가 없어요!<br/>
+                  프로젝트를 생성해보세요.
+              </span>
+          </div>
+      -->
+
+      <div class="createBtn">
+        <a href="#" id="open" class="btn">프로젝트 생성하기</a>
+      </div>
+
+
+      <div class="card-container">
+
+        <div class="mycard2">
+          <div class="ingProg">지난 프로젝트</div>
+
+          <div class="noProg">
                         <span>
-                            진행중인 프로젝트가 없어요!<br/>
-                            프로젝트를 생성해보세요.
-                        </span>
-				</div>
-
-				<div class="createBtn">
-					<a href="/project/makeproject" class="button is-info is-rounded">프로젝트 생성하기</a>
-				</div>
-
-
-			</div>
-
-		</div>
-
-		<div class = "container">
-
-			<div class="mycard2">
-				<div class="ingProg">지난 프로젝트</div>
-
-				<div class="noProg">
-                        <span>
-                            프로젝트가 없어요!<br />
+                            프로젝트가 없어요!<br/>
                               프로젝트를 진행해보세요.
                         </span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal modal-fx-fadeInScale">
-	<div class="modal-overlay"></div>
-	<div class="modal-content ">
-		<form  method="post" enctype="multipart/form-data">
-			<div class="form-control">
-				<label for="name">프로젝트 이름</label>
-				<input type="text"  placeholder="프로젝트 이름을 입력하세요">
-			</div>
-			<div class="form-control">
-				<label for="count">인원 (선택) </label>
-				<input type="number" min="1" max="30">
-			</div>
-			<div class="form-control">
-				<label for="introduce">소개</label>
-				<input type="text" id="message"  placeholder="소개를 입력해주세요" class="message">
-			</div>
-			<div class="form-control">
-				<button class="button is-primary is-light" type="submit" value="create project"> 프로젝트 만들기</button>
-			</div>
-		</form>
-		<button class="close">X</button>
-	</div>
-</div>
+          </div>
+        </div>
+      </div>
 
 
-<script>
+    </div>
+  </div>
+  <!--컨테이너 영역/-->
 
-	const openBtn = document.getElementById("open");
-	const modal = document.querySelector(".modal");
-	const overlay =modal.querySelector(".modal-overlay");
-	const closeBtn = modal.querySelector(".close");
-	console.log(closeBtn);
+  <!--모달 영역 -->
+  <div class="modal hidden">
+    <div class="modal-overlay"></div>
+    <div class="modal-content ">
+      <form th:action="@{/project/makeproject}" th:object="${project}" method="post" enctype="multipart/form-data">
+        <div class="form-control">
+          <label for="prjName">프로젝트 이름</label>
+          <input type="text" th:field="*{name}" placeholder="프로젝트 이름을 입력하세요">
+        </div>
+        <div class="form-control">
+          <label for="count">인원 (선택) </label>
+          <input type="number" min="1" max="30" th:field="*{count}">
+        </div>
+        <div class="form-control">
+          <label for="intro">소개</label>
+          <input class="message"type="text" id="message" th:field="*{introduce}" placeholder="소개를 입력해주세요" class="message">
+        </div>
+        <div class="form-control">
+          <button class="btn-write subBtn" type="submit" value="create project"> 프로젝트 만들기</button>
+        </div>
+      </form>
+      <button class="closeBtn">X</button>
+    </div>
+  </div>
 
-	const test = (e) => {
-		e.preventDefault();
-		modal.classList.toggle('is-active');
-	}
 
-	overlay.addEventListener("click",test);
-	closeBtn.addEventListener("click",test);
-	openBtn.addEventListener("click",test);
+  <script>
+    const openBtn = document.getElementById("open");
+    const modal = document.querySelector(".modal");
+    const overlay =modal.querySelector(".modal-overlay");
+    const closeBtn = modal.querySelector(".closeBtn");
+    const openModal = ()=>{
+      modal.classList.remove("hidden");
+    }
 
-</script>
-
+    const closeModal=()=>{
+      modal.classList.add("hidden");
+    }
+    overlay.addEventListener("click",closeModal);
+    closeBtn.addEventListener("click",closeModal);
+    openBtn.addEventListener("click",openModal);
+  </script>
 
 
 </div>
