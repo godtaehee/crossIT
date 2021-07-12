@@ -60,6 +60,8 @@ public class MainController {
 			model.addAttribute("current", member);
 		}
 
+		List<Team> team = teamService.getMyTeamRequestList(member.getNickname());
+		model.addAttribute("team", team);
 
 		List<Team> team = teamService.getMyTeamRequestList(member.getNickname());
 		model.addAttribute("teamList", team);
