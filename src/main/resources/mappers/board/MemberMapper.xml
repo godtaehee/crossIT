@@ -2,23 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.crossit.dao.MemberDao">
 
-	<sql id="memberColums">
-
-		id,
-		email,
-		password,
-		nickname,
-		job,
-		career,
-		belonging,
-		profile_img,
-		introduction,
-		portfolio,
-		register_date
-		contact,
-		location
-	</sql>
-
 	<insert id="signUp" parameterType="SignUpForm">
 		INSERT INTO member (
 			email,
@@ -58,12 +41,6 @@
 	</update>
 
 
-	<select id="signIn" parameterType="Member" resultType="int">
-		SELECT count(*) FROM member WHERE email = '${email}'
-
-	</select>
-
-
 	<select id="findMemberById" parameterType="long" resultType="int">
 		SELECT
 			count(*)
@@ -82,18 +59,6 @@
 		WHERE
 			nickname = '${nickname}'
 	</select>
-
-
-	<select id="getMember" parameterType="Member" >
-		SELECT
-			count(*)
-		FROM
-			member
-		WHERE
-			nickname = ${nickname}
-
-	</select>
-
 
 	<select id="findMemberByEmail" parameterType="String" resultType="int">
 		SELECT

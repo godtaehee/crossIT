@@ -1,0 +1,113 @@
+* {
+    font-family:BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto;
+
+    /*글씨 색상들*/
+    --gray:rgb(70, 66, 66);
+    --grayLiter:rgb(100, 99, 99);
+
+
+    /*글씨 색상들 / */
+}
+
+body {
+    background-color: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.d-none {
+    display: none;
+}
+
+
+.container{
+    min-height: 100vh;
+    min-width: 600px;
+    width: 90%;
+}
+
+.mini-icon{
+    width: 1em;
+    margin-right: 1em;
+}
+
+
+/*탭 스타일 */
+
+/* ----탭 --- */
+
+.tabs {
+    display: flex;
+    font-size: 1em;
+
+
+}
+
+.tabs ul{
+    display: flex;
+    align-items: center;
+    margin-left :2em;
+    border-bottom-color: #dbdbdb;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.tabs ul li{
+    margin-right: .5em;
+    cursor: pointer;
+}
+
+.tabs li.is-active a {
+    border-bottom-color: #485fc7;
+    color: #485fc7;
+    border-bottom-style: solid;
+}
+
+.tabs a{
+    border-bottom-width: 1px;
+    display: flex;
+    justify-content: center;
+
+    padding:.5em 1em;
+}
+
+.is-active-dropdown {
+    display: block !important;
+}
+
+.alert {
+    background-color: #fff8dc;
+    padding: 1em 0.5em;
+    box-shadow: 0 10px 20px rgba(131, 131, 131, 0.068), 0 6px 6px rgba(128, 128, 128, 0.089);
+    border-radius: 5px;
+    transition: 1s;
+}
+
+.alert a {
+    font-weight: bold;
+    color: #4778c2;
+}
+
+.alert.alert-success {
+    position: relative;
+    background-color: #f0ffff;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 0;
+    border-radius: 50%;
+    padding: 0.5em 0.5em;
+}
+
+.alert button {
+    cursor: pointer;
+}

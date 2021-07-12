@@ -1,291 +1,275 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <th:block th:include="layout/fragment/head :: head"></th:block>
+  <link rel="stylesheet" href="/css/index.css">
 </head>
-
-
-<style>
-  /*.index-img {*/
-  /*  display: flex;*/
-  /*  justify-content: space-around;*/
-  /*  align-items: center;*/
-  /*}*/
-
-
-
-  .index-img {
-    display: flex;
-    justify-content: flex-end;
-
-  }
-
-  .index-text {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-right: 450px;
-  }
-
-  .category {
-    margin-bottom: 50px;
-    display: flex;
-  }
-
-  .category-menu {
-    display: inline-block;
-    margin-left: 40px;
-  }
-
-  .category-menu {
-    margin-right: 20px;
-  }
-
-  .dropdown {
-    margin-right: 20px;
-  }
-
-  .card-list-con {
-    width: 90%;
-    /* margin-left: 1%;
-    margin-right: 1%; */
-  }
-
-  .card-list {
-    display: flex;
-    align-items: center;
-    margin-left: 10%;
-
-  }
-
-
-  .card-item {
-
-    /* margin-bottom: 2rem;     */
-    border-radius: 1em;
-
-    margin: 0.95em;
-
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 0 5em -1em rgba(112, 111, 111, 0.411);
-    position: relative;
-    --border: 1px solid rgba(204, 204, 204, 0.356);
-    text-decoration: none;
-  }
-
-
-  .card-image {
-    height: 0;
-    padding-bottom: 60%;
-    margin-top: 10px;
-    border-radius: 1em;
-    background-color: rgb(129, 129, 129);
-    background-image: url('/img/index.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-  }
-
-
-  .card-image img {
-    display: none;
-  }
-
-  .card-desc {
-    flex: 1 1 auto;
-    padding: 1em;
-    /* background:rgb(255, 237, 237); */
-
-  }
-
-  .card-desc .line {
-    height: 1px;
-    background-color: rgba(141, 141, 141, 0.432);
-    border: none;
-    margin-top: 10px;
-    margin-bottom: 10px;
-
-
-  }
-
-  .date {
-    color: rgb(105, 105, 105);
-    padding-top: 7px;
-
-  }
-
-  .writer {
-    display: flex;
-  }
-
-  .title {
-    display: flex;
-    align-items: center;
-  }
-
-  .tabStyle{
-
-  }
-
-  @media (min-width: 600px) {
-    .card-list-con {
-      --overflow-x: hidden;
-    }
-
-    .card-list {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 0 -1rem;
-
-    }
-
-    .card-item {
-      width: 50%;
-      padding: 0 1rem;
-
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .card-item {
-      width: 23%;
-
-    }
-
-  }
-</style>
 
 <body>
 
-<header th:replace="layout/fragment/header :: header"></header>
-<div class="alert alert-warning" role="alert" th:if="${member != null && !member.emailVerified}">
-  크로스잇에 가입을 완료하려면 <a href="#" th:href="@{/check-email}" class="alert-link">계정 인증 이메일을 확인</a>하세요
-</div>
+<div class="container">
 
-<div class="card-list-con">
+  <!--헤더 영역-->
+  <header th:replace="layout/fragment/header :: header"></header>
 
+  <div class="alert" role="alert" th:if="${member != null && !member.emailVerified}">
+    크로스잇에 가입을 완료하려면 <a href="#" th:href="@{/check-email}" class="alert-link">계정 인증 이메일을 확인</a>하세요
+  </div>
+
+  <!-- 중간 이미지영역 -->
   <section class="index-img">
-    <p class="index-text">크리에이터들을 위한 팀빌딩, 포트폴리오 관리 플랫폼<br/>
-      CrossIT</p>
-    <img src="/img/7 SCENE.svg" width="600" height="400">
+    <img class="jumbo" src="/img/text2.svg">
+    <img class="jumbo" src="/img/7 SCENE.svg">
   </section>
 
-  <!--내꺼 벌마 contents가 안먹음 오빠거 ㄱㅊ은지 확인(안먹으면 category에 마진 left 13%만  -->
+  <!-- 중간 이미지영역 /-->
+
+  <!-- 콘텐츠 영역 -->
+
   <section class="contents">
+    <!-- 카테고리 영역 -->
     <div class="category">
+      <div class="dropdown">
+        <button class="dropbtn"> 전체글 보기
+          <img class="mini-icon" src="/img/arrow-down.svg"></i>
+        </button>
 
-      <div class="dropdown ">
-        <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-            <span>전체글 보기</span>
-            <span class="icon is-small">
-                      <i class="fas fa-angle-down" aria-hidden="true"></i>
-                    </span>
-          </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-          <div class="dropdown-content">
-            <a href="#" class="dropdown-item">
-              개발자
-            </a>
-            <hr class="dropdown-divider">
-            <a class="dropdown-item">
-              디자이너
-            </a>
-            <hr class="dropdown-divider">
-            <a href="#" class="dropdown-item is-active">
-              기획자
-            </a>
-            <hr class="dropdown-divider">
-            <a href="#" class="dropdown-item">
-              기타
-            </a>
-
-          </div>
+        <div class="dropdown-content">
+          <a href="#">개발자</a>
+          <a href="#">디자이너</a>
+          <a href="#">기획자</a>
+          <a href="#">기타</a>
         </div>
       </div>
-
 
       <div class="tabs">
         <ul>
-          <li class="is-active"><input type="button" onclick="getBoardByCategory(0)" value="자랑하기" class="button is-ghost"></li>
-          <li> <input type="button" onclick="getBoardByCategory(1)" value="Today I learn" class="button is-ghost">
+          <li><input type="button" class="tabs-btn-index" onclick="getBoardByCategory()" value="전체 글"></li>
+          <li class="is-active"><input type="button" class="tabs-btn-index" onclick="getBoardByCategory(0)" value="자랑하기"></li>
+          <li> <input type="button" class="tabs-btn-index" onclick="getBoardByCategory(1)" value="Today I learn">
           </li>
-          <li> <input type="button" onclick="getBoardByCategory(2)" value="프로젝트 같이해요" class="button is-ghost"></li>
-          <li> <input type="button" onclick="getBoardByCategory(3)" value="기타" class="button is-ghost"></li>
+          <li> <input type="button" class="tabs-btn-index" onclick="getBoardByCategory(2)" value="프로젝트 같이해요" ></li>
+          <li> <input type="button" class="tabs-btn-index" onclick="getBoardByCategory(3)" value="기타" ></li>
         </ul>
       </div>
     </div>
+    <!-- 카테고리 영역 /-->
 
     <ul class="card-list">
+      <li class="card-item" th:if="${not #lists.isEmpty( boardList )}" th:each="board : ${boardList}">
+        <figure class="card-image">
+          <svg th:if="${#strings.isEmpty(board?.thumbnail)}" th:data-jdenticon-value="${board.title}"
+               width="150" height="150" class="jdenticon-svg"></svg>
+          <img th:if="${!#strings.isEmpty(board.thumbnail)}" th:src="@{'upload/' + ${board.insertTimeFormat} + '/' + ${board.thumbnail}}" class="thumbnail">
+        </figure>
+        <div class="card-desc">
+          <div class="media-content">
+            <a class="title" href="/board/view?id=${v.id}" th:text="${board.title}"></a>
+            <div class="description">
+              <div class="content" th:text="${board.content}"></div>
+              <p class="content date" th:text="${#strings.substring(board.insertTime,0,10)}"></p>
+            </div>
+            <hr class="line">
+            <div class="writer">
+              <figure class="profile-image">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button">
+                  <svg class="profile-image-user" th:if="${#strings.isEmpty(board.writerProfile)}" th:data-jdenticon-value="${board.writer}"
+                       width="40" height="40"></svg>
+                  <img class="profile-image-user" th:if="${!#strings.isEmpty(board.writerProfile)}" th:src="${board.writerProfile}"/>
 
+                </a>
+              </figure>
+              <p class="nickname" th:text="${board.writer}"></p>
+            </div>
+          </div>
+        </div>
+      </li>
     </ul>
+    <!--글 영역 / -->
+
   </section>
+
+  <!-- 콘텐츠 영역 /-->
 
 
 </div>
 
 
+
+<script th:replace="layout/fragment/dropdown :: dropDown"></script>
+
 <script>
-  //DOMContentLoaded - it fires when initial HTML document has been completely loaded
-  document.addEventListener('DOMContentLoaded', function () {
-    // querySelector - it returns the element within the document that matches the specified selector
-    const dropdown = document.querySelector('.dropdown');
 
-    //addEventListener - attaches an event handler to the specified element.
-    dropdown.addEventListener('click', function (event) {
 
-      //event.stopPropagation() - it stops the bubbling of an event to parent elements, by preventing parent event handlers from being executed
-      event.stopPropagation();
+  on(window, 'DOMContentLoaded', () => {
+    const cardImage = qsAll('.card-image');
+    const width = cardImage[0].offsetWidth;
+    const height = cardImage[0].offsetHeight;
 
-      //classList.toggle - it toggles between adding and removing a class name from an element
-      dropdown.classList.toggle('is-active');
-    });
+    for(const card of cardImage) {
+      const jdenticonSvg = qs('.jdenticon-svg', card);
+      if(jdenticonSvg){
+        jdenticonSvg.style.width = `${width}`;
+        jdenticonSvg.style.height = `${height}`;
+      }
+    }
   });
 
-  function getBoardByCategory(category) {
+
+on(window, 'resize', () => {
+  const cardImage = qsAll('.card-image');
+  const width = cardImage[0].offsetWidth;
+  const height = cardImage[0].offsetHeight;
+
+  for(const card of cardImage) {
+    const jdenticonSvg = qs('.jdenticon-svg', card);
+    if(jdenticonSvg){
+      jdenticonSvg.style.width = `${width}`;
+      jdenticonSvg.style.height = `${height}`;
+    }
+  }
+});
+
+
+
+function getBoardByCategory(category = -1) {
+  let go;
+  let str = '';
+  const test = new XMLHttpRequest();
+  test.open('GET', 'http://localhost:8080/board/category');
+  test.addEventListener('load', () => {
+    const result = JSON.parse(test.response);
+    const cardList = document.querySelector('.card-list');
+    cardList.innerHTML = '';
+
+    category !== -1 ? go = result.filter(v => v.category === category) : go = result;
+
+    go.forEach(v => {
+      str += `
+           <li class="card-item">
+        <figure class="card-image">`;
+
+      if(!v.thumbnail) {
+        str += `<svg data-jdenticon-value="${v.title}"
+               width="150" height="150" class="jdenticon-svg"></svg>`;
+      }else {
+        str += `<img src="upload/${v.insertTimeFormat}/${v.thumbnail}" class="thumbnail">`
+      }
+
+      str += `
+              </figure>
+        <div class="card-desc">
+          <div class="media-content">
+            <a class="title" href="/board/view?id=${v.id}">${v.title}</a>
+            <div class="description">
+              <div class="content">${v.content}</div>
+              <p class="content date">${v.insertTime.date.year}-${v.insertTime.date.month}-${v.insertTime.date.day}</p>
+            </div>
+            <hr class="line">
+            <div class="writer">
+              <figure class="profile-image">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button">
+      `;
+
+      const svgValue = jdenticon.toSvg(v.writer, 40);
+
+      if(!v.writerProfile) {
+        str += `
+         <svg data-jdenticon-value="${v.writer}" width="40" height="40">
+         ${svgValue}</svg>
+        `;
+      }else {
+        str += `
+         <img src="${v.writerProfile}"
+           width="40" height="40"/>
+        `;
+      }
+      str += `
+                      </a>
+              </figure>
+              <p class="nickname">${v.writer}</p>
+            </div>
+          </div>
+        </div>
+      </li>
+        `;
+
+    });
+
+    cardList.innerHTML = str;
+  })
+  test.send();
+
+}
+
+  function getBoardByJob(job) {
     const test = new XMLHttpRequest();
-    test.open('GET', 'http://localhost:8080/board/test');
+    test.open('GET', 'http://localhost:8080/board/job');
     test.addEventListener('load', () => {
-      console.log(test.response);
       const result = JSON.parse(test.response);
       const cardList = document.querySelector('.card-list');
       cardList.innerHTML = '';
 
+      console.log(result);
+
 
       const go = result.filter(v => v.category === category);
-      console.log(go);
 
       let str = '';
 
       go.forEach(v => {
         str += `
-      <li class="card-item">
-        <figure class="card-image">
-          <img src="../img/index.png" alt="글 이미지">
-        </figure>
+           <li class="card-item">
+        <figure class="card-image">`;
 
+        if(!v.thumbnail) {
+          str += `<svg data-jdenticon-value="${v.title}"
+               width="150" height="150" class="jdenticon-svg"></svg>`;
+        }else {
+          str += `<img src="upload/${v.insertTimeFormat}/${v.thumbnail}" class="thumbnail">`
+        }
+
+        str += `
+              </figure>
         <div class="card-desc">
           <div class="media-content">
-            <a class="title is-6 mb-2" href="/board/view?id=${v.id}">${v.title}</a>
-            <div class="content is-6 mb-3">
-            ${v.content}
-              <p class="content is-size-7 date">${v.insertTime}</p>
-              <hr class="line">
+            <a class="title" href="/board/view?id=${v.id}">${v.title}</a>
+            <div class="description">
+              <div class="content">${v.content}</div>
+              <p class="content date">${v.insertTime.date.year}-${v.insertTime.date.month}-${v.insertTime.date.day}</p>
             </div>
+            <hr class="line">
             <div class="writer">
-              <figure class="image is-32x32 mr-2">
-                <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+              <figure class="profile-image">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button">
+      `;
+
+        const svgValue = jdenticon.toSvg(v.writer, 40);
+
+        if(!v.writerProfile) {
+          str += `
+         <svg data-jdenticon-value="${v.writer}" width="40" height="40">
+         ${svgValue}</svg>
+        `;
+        }else {
+          str += `
+         <img src="${v.writerProfile}"
+           width="40" height="40"/>
+        `;
+        }
+        str += `
+                      </a>
               </figure>
-              <p class="title is-7">${v.wirter}</p>
+              <p class="nickname">${v.writer}</p>
             </div>
           </div>
         </div>
-      </li>`
-      })
+      </li>
+        `;
 
+      });
 
       cardList.innerHTML = str;
     })
@@ -293,9 +277,8 @@
 
   }
 
-  function logout() {
-    location.href = "/user/logout";
-  }
+
+
 </script>
 </body>
 </html>

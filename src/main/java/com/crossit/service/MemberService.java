@@ -128,6 +128,12 @@ public class MemberService implements UserDetailsService {
 		member.setIntroduction(profile.getIntroduction());
 		member.setLocation(profile.getLocation());
 		member.setContact(profile.getContact());
+		member.setProfileImage(profile.getProfileImage());
 		memberRepository.save(member);
+	}
+
+	public String getMemberProfile(String nickname) {
+		Member member = memberRepository.findByNickname(nickname);
+		return member.getProfileImage();
 	}
 }

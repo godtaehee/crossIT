@@ -14,9 +14,12 @@ public class Profile {
 
 	private String contact;
 
+	private String profileImage;
+
 	public Profile(Member member) {
 		this.introduction = member.getIntroduction();
 		this.location = member.getLocation();
 		this.contact = member.getContact();
+		this.profileImage = member.getProfileImage();
 	}
 }

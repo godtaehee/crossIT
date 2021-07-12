@@ -4,7 +4,7 @@
 <mapper namespace="com.crossit.dao.BoardDao">
 
 	<sql id="boardColumns">
-		  id
+		id
 		, title
 		, content
 		, writer
@@ -20,89 +20,111 @@
 
 	<insert id="insertBoard" parameterType="BoardDTO" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO board (
-			<include refid="boardColumns" />
+		<include refid="boardColumns"/>
 		) VALUES (
-			  #{id}
-			, #{title}
-			, #{content}
-			, #{writer}
-			, 0
-			, IFNULL(#{noticeYn}, 'N')
-			, IFNULL(#{secretYn}, 'N')
-			, 'N'
-			, NOW()
-			, NULL
-			, NULL
-			,#{category}
+		#{id}
+		, #{title}
+		, #{content}
+		, #{writer}
+		, 0
+		, IFNULL(#{noticeYn}, 'N')
+		, IFNULL(#{secretYn}, 'N')
+		, 'N'
+		, NOW()
+		, NULL
+		, NULL
+		,#{category}
 		)
 	</insert>
 
 	<select id="selectBoardDetail" parameterType="long" resultType="BoardDTO">
 		SELECT
-			<include refid="boardColumns" />
-		FROM
-			board
-		WHERE
-			delete_yn = 'N'
-		AND
-			id = #{id}
-	</select>
-
-	<update id="updateBoard" parameterType="BoardDTO">
-		UPDATE board
-		SET
-			  update_time = NOW()
-			, title = #{title}
-			, content = #{content}
-			, writer = #{writer}
-			, notice_yn = IFNULL(#{noticeYn}, 'N')
-			, secret_yn = IFNULL(#{secretYn}, 'N')
-		WHERE
-			id = #{id}
-	</update>
-
-	<update id="deleteBoard" parameterType="long">
-		UPDATE board
-		SET
-			  delete_yn = 'Y'
-			, delete_time = NOW()
-		WHERE
-			id = #{id}
-	</update>
-
-	<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">
-		SELECT
-			<include refid="boardColumns" />
-		FROM
-			board
-		WHERE
-			delete_yn = 'N'
-		<include refid="CommonMapper.search" />
-		ORDER BY
-			notice_yn ASC,
-			id DESC,
-			insert_time DESC
-		<include refid="CommonMapper.paging" />
-	</select>
-
-	<select id="selectBoardTotalCount" parameterType="Criteria" resultType="long">
-		SELECT
-			COUNT(*)
-		FROM
-			board
-		WHERE
-			delete_yn = 'N'
-		<include refid="CommonMapper.search" />
-	</select>
-
-	<select id ="getList" resultType="com.crossit.entity.Board">
-		SELECT
-		<include refid="boardColumns" />
+		<include refid="boardColumns"/>
 		FROM
 		board
 		WHERE
 		delete_yn = 'N'
-		<include refid="CommonMapper.search" />
+		AND
+		id = #{id}
+	</select>
+
+	<update id="updateBoard" parameterType="BoardDTO">
+		UPDATE board
+		SET update_time = NOW()
+		  , title       = #{title}
+		  , content     = #{content}
+		  , writer      = #{writer}
+		  , notice_yn   = IFNULL(#{noticeYn}, 'N')
+		  , secret_yn   = IFNULL(#{secretYn}, 'N')
+		WHERE id = #{id}
+	</update>
+
+	<update id="deleteBoard" parameterType="long">
+		UPDATE board
+		SET delete_yn   = 'Y'
+		  , delete_time = NOW()
+		WHERE id = #{id}
+	</update>
+
+	<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">
+		SELECT
+		<include refid="boardColumns"/>
+		FROM
+		board
+		WHERE
+		delete_yn = 'N'
+		<include refid="CommonMapper.search"/>
+		ORDER BY
+		notice_yn ASC,
+		id DESC,
+		insert_time DESC
+		<include refid="CommonMapper.paging"/>
+	</select>
+
+	<select id="selectBoardTotalCount" parameterType="Criteria" resultType="long">
+		SELECT
+		COUNT(*)
+		FROM
+		board
+		WHERE
+		delete_yn = 'N'
+		<include refid="CommonMapper.search"/>
+	</select>
+
+	<select id="getList" resultType="BoardDTO">
+		SELECT
+		<include refid="boardColumns"/>
+		FROM
+		board
+		WHERE
+		delete_yn = 'N'
+		<include refid="CommonMapper.search"/>
+		ORDER BY
+		notice_yn ASC,
+		id DESC,
+		insert_time DESC
+	</select>
+
+	<select id="getListByJob" resultType="BoardListViewByJob">
+		SELECT
+		b.id,
+		b.title,
+		b.content,
+		b.writer,
+		b.view_cnt,
+		b.notice_yn,
+		b.secret_yn,
+		b.insert_time,
+		b.update_time,
+		b.delete_time,
+		b.category,
+		m.job
+		FROM board as b
+		left join
+		member as m
+		on b.writer = m.nickname
+		WHERE
+		delete_yn = 'N'
 		ORDER BY
 		notice_yn ASC,
 		id DESC,
@@ -110,3 +132,5 @@
 	</select>
 
 </mapper>
+
+

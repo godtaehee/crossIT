@@ -2,28 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 
 <head>
+
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/reset.css">
-  <link rel="stylesheet" href="/css/inc.css">
-  <link rel="stylesheet" href="/css/header.css">
-  <link rel="stylesheet" href="/css/myLog.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+
   <title>MyLog</title>
 
-  <script>
-
-
-  </script>
 </head>
 <body>
 
 <div class="card-list-con container">
 
   <!-- 헤더-->
-  <div th:replace="inc/header::hd"> </div>
+  <div th:replace="inc/header::hd"></div>
 
   <!--유저 프로필 영역 -->
   <section class="section">
@@ -35,13 +27,13 @@
       <div class="user-profile">
         <ul>
 
-            <li class="title is-4 is spaced" th:text="*{nickname}">Minchocho</li>
-            <input class="inputSt" type="text" placeholder="소개를 입력해주세요" th:field="*{introduction}">
-            <span class="location">
+          <li class="title is-4 is spaced" th:text="*{nickname}">Minchocho</li>
+          <input class="inputSt" type="text" placeholder="소개를 입력해주세요" th:field="*{introduction}">
+          <span class="location">
               <i class="fas fa-map-marker-alt mr-2"></i>
-              <input class="inputSt" type="text" placeholder="지역" th:field="*{location}" >
+              <input class="inputSt" type="text" placeholder="지역" th:field="*{location}">
             </span>
-            <input class="inputSt" type="text" placeholder="contact" th:field="*{contact}">
+          <input class="inputSt" type="text" placeholder="contact" th:field="*{contact}">
           <button class="button is-info is-light is-inverted is-small mt-2" type="submit">수정 완료</button>
         </ul>
       </div>
@@ -79,10 +71,8 @@
     <!--태그 목록 end-->
 
 
-
     <section>
       <!--검색-->
-
 
 
       <!-- Image -->
@@ -96,7 +86,9 @@
             <i class="fas fa-search" aria-hidden="true"></i>
             </span>
             </p>
-            <a href="/board/write"><button class="btn-write button is-rounded">글쓰기</button></a>
+            <a href="/board/write">
+              <button class="btn-write button is-rounded">글쓰기</button>
+            </a>
           </div>
 
 
@@ -118,7 +110,8 @@
                   <div class="content is-medium">
                     <h1 class="title is-3">Getting Started</h1>
                     <p>This is a starter template for creating a beautiful, customizable blog with minimal
-                      effort. You’ll only have to change a few settings and you’re ready to go. As with all Jigsaw sites,
+                      effort. You’ll only have to change a few settings and you’re ready to go. As with all Jigsaw
+                      sites,
                       configuration settings can be found in config</p>
                     <h2 class="subtitle is-6">December 25, 2018</h2>
                   </div>
@@ -136,13 +129,7 @@
     </section>
 
 
-
-
   </section>
-
-
-
-
 
   </section>
 

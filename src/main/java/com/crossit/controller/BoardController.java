@@ -5,6 +5,7 @@ import com.crossit.domain.BoardDTO;
 import com.crossit.domain.FileDTO;
 import com.crossit.service.BoardService;
 import com.crossit.util.UiUtils;
+import com.crossit.view.BoardListViewByJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -57,7 +58,7 @@ public class BoardController extends UiUtils {
 			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/board/list", Method.GET, pagingParams, model);
 		}
 
-		return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/admin/myLog", Method.GET, pagingParams, model);
+		return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "admin/mylog", Method.GET, pagingParams, model);
 	}
 
 
@@ -68,14 +69,6 @@ public class BoardController extends UiUtils {
 
 		return "board/list";
 	}
-
-	@GetMapping("/board/test")
-	@ResponseBody
-	public List<BoardDTO> getBoardList(@ModelAttribute("params") BoardDTO params) {
-		List<BoardDTO> boardList = boardService.getList();
-		return boardList;
-	}
-
 
 	@GetMapping(value = "/board/view")
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model) {
@@ -118,13 +111,19 @@ public class BoardController extends UiUtils {
 	}
 
 
-	@RequestMapping("/")
-	public String list(Model model) {
-		List<BoardDTO> list = boardService.getList();
-		model.addAttribute("list", list);
-
-		return "index";
-
-
+	@GetMapping("/board/category")
+	@ResponseBody
+	public List<BoardDTO> getBoardList() {
+		List<BoardDTO> boardList = boardService.getList();
+		return boardList;
 	}
+
+
+	@GetMapping("/board/job")
+	@ResponseBody
+	public List<BoardListViewByJob> getBoardListViewByJob() {
+		List<BoardListViewByJob> boardList = boardService.getListByJob();
+		return boardList;
+	}
+
 }
