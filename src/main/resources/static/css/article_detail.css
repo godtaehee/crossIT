@@ -1,0 +1,114 @@
+.article-con{
+    display: flex;
+    width: 80%;
+
+    background-color: rgba(214, 214, 214, 0.164);
+    border-radius: 0.5em;
+    box-shadow: 5px 10px 20px rgba(153, 153, 153, 0.13);
+}
+
+
+
+.con-test{
+    display: flex;
+    margin-top: 3em;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-avatar{
+    width: 4em;
+    height: 4em;
+    margin: 1em;
+    display: flex;
+}
+
+.article-inside-con{
+    width: 100%;
+    min-height:100vh ;
+}
+
+.total-con{
+    min-height: 200vh;
+    margin-top: .5em ;
+}
+
+.article-container{
+    margin: 3em;
+}
+
+
+/*마이로그에서 가져온 공통 css */
+
+
+.user-profile{
+    display: flex;
+    padding: 2em 2em;
+    background-color: rgba(252, 252, 252, 0.986);
+    border-radius: 0.5em;
+    box-shadow: 5px 10px 20px rgba(153, 153, 153, 0.13);
+    border: solid .1em rgba(250, 250, 250, 0.867) ;
+}
+
+
+.user-profile-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tagLine{
+    border-bottom-color: #dbdbdb;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    width: 100%;
+    margin-bottom: 1.5em;
+    margin-top: 1em;
+}
+
+
+.title{
+    font-size: 1em;
+    color:var(--blue-mid);
+    font-weight: 300;
+    margin-bottom: 1em;
+}
+
+.subtitle{
+    font-size: 1.2em;
+    color:var(--light-black);
+    font-weight: 400;
+    margin-bottom: .5em;
+}
+
+.writer{
+    font-size: 1em;
+    color:var(--grayMid);
+    font-weight: 400;
+    margin-bottom: .3em;
+}
+
+.article-date{
+    font-size: .8em;
+    color:var(--grayLiter);
+    font-weight: 400;
+}
+
+.article-profile{
+    background-color: rgba(202, 239, 255, 0.74);
+    border-radius: 0.5em;
+    box-shadow: 5px 10px 20px rgba(153, 153, 153, 0.13);
+    border: solid .1em rgba(250, 250, 250, 0.867) ;
+    border-radius: .4em;
+    width: 8em;
+    display: flex;
+    align-items: center;
+    margin-top: 1.3em;
+    margin-bottom: 1em;
+}
+
+.article-profile .user-avatar{
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0 .7em 0 .2em;
+}
