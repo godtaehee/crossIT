@@ -10,6 +10,8 @@
 			team
 		WHERE
 			sender = #{nickname}
+			AND
+		      confirm = 0
 	</select>
 
 	<select id="getMyTeamRequestList" parameterType="String" resultType="Team">
@@ -19,6 +21,8 @@
 			team
 		WHERE
 			sender = #{nickname}
+			AND
+		      confirm = 0
 	</select>
 
 </mapper>
