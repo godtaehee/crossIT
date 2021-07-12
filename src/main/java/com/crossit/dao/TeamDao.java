@@ -12,6 +12,8 @@ public interface TeamDao {
 
 	List<Team> getMyTeamRequestList(String nickname);
 
+	int deleteTeamRequest(int id);
+
 }
 
 

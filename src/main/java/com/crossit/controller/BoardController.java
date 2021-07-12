@@ -31,15 +31,15 @@ public class BoardController extends UiUtils {
 								 Model model,
 								 Principal principal,
 								 @CurrentUser Member member) {
+		model.addAttribute("current", member);
 		if (id == null) {
 			BoardDTO boardDTO = new BoardDTO();
 			boardDTO.setWriter(principal.getName());
 			model.addAttribute("board", boardDTO);
-			model.addAttribute("current", member);
 		} else {
 			BoardDTO board = boardService.getBoardDetail(id);
 			if (board == null || "Y".equals(board.getDeleteYn())) {
-				return showMessageWithRedirect("없는 게시글이거나 이미 삭제된 게시글입니다.", "/board/list", Method.GET, null, model);
+				return showMessageWithRedirect("없는 게시글이거나 이미 삭제된 게시글입니다.", "admin/mylog", Method.GET, null, model);
 			}
 			model.addAttribute("board", board);
 
@@ -80,12 +80,12 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/board/view")
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model) {
 		if (id == null) {
-			return showMessageWithRedirect("올바르지 않은 접근입니다.", "/board/list", Method.GET, null, model);
+			return showMessageWithRedirect("올바르지 않은 접근입니다.", "admin/mylog", Method.GET, null, model);
 		}
 
 		BoardDTO board = boardService.getBoardDetail(id);
 		if (board == null || "Y".equals(board.getDeleteYn())) {
-			return showMessageWithRedirect("없는 게시글이거나 이미 삭제된 게시글입니다.", "/board/list", Method.GET, null, model);
+			return showMessageWithRedirect("없는 게시글이거나 이미 삭제된 게시글입니다.", "admin/mylog", Method.GET, null, model);
 		}
 		model.addAttribute("board", board);
 
@@ -105,7 +105,7 @@ public class BoardController extends UiUtils {
 		try {
 			boolean isDeleted = boardService.deleteBoard(id);
 			if (isDeleted == false) {
-				return showMessageWithRedirect("게시글 삭제에 실패하였습니다.", "/board/list", Method.GET, pagingParams, model);
+				return showMessageWithRedirect("게시글 삭제에 실패하였습니다.", "admin/mylog", Method.GET, pagingParams, model);
 			}
 		} catch (DataAccessException e) {
 			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/board/list", Method.GET, pagingParams, model);
@@ -114,7 +114,7 @@ public class BoardController extends UiUtils {
 			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/board/list", Method.GET, pagingParams, model);
 		}
 
-		return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "/board/list", Method.GET, pagingParams, model);
+		return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "admin/mylog", Method.GET, pagingParams, model);
 	}
 
 

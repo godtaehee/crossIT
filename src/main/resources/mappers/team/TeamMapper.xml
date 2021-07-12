@@ -25,4 +25,14 @@
 		      confirm = 0
 	</select>
 
+
+	<update id="deleteTeamRequest" parameterType="int">
+		UPDATE
+			team
+		SET
+			confirm = 1
+		WHERE
+			id = #{id}
+	</update>
+
 </mapper>

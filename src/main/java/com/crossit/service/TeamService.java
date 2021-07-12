@@ -11,5 +11,7 @@ public interface TeamService {
 
 	List<Team> getMyTeamRequestList(String nickname);
 
+	int deleteTeamRequest(int id);
+
 
 }

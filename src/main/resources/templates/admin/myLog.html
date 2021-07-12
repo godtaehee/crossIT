@@ -162,8 +162,6 @@
 
   <form th:action="@{'/request-team/' + ${member.nickname}}" th:object="${team}" method="post">
     <div class="modal hidden">
-      <input type="hidden" th:name="*{sender}" th:value="${member.nickname}">
-      <input type="hidden" th:name="*{requestor}" th:value="${#authentication.name}">
       <div class="modal-overlay"></div>
       <div class="modal-content ">
         <form action="" id="form" class="form">

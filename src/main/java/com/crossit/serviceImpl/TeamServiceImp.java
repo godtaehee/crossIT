@@ -23,4 +23,9 @@ public class TeamServiceImp implements TeamService {
 	public List<Team> getMyTeamRequestList(String nickname) {
 		return teamDao.getMyTeamRequestList(nickname);
 	}
+
+	@Override
+	public int deleteTeamRequest(int id) {
+		return teamDao.deleteTeamRequest(id);
+	}
 }
