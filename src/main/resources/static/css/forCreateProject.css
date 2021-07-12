@@ -1,0 +1,57 @@
+h2{
+font-size: 1em;
+font-weight: bold;
+/* text-align: left; */
+}
+.reg-info{
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+.float-content{
+    height: 100%;
+}
+.title{
+    width:100%;
+}
+.poster{
+    width:150px;
+    height:200px;
+    margin: 30px;
+    /* border-radius: 10px; */
+}
+.img-button{
+    width: 20px;
+    height: 20px;
+    position: relative;
+    left: -60px;
+    top: -40px;
+}
+.txt{
+    width:100%;
+    margin-left: 50%;
+    position: absolute;
+    float: left;
+}
+.btn-area{
+    text-align: center;
+    float: left;
+    width: 100%;
+}
+.btn-member{
+    width:20px;
+    height: 10px;
+    border-radius: 3px;
+    font-family: Arial;
+    color: #767272;
+    font-size: 0.8em;
+    background: #dfe3e2;
+    padding: 5px 8px;
+}
+.box{
+    width:80px;
+}
+
+.list li{
+    margin: 20px 0;
+}
