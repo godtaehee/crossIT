@@ -30,6 +30,7 @@ public class ProjectController {
 			alarmCnt = teamService.getMyTeamRequest(member.getNickname());
 			model.addAttribute("alarmCnt", alarmCnt);
 		}
+		model.addAttribute("current", member);
 		model.addAttribute("project", new Project());
 
 		return "createProject/list";
