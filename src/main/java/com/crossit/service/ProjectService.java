@@ -11,7 +11,7 @@ public interface ProjectService {
 	Project get(int id);
 	int insert(Project project);
 	int delete(int id);
-	
-	int insertmore(Project project);
+	int getProjectId(int projectId);
+	int insertMore(Project project);
 
 }
