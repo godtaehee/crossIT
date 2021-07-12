@@ -27,9 +27,6 @@ public class ProjectController {
 	public String index(@CurrentUser Member member, Model model) {
 		if(member != null) {
 			model.addAttribute(member);
-			int alarmCnt = 0;
-			alarmCnt = teamService.getMyTeamRequest(member.getNickname());
-			model.addAttribute("alarmCnt", alarmCnt);
 		}
 		model.addAttribute("current", member);
 		model.addAttribute("project", new Project());

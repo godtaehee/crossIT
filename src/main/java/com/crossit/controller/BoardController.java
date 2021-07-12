@@ -5,9 +5,11 @@ import com.crossit.constant.Method;
 import com.crossit.domain.BoardDTO;
 import com.crossit.domain.FileDTO;
 import com.crossit.entity.Member;
+import com.crossit.repository.MemberRepository;
 import com.crossit.service.BoardService;
 import com.crossit.util.UiUtils;
 import com.crossit.view.BoardListViewByJob;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -20,10 +22,15 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor
 public class BoardController extends UiUtils {
 
 	@Autowired
 	private BoardService boardService;
+
+	private final MemberRepository memberRepository;
+
+
 
 	@GetMapping("/board/write")
 	public String openBoardWrite(@ModelAttribute("params") BoardDTO params,
@@ -31,15 +38,15 @@ public class BoardController extends UiUtils {
 								 Model model,
 								 Principal principal,
 								 @CurrentUser Member member) {
+		model.addAttribute("current", member);
 		if (id == null) {
 			BoardDTO boardDTO = new BoardDTO();
 			boardDTO.setWriter(principal.getName());
 			model.addAttribute("board", boardDTO);
-			model.addAttribute("current", member);
 		} else {
 			BoardDTO board = boardService.getBoardDetail(id);
 			if (board == null || "Y".equals(board.getDeleteYn())) {
-				return showMessageWithRedirect("없는 게시글이거나 이미 삭제된 게시글입니다.", "/board/list", Method.GET, null, model);
+				return showMessageWithRedirect("없는 게시글이거나 이미 삭제된 게시글입니다.", "admin/mylog", Method.GET, null, model);
 			}
 			model.addAttribute("board", board);
 
@@ -78,14 +85,25 @@ public class BoardController extends UiUtils {
 	}
 
 	@GetMapping(value = "/board/view")
-	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model) {
+	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model, @CurrentUser Member member) {
+
 		if (id == null) {
-			return showMessageWithRedirect("올바르지 않은 접근입니다.", "/board/list", Method.GET, null, model);
+			return showMessageWithRedirect("올바르지 않은 접근입니다.", "admin/mylog", Method.GET, null, model);
 		}
 
+		model.addAttribute("current", member);
+
+
 		BoardDTO board = boardService.getBoardDetail(id);
+
+		Member writer = memberRepository.findByNickname(board.getWriter());
+
+		model.addAttribute("writer", writer);
+
+
+		System.out.println(board.getCategory());
 		if (board == null || "Y".equals(board.getDeleteYn())) {
-			return showMessageWithRedirect("없는 게시글이거나 이미 삭제된 게시글입니다.", "/board/list", Method.GET, null, model);
+			return showMessageWithRedirect("없는 게시글이거나 이미 삭제된 게시글입니다.", "admin/mylog", Method.GET, null, model);
 		}
 		model.addAttribute("board", board);
 
@@ -105,7 +123,7 @@ public class BoardController extends UiUtils {
 		try {
 			boolean isDeleted = boardService.deleteBoard(id);
 			if (isDeleted == false) {
-				return showMessageWithRedirect("게시글 삭제에 실패하였습니다.", "/board/list", Method.GET, pagingParams, model);
+				return showMessageWithRedirect("게시글 삭제에 실패하였습니다.", "admin/mylog", Method.GET, pagingParams, model);
 			}
 		} catch (DataAccessException e) {
 			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/board/list", Method.GET, pagingParams, model);
@@ -114,7 +132,7 @@ public class BoardController extends UiUtils {
 			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/board/list", Method.GET, pagingParams, model);
 		}
 
-		return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "/board/list", Method.GET, pagingParams, model);
+		return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "admin/mylog", Method.GET, pagingParams, model);
 	}
 
 

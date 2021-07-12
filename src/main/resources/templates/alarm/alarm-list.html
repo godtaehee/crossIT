@@ -10,7 +10,6 @@
 </head>
 <body>
 
-
 <div class="container">
 
   <!--헤더 영역-->
@@ -35,18 +34,22 @@
   <!--알람 리스트 컨테이너 /-->
 
   <!--이게 알람 하나 입니다. -->
-  <div class="prjCard">
+  <div class="team-request">
+
+  </div>
+  <div class="prjCard" th:if="${not #lists.isEmpty( teamList )}" th:each="team : ${teamList}">
     <div class="prjList">
       <div class="prjTitle">
 
         <div class="fl-left">
-          <img class="medium-icon" src="/img/send_teammate.svg"></i>
-          <p class="right-space"> 민초초 </p>
+          <img class="medium-icon" src="/img/send_teammate.svg"/>
+          <p class="right-space" th:text="${team.requestor}"> 민초초 </p>
           님이 팀원 요청을 보내셨어요!
         </div>
 
         <div class="fl-right">
-          <img class="medium-icon2" src="/img/closeBtn.svg"></i>
+          <input type="button" onclick="deleteAlarm(this)" class="medium-icon2"/>
+          <input type="hidden" th:value="${team.id}"/>
         </div>
 
       </div>
@@ -96,5 +99,53 @@
   <!--이게 알람 하나 입니다. /-->
 
 </div>
+
+
+
+<script>
+
+  function deleteAlarm(id) {
+    console.log(id.nextElementSibling.value);
+
+    let deleting = async () => {
+      try {
+        let response = await fetch(`http://localhost:8080/alarm/delete/${id.nextElementSibling.value}`, {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+        let json = await response.json();
+        console.log(json);
+      }catch (err) {
+        console.log(err);
+      }
+    };
+
+    let getList = async () => {
+      try{
+        let response = await fetch(`http://localhost:8080/alarm/test`, {
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+
+        let json = await response.json();
+        console.log(json);
+
+      }catch(e) {
+        console.log(e);
+      }
+
+    }
+
+    deleting();
+    getList();
+
+  }
+
+</script>
+
 </body>
 </html>
