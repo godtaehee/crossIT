@@ -13,5 +13,4 @@ public interface TeamService {
 
 	int deleteTeamRequest(int id);
 
-
 }
