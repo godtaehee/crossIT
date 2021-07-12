@@ -6,32 +6,70 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" href="../static/css/reset.css">
-	<link rel="stylesheet" href="../static/css/header.css">
-	<link rel="stylesheet" href="../static/css/forCreatePj.css">
-	<link rel="stylesheet" href="../static/css/dashboard.css">
+	<link rel="stylesheet" href="../css/reset.css">
+	<link rel="stylesheet" href="../css/header.css">
+	<link rel="stylesheet" href="../css/forCreatePj.css">
+	<link rel="stylesheet" href="../css/dashboard.css">
 	<title>프로젝트 생성하기</title>
 </head>
 <body>
 <div class="container">
-	<header classs="header">
-		<div class = "float-content">
-			<nav class="main-menu navbar">
-				<ul>
-					<li><a href="">프로젝트</a></li>
-					<li><a href="">북마크</a></li>
-				</ul>
-			</nav>
+	<header class="navbar">
+
+		<div class="nav-start">
+			<a class="navbar-item" href="">
+				<img src="/img/title.png" width="112" height="30" >
+			</a>
+
+
+			<a class="navbar-item">
+				My Log
+			</a>
+
+			<a class="navbar-item">
+				Project
+			</a>
+
+			<a class="navbar-item">
+				Dashboard
+			</a>
 		</div>
+
+
+		<div class="nav-end">
+			<div class="nav-buttons">
+				<a class="btn-normal">
+					<Strong>Sign up</Strong>
+				</a>
+
+				<a class="btn-gray">
+					<Strong>Log in</Strong>
+				</a>
+			</div>
+		</div>
+
 	</header>
 
+	<!--헤더 영역 /-->
+
+	<!--nav 영역-->
+
+	<nav class="mynavbar ">
+		<div class="navbar-items">
+			<ul class="nav-tabs">
+				<li><a class="navbar-item" href="">프로젝트</a></li>
+				<li><a class="navbar-item" href="">북마크</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<!--nav 영역 /-->
+	<div class="name" th:text="${project.name}">부산 글로벌 게임센터 게임공모전</div>
 	<div class="reg-info">
 		<div>
 			<img class="poster" />
 			<button class="img-button">+</button>
 		</div>
-		<th:text="${project.name}">부산 글로벌 게임센터 게임공모전
-
 		<form class = "form" action="@{project/createProject}" th:object="${project}" method="post" enctype="multipart/form-data">
 			<ul>
 				<li><h2>주최기관</h2>
@@ -55,16 +93,16 @@
 			</ul>
 
 			<div class="btn-area">
-				<input type="submit" class="btn-normal" value="프로젝트 정보 등록완료">
+				<input type="submit" class="btn-reg" value="프로젝트 정보 등록완료">
 			</div>
 		</form>
 
 	</div>
 
 	<div class="float-content">
-		<h2>프로젝트명</h2>
+		<h2 class="bottom">프로젝트명</h2>
 		<div th:utext="${name}">부산 게임 공모전 프로젝트</div>
-		<h2>함께 하는 팀원들</h2>
+		<h2 class="bottom">함께 하는 팀원들</h2>
 		<div class="member">팀원을 등록해주세요
 			<a href="" class="btn-member">검색</a>
 		</div>
