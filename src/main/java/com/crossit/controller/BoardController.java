@@ -5,9 +5,11 @@ import com.crossit.constant.Method;
 import com.crossit.domain.BoardDTO;
 import com.crossit.domain.FileDTO;
 import com.crossit.entity.Member;
+import com.crossit.repository.MemberRepository;
 import com.crossit.service.BoardService;
 import com.crossit.util.UiUtils;
 import com.crossit.view.BoardListViewByJob;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -20,10 +22,15 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor
 public class BoardController extends UiUtils {
 
 	@Autowired
 	private BoardService boardService;
+
+	private final MemberRepository memberRepository;
+
+
 
 	@GetMapping("/board/write")
 	public String openBoardWrite(@ModelAttribute("params") BoardDTO params,
@@ -78,12 +85,23 @@ public class BoardController extends UiUtils {
 	}
 
 	@GetMapping(value = "/board/view")
-	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model) {
+	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model, @CurrentUser Member member) {
+
 		if (id == null) {
 			return showMessageWithRedirect("올바르지 않은 접근입니다.", "admin/mylog", Method.GET, null, model);
 		}
 
+		model.addAttribute("current", member);
+
+
 		BoardDTO board = boardService.getBoardDetail(id);
+
+		Member writer = memberRepository.findByNickname(board.getWriter());
+
+		model.addAttribute("writer", writer);
+
+
+		System.out.println(board.getCategory());
 		if (board == null || "Y".equals(board.getDeleteYn())) {
 			return showMessageWithRedirect("없는 게시글이거나 이미 삭제된 게시글입니다.", "admin/mylog", Method.GET, null, model);
 		}
