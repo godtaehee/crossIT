@@ -2,7 +2,6 @@ package com.crossit.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,10 +19,8 @@ public class Team {
 	@GeneratedValue
 	private Long id;
 
-	@Column(unique = true)
 	private String sender;
 
-	@Column(unique = true)
 	private String requestor;
 
 	private String contact;

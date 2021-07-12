@@ -1,6 +1,7 @@
 package com.crossit.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,6 +47,9 @@ public class Member {
 	private String location;
 
 	private String profileImage;
+
+	@ColumnDefault("0")
+	private int alarmCount;
 
 	public void generateEmailCheckToken() {
 		this.emailCheckToken = UUID.randomUUID().toString();

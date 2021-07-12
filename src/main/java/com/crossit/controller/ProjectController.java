@@ -4,6 +4,7 @@ import com.crossit.annotation.CurrentUser;
 import com.crossit.entity.Member;
 import com.crossit.entity.Project;
 import com.crossit.service.ProjectService;
+import com.crossit.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProjectController {
 	@Autowired
 	ProjectService service;
+	@Autowired
+	private TeamService teamService;
 
 	@GetMapping("index")
-	public String index(Model model) {
-
-		model.addAttribute("project",new Project());
+	public String index(@CurrentUser Member member, Model model) {
+		if(member != null) {
+			model.addAttribute(member);
+			int alarmCnt = 0;
+			alarmCnt = teamService.getMyTeamRequest(member.getNickname());
+			model.addAttribute("alarmCnt", alarmCnt);
+		}
+		model.addAttribute("project", new Project());
 
 		return "createProject/list";
 	}

@@ -41,15 +41,15 @@
     <li>
       <a href="" th:href="@{/alarm}">
         <i class="fa fa-bell-o fa-lg" aria-hidden="true"></i>
-        <span style="color: red" th:text="${alarmCnt}"></span>
+        <span style="color: red" th:text="${current.alarmCount}"></span>
       </a>
     </li>
 
     <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button">
-        <svg th:if="${#strings.isEmpty(member?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
+        <svg th:if="${#strings.isEmpty(current?.profileImage)}" th:data-jdenticon-value="${#authentication.name}"
              width="40" height="40"></svg>
-        <img th:if="${!#strings.isEmpty(member?.profileImage)}" th:src="${member.profileImage}"
+        <img th:if="${!#strings.isEmpty(current?.profileImage)}" th:src="${current.profileImage}"
              width="40" height="40"/>
       </a>
       <div class="dropdown-menu">

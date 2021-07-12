@@ -66,7 +66,7 @@
         </figure>
         <div class="card-desc">
           <div class="media-content">
-            <a class="title" href="/board/view?id=${v.id}" th:text="${board.title}"></a>
+            <a class="title" th:href="@{'/board/view?id=' + ${board.id}}" th:text="${board.title}"></a>
             <div class="description">
               <div class="content" th:text="${board.content}"></div>
               <p class="content date" th:text="${#strings.substring(board.insertTime,0,10)}"></p>
@@ -74,14 +74,15 @@
             <hr class="line">
             <div class="writer">
               <figure class="profile-image">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" th:href="@{'/admin/mylog/' + ${board.writer}}">
                   <svg class="profile-image-user" th:if="${#strings.isEmpty(board.writerProfile)}" th:data-jdenticon-value="${board.writer}"
                        width="40" height="40"></svg>
                   <img class="profile-image-user" th:if="${!#strings.isEmpty(board.writerProfile)}" th:src="${board.writerProfile}"/>
-
                 </a>
               </figure>
-              <p class="nickname" th:text="${board.writer}"></p>
+<!--              <p class="nickname" th:text="${board.writer}"></p>-->
+              <a class="nickname" th:href="@{'/admin/mylog/' + ${board.writer}}" th:text="${board.writer}"></a>
+
             </div>
           </div>
         </div>
@@ -131,6 +132,10 @@ on(window, 'resize', () => {
     }
   }
 });
+
+function getBoardListByNickname(nickname) {
+
+}
 
 
 

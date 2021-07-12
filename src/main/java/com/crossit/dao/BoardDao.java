@@ -25,6 +25,9 @@ public interface BoardDao {
 
 	List<BoardListViewByJob> getListByJob();
 
+	List<BoardDTO> getBoardListByNickname(String nickname);
+
+
 
 }
 

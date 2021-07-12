@@ -23,5 +23,7 @@ public interface BoardService {
 
     List<BoardDTO> getList();
 
+	List<BoardDTO> getBoardListByNickname(String nickname);
+
 	List<BoardListViewByJob> getListByJob();
 }

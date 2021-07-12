@@ -1,8 +1,10 @@
 package com.crossit.controller;
 
+import com.crossit.annotation.CurrentUser;
 import com.crossit.constant.Method;
 import com.crossit.domain.BoardDTO;
 import com.crossit.domain.FileDTO;
+import com.crossit.entity.Member;
 import com.crossit.service.BoardService;
 import com.crossit.util.UiUtils;
 import com.crossit.view.BoardListViewByJob;
@@ -24,11 +26,16 @@ public class BoardController extends UiUtils {
 	private BoardService boardService;
 
 	@GetMapping("/board/write")
-	public String openBoardWrite(@ModelAttribute("params") BoardDTO params, @RequestParam(value = "id", required = false) Long id, Model model, Principal principal) {
+	public String openBoardWrite(@ModelAttribute("params") BoardDTO params,
+								 @RequestParam(value = "id", required = false) Long id,
+								 Model model,
+								 Principal principal,
+								 @CurrentUser Member member) {
 		if (id == null) {
 			BoardDTO boardDTO = new BoardDTO();
 			boardDTO.setWriter(principal.getName());
 			model.addAttribute("board", boardDTO);
+			model.addAttribute("current", member);
 		} else {
 			BoardDTO board = boardService.getBoardDetail(id);
 			if (board == null || "Y".equals(board.getDeleteYn())) {
@@ -123,6 +130,13 @@ public class BoardController extends UiUtils {
 	@ResponseBody
 	public List<BoardListViewByJob> getBoardListViewByJob() {
 		List<BoardListViewByJob> boardList = boardService.getListByJob();
+		return boardList;
+	}
+
+	@GetMapping("/board/{nickname}")
+	@ResponseBody
+	public List<BoardDTO> getBoardListByNickname(@PathVariable String nickname) {
+		List<BoardDTO> boardList = boardService.getBoardListByNickname(nickname);
 		return boardList;
 	}
 

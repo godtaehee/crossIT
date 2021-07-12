@@ -6,6 +6,8 @@
 <head>
   <th:block th:include="layout/fragment/head :: head"></th:block>
   <link rel="stylesheet" href="/css/myLog.css">
+  <link rel="stylesheet" href="/css/index.css">
+
 </head>
 
 <body>
@@ -96,14 +98,13 @@
 
       <span class="tagList">
                             <p class=""> 전체 보기 </p>
-                            <p>(20)</p>
+                            <p th:text="'(' + ${#lists.size(boardList)} + ')'">(20)</p>
                         </span>
     </section>
     <!--태그 목록 end-->
 
     <!--글 섹션-->
     <section class="hero">
-
       <div class="top">
         <div class="searchtags">
           <img class="mini-icon" src="/img/search.svg"></i>
@@ -115,28 +116,41 @@
 
       </div>
 
-      <!--콘텐츠 영역 -->
-      <div class="hero-body">
+      <ul class="card-list">
+        <li class="card-item" th:if="${not #lists.isEmpty( boardList )}" th:each="board : ${boardList}">
+          <figure class="card-image">
+            <svg th:if="${#strings.isEmpty(board?.thumbnail)}" th:data-jdenticon-value="${board.title}"
+                 width="150" height="150" class="jdenticon-svg"></svg>
+            <img th:if="${!#strings.isEmpty(board.thumbnail)}"
+                 th:src="@{'/upload/' + ${board.insertTimeFormat} + '/' + ${board.thumbnail}}" class="thumbnail">
+          </figure>
+          <div class="card-desc">
+            <div class="media-content">
+              <a class="title" th:href="@{'/board/view?id=' + ${board.id}}" th:text="${board.title}"></a>
+              <div class="description">
+                <div class="content" th:text="${board.content}"></div>
+                <p class="content date" th:text="${#strings.substring(board.insertTime,0,10)}"></p>
+              </div>
+              <hr class="line">
+              <div class="writer">
+                <figure class="profile-image">
+                  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                     th:href="@{'/admin/mylog/' + ${board.writer}}">
+                    <svg class="profile-image-user" th:if="${#strings.isEmpty(board.writerProfile)}"
+                         th:data-jdenticon-value="${board.writer}"
+                         width="40" height="40"></svg>
+                    <img class="profile-image-user" th:if="${!#strings.isEmpty(board.writerProfile)}"
+                         th:src="${board.writerProfile}"/>
+                  </a>
+                </figure>
+                <!--              <p class="nickname" th:text="${board.writer}"></p>-->
+                <a class="nickname" th:href="@{'/admin/mylog/' + ${board.writer}}" th:text="${board.writer}"></a>
 
-        <figure class="content-image">
-          <img src="/img/index.png" alt="">
-        </figure>
-
-        <div class="card-desc">
-          <div class="content">
-            <h1 class="title">Getting Started</h1>
-
-            <p class="content">
-              This is a starter template for creating a beautiful, customizable blog with minimal
-              effort. You’ll only have to change a few settings and you’re ready to go. As with all Jigsaw sites,
-              configuration settings can be found in config
-            </p>
-
-            <h2 class="subtitle">December 25, 2018</h2>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-
+        </li>
+      </ul>
     </section>
     <!--글 섹션 end-->
   </section>
@@ -146,32 +160,34 @@
   <!--모달 창-->
 
 
-  <form th:action="@{/request-team}" th:object="${team}" method="post">
-  <div class="modal hidden">
-    <input type="hidden" th:field="*{requestor}">
-    <div class="modal-overlay"></div>
-    <div class="modal-content ">
-      <form action="" id="form" class="form">
-        <h2 class="modal-title"> Minchocho 님께 팀요청을 보내보세요!</h2>
-        <div class="form-control">
-          <label for="username">닉네임</label>
-          <input type="text" id="username" placeholder="닉네임을 입력해주세요" th:field="*{sender}">
-        </div>
-        <div class="form-control">
-          <label for="username">연락처(선택)</label>
-          <input type="text" placeholder="연락처를 입력해주세요" th:field="*{contact}">
-        </div>
-        <div class="form-control">
-          <label for="username">메세지</label>
-          <input class="message" type="text" placeholder="메세지를 입력해주세요" th:field="*{message}">
-        </div>
-        <div class="form-control">
-          <button class="btn-write subBtn" type="submit">전송하기</button>
-        </div>
-      </form>
-      <button class="closeBtn">X</button>
+  <form th:action="@{'/request-team/' + ${member.nickname}}" th:object="${team}" method="post">
+    <div class="modal hidden">
+      <input type="hidden" th:name="*{sender}" th:value="${member.nickname}">
+      <input type="hidden" th:name="*{requestor}" th:value="${#authentication.name}">
+      <div class="modal-overlay"></div>
+      <div class="modal-content ">
+        <form action="" id="form" class="form">
+          <h2 class="modal-title" th:field="*{sender}" th:text="${member.nickname} + '님에게 팀요청을 보내보세요!'"> Minchocho 님께
+            팀요청을 보내보세요!</h2>
+          <div class="form-control">
+            <label for="username">닉네임</label>
+            <div id="username" th:text="${#authentication.name}" th:field="*{requestor}">
+            </div>
+            <div class="form-control">
+              <label for="username">연락처(선택)</label>
+              <input type="text" placeholder="연락처를 입력해주세요" th:field="*{contact}">
+            </div>
+            <div class="form-control">
+              <label for="username">메세지</label>
+              <input class="message" type="text" placeholder="메세지를 입력해주세요" th:field="*{message}">
+            </div>
+            <div class="form-control">
+              <button class="btn-write subBtn" type="submit">전송하기</button>
+            </div>
+        </form>
+        <button class="closeBtn">X</button>
+      </div>
     </div>
-  </div>
   </form>
 
   <script th:replace="layout/fragment/dropdown :: dropDown"></script>

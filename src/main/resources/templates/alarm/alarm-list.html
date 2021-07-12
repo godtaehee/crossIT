@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="stylesheet" href="/css/header.css">
-  <link rel="stylesheet" href="/css/reset.css">
-  <link rel="stylesheet" href="/css/common.css">
+  <th:block th:include="layout/fragment/head :: head"></th:block>
   <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/css/alam_list.css">
 
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CrossIt</title>
 </head>
 <body>
 
@@ -19,41 +12,8 @@
 <div class="container">
 
   <!--헤더 영역-->
-  <header class="navbar">
+  <header th:replace="layout/fragment/header :: header"></header>
 
-    <div class="nav-start">
-      <a class="navbar-item" href="">
-        <img src="/img/title.png" width="112" height="30" >
-      </a>
-
-
-      <a class="navbar-item">
-        My Log
-      </a>
-
-      <a class="navbar-item">
-        Project
-      </a>
-
-      <a class="navbar-item">
-        Dashboard
-      </a>
-    </div>
-
-
-    <div class="nav-end">
-      <div class="nav-buttons">
-        <a class="btn-normal">
-          <Strong>Sign up</Strong>
-        </a>
-
-        <a class="btn-gray">
-          <Strong>Log in</Strong>
-        </a>
-      </div>
-    </div>
-
-  </header>
 
   <!--헤더 영역 /-->
 

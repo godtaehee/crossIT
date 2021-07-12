@@ -131,6 +131,21 @@
 		insert_time DESC
 	</select>
 
+	<select id="getBoardListByNickname" resultType="BoardDTO" parameterType="String">
+		SELECT
+		<include refid="boardColumns"/>
+		FROM
+		board
+		WHERE
+		delete_yn = 'N'
+		AND
+		writer = #{nickname}
+		ORDER BY
+		notice_yn ASC,
+		id DESC,
+		insert_time DESC
+	</select>
+
 </mapper>
 
 
