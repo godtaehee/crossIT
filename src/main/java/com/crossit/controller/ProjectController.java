@@ -49,7 +49,6 @@ public class ProjectController {
 //		int projectId = service.getProjectId();
 //		int memberId = user.getId;
 //		service.insertMyProject(projectId, memberId);
-		model.addAttribute("project", project);
 
 		return "createProject/dashboard";
 	}

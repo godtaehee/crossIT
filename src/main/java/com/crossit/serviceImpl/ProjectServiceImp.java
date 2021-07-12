@@ -26,12 +26,6 @@ public class ProjectServiceImp implements ProjectService {
 	}
 
 	@Override
-	public int insertMore(Project project) {
-
-		return dao.insert(project);
-	}
-
-	@Override
 	public List<Project> getList() {
 		List<Project> list = dao.getList();
 		return list;
@@ -41,6 +35,11 @@ public class ProjectServiceImp implements ProjectService {
 	public int delete(int id) {
 
 		return dao.delete(id);
+	}
+
+	@Override
+	public int getProjectId(int projectId) {
+		return 0;
 	}
 
 }
