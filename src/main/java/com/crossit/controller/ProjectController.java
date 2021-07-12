@@ -1,5 +1,7 @@
 package com.crossit.controller;
 
+import com.crossit.annotation.CurrentUser;
+import com.crossit.entity.Member;
 import com.crossit.entity.Project;
 import com.crossit.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class ProjectController {
 
 
 	@GetMapping("makeproject")
-	public String makeProject(Model model) { //Model은 담는애!!!
+	public String makeProject(Model model) {
 
 		Project project = new Project();
 		model.addAttribute("project", project);
@@ -35,15 +37,26 @@ public class ProjectController {
 		return "createProject/makeProject";
 	}
 	@PostMapping("makeproject")
-	public String makeProject (@ModelAttribute Project project) {
+	public String makeProject (@CurrentUser Member member, @ModelAttribute Project project) {
 		//DB에서 조작하는 과정.
 		service.insert(project);
 		return "createProject/createProjectIndex";
 	}
 
+	@GetMapping("dashboard")
+	public String dashboard(@CurrentUser Member member, @ModelAttribute Project project) {
+
+//		int projectId = service.getProjectId();
+//		int memberId = user.getId;
+//		service.insertMyProject(projectId, memberId);
+		model.addAttribute("project", project);
+
+		return "createProject/dashboard";
+	}
+
 
 	@GetMapping("createprojectindex")
-	public String createProjectIndex(Model model) { //Model은 담는애!!!
+	public String createProjectIndex(Model model) {
 
 		Project project = new Project();
 		model.addAttribute("project", project);
@@ -59,7 +72,7 @@ public class ProjectController {
 
 
 	@GetMapping("createproject")
-	public String createProject(Model model) { //Model은 담는애!!!
+	public String createProject(Model model) {
 
 		Project project = new Project();
 		model.addAttribute("project", project);
@@ -69,26 +82,12 @@ public class ProjectController {
 
 	@PostMapping("createproject")
 	public String createProject (@ModelAttribute Project project) {
-		//DB에서 조작하는 과정.
+
 		service.insert(project);
 		return "createProject/myProject";
 	}
 
 
-	//"redirect:myproject?id="+??회원의+프로젝트(어떤페이지를 만들어야 하나?)??.getList();
-//	@GetMapping("myproject")
-//	public String myproject(Model model) {
-//		필요한 것: 그 회원의 ID, 가 등록한 프로젝트들.
-//		왼쪽은 html자리. 오른쪽은 html에 들어갈 text. 근데 이걸 DB에서 가져와야
-//		model.addAttribute("hostorg", "<>hostorg<>");
-//		model.addAttribute("limitdate", limitdate);
-//		model.addAttribute("category", category);
-//		model.addAttribute("qualification", qualification);
-//		model.addAttribute("awards", awards);
-//
-//		return "createProject/myproject";
-//	}
-//
 	@RequestMapping("del")
 	public String del(int id) {
 

@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Project</title>
+    <link href="../css/style.css" type="text/css" rel="stylesheet">
+    <script src="createProject"></script>
+</head>
+<body>
+	<header id="header">
+		<div class = "float-content">
+			<h1 class="d-none">헤더</h1>
+			<nav class="main-menu">
+				<ul>
+				<li><a href="">프로젝트</a></li>
+				<li><a href="">북마크</a></li>	
+				</ul>
+			</nav>
+		</div>
+	</header>
+	
+	<div id="body">
+		<div class = "float-content">
+
+			<tr th:each="pj:${project}">
+				<h2>주최기관</h2>
+				<td th:text="${pj.hostorg}">주최기관</td>
+				
+				<h2>지원기간</h2>
+				<td th:text="${pj.limitdate}">지원기간</td>
+
+				<h2>활동분류</h2>
+				<td th:text="${pj.category}">지원기간</td>
+
+				<h2>자격요건</h2>
+				<td th:text="${pj.qualification}">자격요건</td>
+
+				<h2>시상내역</h2>
+				<td th:text="${pj.awards}">시상내역</td>
+
+		        <div>
+					<input type="submit" value="프로젝트 완료하기">
+				</div>
+
+			</tr>
+
+		</div>
+	</div>
+
+</body>
+</html>

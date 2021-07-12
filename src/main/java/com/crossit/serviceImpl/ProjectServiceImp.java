@@ -26,8 +26,8 @@ public class ProjectServiceImp implements ProjectService {
 	}
 
 	@Override
-	public int insertmore(Project project) {
-		// TODO Auto-generated method stub
+	public int insertMore(Project project) {
+
 		return dao.insert(project);
 	}
 

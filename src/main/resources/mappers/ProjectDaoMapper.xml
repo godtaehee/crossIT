@@ -16,8 +16,10 @@
 			  ,#{introduce}
 		)
 	</insert>
-	
-	<insert id="insertmore" parameterType="com.crossit.entity.Project">
+
+<!--	<select id="showMember"-->
+
+	<insert id="insertCreatePj" parameterType="com.crossit.entity.Project">
 		insert into project (
 			 limitdate, profile, hostorg, category, qualification
 		) values (
@@ -28,6 +30,7 @@
 			  ,#{qualification}
 		)
 	</insert>
+
 	<select id="getList" resultType="com.crossit.entity.Project"> 이거는 쌤꺼에서 검색한 게시글을 가져오는 거네!
         select * from project where ${field} like '%${query}%'
         order by regDate desc
@@ -46,6 +49,7 @@
     	files = #{files},
     	where id=#{id}
     </update>
+
     <delete id="delete" parameterType="int">
     	delete from project where id=#{id}
     </delete>

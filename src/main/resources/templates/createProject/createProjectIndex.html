@@ -2,50 +2,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="../css/style.css" type="text/css" rel="stylesheet">
-    <script src=""></script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="../static/css/reset.css">
+	<link rel="stylesheet" href="../static/css/header.css">
+	<link rel="stylesheet" href="../static/css/forCreatePj.css">
+	<!-- <link rel="stylesheet" href="../css/dashboard.css"> -->
+	<title>프로젝트 생성하기</title>
+
 </head>
 <body>
-	<header id="header">
+<div class="container">
+	<header class="header">
 		<div class = "float-content">
-			<h1 class="d-none">헤더</h1>
-			<nav class="main-menu">
+			<nav class="main-menu nav-tabs">
 				<ul>
-				<li><a href="">프로젝트</a></li>
-				<li><a href="">북마크</a></li>	
+					<li><a href="">프로젝트</a></li>
+					<li><a href="">북마크</a></li>
 				</ul>
 			</nav>
 		</div>
 	</header>
-	
-	<div id="body">
-		<div class = "float-content">
-				<img class="poster" />
-				<form class = "form" action="@{project/createProject}" th:object="${project}" method="post" enctype="multipart/form-data">
-				<h2>주최기관</h2>
-				<h2>지원기간</h2>
-				<h2>활동분류</h2>
-				<h2>자격요건</h2>
-				<h2>시상내역</h2>			
-		        <div>
-					<input type="submit" value="프로젝트 정보 등록하기">
-				</div>       
 
-			</form>
+	<div class="reg-info">
+		<div class = "float-content">
+			<img class="poster" />
+			<button class="img-button">+</button>
 		</div>
-		<div class="float-content">
-			<span>프로젝트명</span>
-			<input type="text" name="project-name"/>
-			<span>함께 하는 팀원들</span>
-			<input type="text" name="member" placeholder="팀원을 등록해주세요"/>
+		<div class = "float-content">
+			<th:text="${project.name}">부산 글로벌 게임센터 게임공모전
+			<div class="box">
+				<ul class="list">
+					<li><h2>주최기관</h2></li>
+					<li><h2>지원기간</h2></li>
+					<li><h2>활동분류</h2></li>
+					<li><h2>자격요건</h2></li>
+					<li><h2>시상내역</h2></li>
+				</ul>
+				<!-- <div class="txt">
+					프로젝트 정보를 등록해주세요
+				</div> -->
+			</div>
+			<div class="btn-area">
+				<input type="submit" class="btn-normal" value="프로젝트 정보 등록하기">
+				<a href="" class="btn-gray">검색</a>
+			</div>
+
 		</div>
 	</div>
+	<div class="float-content">
+		<h2>프로젝트명</h2>
+		<div th:utext="${name}">부산 게임 공모전 프로젝트</div>
+		<h2>함께 하는 팀원들</h2>
+		<div>팀원을 등록해주세요</div>
+	</div>
+</div>
 
-
+</div>
 </body>
 
 
