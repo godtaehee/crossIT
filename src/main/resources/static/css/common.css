@@ -2,9 +2,11 @@
     font-family:BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto;
 
     /*글씨 색상들*/
+    --light-black:#1f2229;
     --gray:rgb(70, 66, 66);
     --grayLiter:rgb(100, 99, 99);
-
+    --grayMid:rgb(46, 45, 45);
+    --blue-mid:#5878aa;
 
     /*글씨 색상들 / */
 }
