@@ -1,9 +1,12 @@
 package com.crossit.serviceImpl;
 
 import com.crossit.dao.TeamDao;
+import com.crossit.entity.Team;
 import com.crossit.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TeamServiceImp implements TeamService {
@@ -17,7 +20,7 @@ public class TeamServiceImp implements TeamService {
 	}
 
 	@Override
-	public int getMyTeamRequestList(String nickname) {
+	public List<Team> getMyTeamRequestList(String nickname) {
 		return teamDao.getMyTeamRequestList(nickname);
 	}
 }

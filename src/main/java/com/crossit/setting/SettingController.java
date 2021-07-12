@@ -27,6 +27,7 @@ public class SettingController {
 
 	@GetMapping(SETTINGS_PROFILE_URL)
 	public String profileUpdatedForm(@CurrentUser Member member, Model model) {
+		model.addAttribute("current", member);
 		model.addAttribute(member);
 		model.addAttribute(new Profile(member));
 
