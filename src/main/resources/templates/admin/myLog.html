@@ -58,10 +58,10 @@
 
         <span class="smallText align" th:if="${isOwner || member.emailVerified}">
           <span><i class="fa fa-calendar-o mini-icon"></i></span>
-          <span th:if="${isOwner && !member.emailVerified}">
-              <a href="#" th:href="@{'/checkemail?email=' + ${member.email}}">가입을 완료하려면 이메일을 확인하세요.</a>
+          <span th:if="${isOwner && !current.emailVerified}">
+              <a href="#" th:href="@{'/checkemail?email=' + ${current.email}}">가입을 완료하려면 이메일을 확인하세요.</a>
             </span>
-          <span th:text="${#temporals.format(member.joinedAt, 'yyyy년 M월 가입')}"></span>
+          <span th:text="${#temporals.format(current.joinedAt, 'yyyy년 M월 가입')}"></span>
         </span>
 
         <a class="btn-edit" th:if="${isOwner}" th:href="@{/settings/profile}">수정</a>

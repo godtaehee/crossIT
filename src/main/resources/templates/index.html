@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <th:block th:include="layout/fragment/head :: head"></th:block>
+  <th:block th:include="layout/fragment/head :: head"/>
   <link rel="stylesheet" href="/css/index.css">
 </head>
 
@@ -14,7 +14,7 @@
   <!--헤더 영역-->
   <header th:replace="layout/fragment/header :: header"></header>
 
-  <div class="alert" role="alert" th:if="${member != null && !member.emailVerified}">
+  <div class="alert" role="alert" th:if="${current != null && !current.emailVerified}">
     크로스잇에 가입을 완료하려면 <a href="#" th:href="@{/check-email}" class="alert-link">계정 인증 이메일을 확인</a>하세요
   </div>
 

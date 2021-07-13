@@ -61,9 +61,7 @@ public class MainController {
 		}
 
 		List<Team> team = teamService.getMyTeamRequestList(member.getNickname());
-		model.addAttribute("team", team);
 
-		List<Team> team = teamService.getMyTeamRequestList(member.getNickname());
 		model.addAttribute("teamList", team);
 
 		return "alarm/alarm-list";

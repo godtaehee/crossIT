@@ -11,7 +11,7 @@
 
   <div class="nav-start" sec:authorize="isAuthenticated()">
 
-    <a class="navbar-item" th:href="@{'admin/mylog/' + ${#authentication.name}}">
+    <a class="navbar-item" th:href="@{'/admin/mylog/' + ${#authentication.name}}">
       My Log
     </a>
 

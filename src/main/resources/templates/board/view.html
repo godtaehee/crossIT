@@ -4,6 +4,32 @@
 <head>
   <th:block th:include="layout/fragment/head :: head"></th:block>
   <link rel="stylesheet" href="/css/article_detail.css">
+  <style>
+    figure svg,
+    figure img {
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+    .file-label {
+      font-weight: bold;
+
+    }
+
+    .button {
+      border-radius: 10px;
+      border-width: 1px;
+      border-style: solid;
+      padding: 0.3em 0.7em;
+      background-color: white;
+    }
+
+    .form-group {
+      margin-top: 30px;
+    }
+
+
+  </style>
+  <script src="/scripts/moment.js"></script>
 </head>
 
 <body>
@@ -24,7 +50,10 @@
 
             <div class="article-profile">
               <figure>
-                <img class="user-avatar" src="/img/user-avatar.svg" alt="프로필사진">
+                <svg th:if="${#strings.isEmpty(writer?.profileImage)}" th:data-jdenticon-value="${writer.nickname}"
+                     width="40" height="40"></svg>
+                <img th:if="${!#strings.isEmpty(writer?.profileImage)}" th:src="${writer.profileImage}"
+                     width="40" height="40"/>
               </figure>
               <p class="writer" th:text="*{writer}">펭귄킹</p>
             </div>
@@ -38,7 +67,7 @@
             </div>
 
             <div th:if="${not #lists.isEmpty( fileList )}" class="form-group">
-              <label class="col-sm-2 control-label">File</label>
+              <label class="file-label">File</label>
               <div class="col-sm-10">
                 <div class="form-control file_list">
                   <a th:each="row, status : ${fileList}" th:href="@{/board/download( id=${row.id} )}">
@@ -49,22 +78,26 @@
               </div>
             </div>
 
-            <div class="btn_wrap text-center" th:object="${params}">
-              <a th:href="|@{/board/list}*{makeQueryString(currentPageNo)}|"
-                 class="btn btn-default waves-effect waves-light">뒤로가기</a>
-              <a th:href="|@{/board/write}*{makeQueryString(currentPageNo)}&id=${board.id}|"
-                 class="btn btn-primary waves-effect waves-light">수정하기</a>
-              <button type="button" class="btn btn-danger waves-effect waves-light"
-                      th:onclick="deleteBoard([[ ${board.id} ]], [[ *{makeQueryString(currentPageNo)} ]])">삭제하기
-              </button>
+            <div class="form-group">
+              <div class="btn_wrap text-center" th:object="${params}">
+                <a th:href="|@{/board/list}*{makeQueryString(currentPageNo)}|"
+                   class="button">뒤로가기</a>
+                <a th:href="|@{/board/write}*{makeQueryString(currentPageNo)}&id=${board.id}|"
+                   class="button">수정하기</a>
+                <button type="button" class="button"
+                        th:onclick="deleteBoard([[ ${board.id} ]], [[ *{makeQueryString(currentPageNo)} ]])">삭제하기
+                </button>
+              </div>
             </div>
+
 
 
             <!--            TODO 조회수 -->
 
 
             <!--유저 프로필 영역-->
-            <section class="user-profile">
+
+            <section class="user-profile form-group">
               <figure>
                 <svg th:if="${#strings.isEmpty(writer?.profileImage)}" th:data-jdenticon-value="${writer.nickname}"
                      width="40" height="40"></svg>
@@ -81,6 +114,29 @@
               </div>
 
             </section>
+
+            <div class="box-content">
+              <div class="card-content">
+                <div class="clearfix">
+                  <h4 class="box-title pull-left">Comment</h4>
+                  <!-- /.box-title -->
+                </div>
+
+                <form class="form-horizontal form-view">
+                  <div class="input-group margin-bottom-20">
+                    <input type="text" id="content" class="form-control"/>
+                    <div class="input-group-btn">
+                      <button type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[ ${board.id} ]])">
+                        <i class="fa fa-commenting" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <ul class="notice-list"></ul>
+                </form>
+              </div>
+              <!-- /.card-content -->
+            </div>
+            <!-- /.box-content -->
             <!--유저 프로필 영역 /-->
 
           </div>
@@ -146,8 +202,11 @@
       }
 
       var uri = /*[[ @{/comments} ]]*/;
+
+      const writer = /*[[ ${current.nickname} ]]*/;
+      console.log(writer);
       var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "POST"};
-      var params = {"boardId": boardId, "content": content.value, "writer": "관리자"};
+      var params = {"boardId": boardId, "content": content.value, "writer": writer};
 
       $.ajax({
         url: uri,
